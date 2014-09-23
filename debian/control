@@ -1,0 +1,28 @@
+Source: utox
+Section: net
+Priority: optional
+Maintainer: Kill Your TV <killyourtv@i2pmail.org>
+Build-Depends: debhelper (>= 9),
+ libdbus-1-dev,
+ libfontconfig1-dev,
+ libfreetype6-dev,
+ libopenal-dev,
+ libtoxav-dev,
+ libtoxcore-dev,
+ libtoxdns-dev,
+ libtoxencryptsave-dev,
+ libv4l-dev,
+ libxext-dev,
+ libxrender-dev
+Standards-Version: 3.9.5
+Homepage: https://github.com/notsecure/uTox
+Vcs-Git: git://killyourtv.i2p/git/utox.git
+Vcs-Browser: http://killyourtv.i2p/gitweb/?p=utox.git;a=shortlog
+
+Package: utox
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: lightweight gui Tox client
+ This client is at the early stages of development but it currently supports
+ some of the most important features, such as file transfers, A/V, group chats,
+ and DNS Discovery

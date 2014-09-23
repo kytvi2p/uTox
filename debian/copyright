@@ -1,0 +1,76 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: utox
+Source: https://github.com/notsecure/uTox
+
+Files: *
+Copyright: 2014 notsecure <notsecure@marek.ca>
+           2014 Alexander Belykh <albel727@ngs.ru>
+           2014 Zetok Zalbavar <zexavexxe@gmail.com>
+           2014 Julian Orth <ju.orth@gmail.com>
+           2014 webmaster@freebnc.net <webmaster@freebnc.net>
+           2014 Kill Your TV <killyourtv@i2pmail.org>
+           2014 blucoat <jameshagborg@gmail.com>
+           2014 irungentoo <irungentoo@gmail.com>
+           2014 Felix Janda <felix.janda@posteo.de>
+           2014 Ansa89 <ansalonistefano@gmail.com>
+           2014 kaiman <kaisfm@sohu.com>
+           2014 v2e <v_2e@ukr.net>
+           2014 tsudoko <flan@flande.re>
+           2014 Vladimir <v_2e@ukr.net>
+           2014 CowInAPie <cowinapie@gmail.com>
+           2014 Sāfto Rangen <orangensaft@kriswema.de>
+           2014 Imperative <admin@impy.me>
+           2014 nachfuellbar <nachfuellbar@googlemail.com>
+           2014 Safto Rangen <orangensaft@kriswema.de>
+           2014 banditkroot <bandit.kroot@gmail.com>
+           2014 Olexandr Nesterenko <olexn@ukr.net>
+           2014 Dmitry Marakasov <amdmi3@amdmi3.ru>
+           2014 stal <stal@zodiaclabs.org>
+           2014 xzfc <xzfc@users.noreply.github.com>
+           2014 FRIGN <dev@frign.de>
+           2014 Tux3 / Mlkj / !Lev.uXFMLA <barrdetwix@gmail.com>
+           2014 mr.Shu <mr@shu.io>
+           2014 akimasa <akimasa@gmail.com>
+           2014 Sean <sean@tox.im>
+           2014 mk21 <mk21@koszmail.pl>
+           2014 toxxxer <ihateemail@pleasedontspammeplzzz.com>
+           2014 hasufell <hasufell@hasufell.de>
+           2014 Urras <urras.hovaker@gmail.com>
+           2014 Ben Praeger <bpr97050@gmail.com>
+           2014 Alexandre Erwin Ittner <alexandre@ittner.com.br>
+           2014 Devon Mizelle <dev@devon.so>
+           2014 Imperative <Impyy@users.noreply.github.com>
+           2014 sfan5 <sfan5@live.de>
+           2014 Florent <banditkroot@users.noreply.github.com>
+           2014 Lehi Toskin <lehi@tosk.in>
+           2014 Maurice Mohlek <mohlek@gmail.com>
+           2014 Simone <chauffer@freebnc.net>
+           2014 tsudoko <tsudoko@users.noreply.github.com>
+           2014 e1usion <e1usion@users.noreply.github.com>
+           2014 Cristiano Manoel Teodoro <cteodoro@users.noreply.github.com>
+           2014 notadecent <notadecent@lavabit.com>
+           2014 David Lohle <david@tox.im>
+           2014 albel727 <albel727@ngs.ru>
+           2014 Vladimir Smolyar <v_2e@ukr.net>
+License: GPL-3.0+
+
+Files: debian/*
+Copyright: 2014 Kill Your TV <killyourtv@i2pmail.org>
+License: GPL-3.0+
+
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".

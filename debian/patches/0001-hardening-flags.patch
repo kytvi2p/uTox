@@ -1,0 +1,22 @@
+From: Kill Your TV <killyourtv@i2pmail.org>
+Date: Tue, 23 Sep 2014 01:04:43 +0000
+Subject: hardening-flags
+
+---
+ Makefile | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 7b38786..6d12d39 100644
+--- a/Makefile
++++ b/Makefile
+@@ -15,6 +15,9 @@ CFLAGS += $(shell pkg-config --cflags $(DEPS))
+ LDFLAGS = -pthread -lm
+ LDFLAGS += $(shell pkg-config --libs $(DEPS))
+ 
++CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
++LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
++
+ ifneq ($(DBUS), 1)
+ 	CFLAGS += -DNO_DBUS
+ endif
