@@ -1,3 +1,9 @@
+utox (0.0.0+20140923.1-2) unstable; urgency=medium
+
+  * Fix FTBFS on Raspberry Pi
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 23 Sep 2014 22:11:12 +0000
+
 utox (0.0.0+20140923.1-1) unstable; urgency=medium
 
   * Initial release

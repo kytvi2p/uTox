@@ -1,0 +1,20 @@
+From: Kill Your TV <killyourtv@i2pmail.org>
+Date: Tue, 23 Sep 2014 22:10:17 +0000
+Subject: fix RaspberryPi FTBFS
+
+---
+ Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Makefile b/Makefile
+index 6d12d39..e33f440 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,6 +14,7 @@ CFLAGS += -g -pthread -std=gnu99
+ CFLAGS += $(shell pkg-config --cflags $(DEPS))
+ LDFLAGS = -pthread -lm
+ LDFLAGS += $(shell pkg-config --libs $(DEPS))
++LDFLAGS += -lrt
+ 
+ CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
+ LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
