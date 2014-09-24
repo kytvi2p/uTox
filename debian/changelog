@@ -1,3 +1,9 @@
+utox (0.0.0+20140923.1-2ubuntu1) trusty; urgency=medium
+
+  * Upload to PPA
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 24 Sep 2014 22:50:25 +0000
+
 utox (0.0.0+20140923.1-2) unstable; urgency=medium
 
   * Fix FTBFS on Raspberry Pi
