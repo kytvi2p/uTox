@@ -1,2 +1,3 @@
 0001-hardening-flags.patch
 0002-fix-RaspberryPi-FTBFS.patch
+0003-fix-FTBFS-in-kFreeBSD.patch
