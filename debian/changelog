@@ -1,14 +1,14 @@
+utox (0.1.8-2ubuntu1) trusty; urgency=medium
+
+  * Upload to PPA
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 25 Sep 2014 02:07:35 +0000
+
 utox (0.1.8-2) unstable; urgency=medium
 
   * Fix kFreeBSD FTBFS
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 25 Sep 2014 02:02:51 +0000
-
-utox (0.1.8-1ubuntu1) trusty; urgency=medium
-
-  * Upload to PPA
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 24 Sep 2014 23:09:30 +0000
 
 utox (0.1.8-1) unstable; urgency=medium
 
