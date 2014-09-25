@@ -1,0 +1,21 @@
+From: Kill Your TV <killyourtv@i2pmail.org>
+Date: Thu, 25 Sep 2014 02:02:16 +0000
+Subject: fix FTBFS in kFreeBSD
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index e33f440..d06a8f9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ CFLAGS += -g -pthread -std=gnu99
+ CFLAGS += $(shell pkg-config --cflags $(DEPS))
+ LDFLAGS = -pthread -lm
+ LDFLAGS += $(shell pkg-config --libs $(DEPS))
+-LDFLAGS += -lrt
++LDFLAGS += -lrt -lresolv
+ 
+ CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
+ LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)

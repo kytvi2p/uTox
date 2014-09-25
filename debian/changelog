@@ -1,3 +1,9 @@
+utox (0.1.8-2) unstable; urgency=medium
+
+  * Fix kFreeBSD FTBFS
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 25 Sep 2014 02:02:51 +0000
+
 utox (0.1.8-1) unstable; urgency=medium
 
   * New upstream release
