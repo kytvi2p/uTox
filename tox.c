@@ -114,7 +114,7 @@ void log_read(Tox *tox, int fid)
     end = p + size;
 
     /* todo: some checks to avoid crashes with corrupted log files */
-    /* first find the last 128 messages in the log */
+    /* first find the last MAX_BACKLOG_MESSAGES messages in the log */
     i = 0;
     while(p < end) {
         uint16_t namelen, length;
@@ -122,15 +122,15 @@ void log_read(Tox *tox, int fid)
         memcpy(&length, p + 10, 2);
         p += 16 + namelen + length;;
 
-        if(++i > 128) {
+        if(++i > MAX_BACKLOG_MESSAGES) {
             memcpy(&namelen, pp + 8, 2);
             memcpy(&length, pp + 10, 2);
             pp += 16 + namelen + length;
         }
     }
 
-    if(i > 128) {
-        i = 128;
+    if(i > MAX_BACKLOG_MESSAGES) {
+        i = MAX_BACKLOG_MESSAGES;
     }
 
     MSG_DATA *m = &friend[fid].msg;
@@ -541,12 +541,8 @@ static _Bool load_save(Tox *tox)
         }
     }
 
-    int r = tox_load(tox, data, size);
+    tox_load(tox, data, size);
     free(data);
-
-    if(r != 0) {
-        return 0;
-    }
 
     friends = tox_count_friendlist(tox);
 
@@ -554,7 +550,7 @@ static _Bool load_save(Tox *tox)
     while(i != friends) {
         int size;
         FRIEND *f = &friend[i];
-        uint8_t name[128];
+        uint8_t name[TOX_MAX_NAME_LENGTH];
 
         f->msg.scroll = 1.0;
 
@@ -862,7 +858,8 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1
         int r;
 
         if(!param1) {
-            r = tox_add_friend(tox, data, (uint8_t*)DEFAULT_ADD_MESSAGE, sizeof(DEFAULT_ADD_MESSAGE) - 1);
+            STRING* default_add_msg = SPTR(DEFAULT_FRIEND_REQUEST_MESSAGE);
+            r = tox_add_friend(tox, data, default_add_msg->str, default_add_msg->length);
         } else {
             r = tox_add_friend(tox, data, data + TOX_FRIEND_ADDRESS_SIZE, param1);
         }

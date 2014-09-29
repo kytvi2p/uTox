@@ -115,6 +115,9 @@ msgstr("Video (input)")
 msgid(OTHERSETTINGS)
 msgstr("Altro")
 
+msgid(DPI)
+msgstr("Dimensione Caratteri")
+
 msgid(SAVELOCATION)
 msgstr("Salva Locazione")
 
@@ -201,4 +204,13 @@ msgstr("Sì")
 
 msgid(VIDEO_IN_NONE)
 msgstr("Disabilitato")
+
+msgid(DEFAULT_FRIEND_REQUEST_MESSAGE)
+msgstr("Per favore accetta questa richiesta d'amicizia.")
+
+msgid(CONTACTS_FILTER_EDIT_HINT)
+msgstr("Cerca tra i contatti")
+
+msgid(PROXY_EDIT_HINT_PORT)
+msgstr("Porta")
 
