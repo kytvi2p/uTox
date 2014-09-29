@@ -1,3 +1,10 @@
+utox (0.1.8+20140928.1-1) unstable; urgency=medium
+
+  * Add build-dep on dpkg-dev (>= 1.16.1~)
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 28 Sep 2014 20:21:40 +0000
+
 utox (0.1.8-2ubuntu1) trusty; urgency=medium
 
   * Upload to PPA

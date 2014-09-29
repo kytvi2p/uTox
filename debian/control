@@ -3,14 +3,15 @@ Section: net
 Priority: optional
 Maintainer: Kill Your TV <killyourtv@i2pmail.org>
 Build-Depends: debhelper (>= 9),
+ dpkg-dev (>= 1.16.1~),
  libdbus-1-dev,
  libfontconfig1-dev,
  libfreetype6-dev,
  libopenal-dev,
- libtoxav-dev,
- libtoxcore-dev,
- libtoxdns-dev,
- libtoxencryptsave-dev,
+ libtoxav-dev (>= 0.0.0+20140928.1),
+ libtoxcore-dev (>= 0.0.0+20140928.1),
+ libtoxdns-dev (>= 0.0.0+20140928.1),
+ libtoxencryptsave-dev (>= 0.0.0+20140928.1),
  libv4l-dev,
  libxext-dev,
  libxrender-dev

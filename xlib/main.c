@@ -65,7 +65,7 @@ XSizeHints *xsh;
 
 _Bool havefocus = 0;
 
-Window video_win[256];
+Window video_win[MAX_NUM_FRIENDS];
 
 Atom wm_protocols, wm_delete_window;
 
@@ -96,13 +96,13 @@ void *libgtk;
 struct
 {
     int len;
-    uint8_t data[65536];
+    char_t data[65536]; //TODO: De-hardcode this value.
 }clipboard;
 
 struct
 {
     int len;
-    uint8_t data[65536];
+    char_t data[65536]; //TODO: De-hardcode this value.
 }primary;
 
 struct
@@ -222,7 +222,7 @@ void drawimage(void *data, int x, int y, int width, int height, int maxwidth, _B
     }
 }
 
-static int _drawtext(int x, int xmax, int y, uint8_t *str, uint16_t length)
+static int _drawtext(int x, int xmax, int y, char_t *str, STRING_IDX length)
 {
     GLYPH *g;
     uint8_t len;
@@ -436,7 +436,7 @@ void savefiledata(MSG_FILE *file)
     }
 }
 
-void setselection(uint8_t *data, uint16_t length)
+void setselection(char_t *data, STRING_IDX length)
 {
     if(!length) {
         return;
@@ -693,7 +693,7 @@ void setscale(void)
     }
 }
 
-void notify(uint8_t *title, uint16_t title_length, uint8_t *msg, uint16_t msg_length)
+void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length)
 {
     if(havefocus) {
         return;
@@ -703,7 +703,7 @@ void notify(uint8_t *title, uint16_t title_length, uint8_t *msg, uint16_t msg_le
     XSetWMHints(display, window, &hints);
 
     #ifdef HAVE_DBUS
-    uint8_t *str = tohtml(msg, msg_length);
+    char_t *str = tohtml(msg, msg_length);
 
     dbus_notify((char*)title, (char*)str);
 
@@ -741,46 +741,9 @@ static int systemlang(void)
         str = getenv("LANG");
     }
     if(!str) {
-        return LANG_EN;
+        return DEFAULT_LANG;
     }
-    if(strstr(str, "de")) {
-        return LANG_DE;
-    }
-    if(strstr(str, "es")) {
-        return LANG_ES;
-    }
-    if(strstr(str, "fr")) {
-        return LANG_FR;
-    }
-    if(strstr(str, "it")) {
-        return LANG_IT;
-    }
-    if(strstr(str, "ja")) {
-        return LANG_JA;
-    }
-    if(strstr(str, "lv")) {
-        return LANG_LV;
-    }
-    if(strstr(str, "nl")) {
-        return LANG_NL;
-    }
-    if(strstr(str, "pl")) {
-        return LANG_PL;
-    }
-    if(strstr(str, "ru")) {
-        return LANG_RU;
-    }
-    if(strstr(str, "uk")) {
-        return LANG_UA;
-    }
-    if(strstr(str, "zh_CN")) {
-        return LANG_CN;
-    }
-    if(strstr(str, "zh_TW")) {
-        return LANG_TW;
-    }
-
-    return DEFAULT_LANG;
+    return ui_guess_lang_by_posix_locale(str, DEFAULT_LANG);
 }
 
 int main(int argc, char *argv[])
@@ -1084,7 +1047,7 @@ void video_frame(uint32_t id, uint8_t *img_data, uint16_t width, uint16_t height
     free(new_data);
 }
 
-void video_begin(uint32_t id, uint8_t *name, uint16_t name_length, uint16_t width, uint16_t height)
+void video_begin(uint32_t id, char_t *name, STRING_IDX name_length, uint16_t width, uint16_t height)
 {
     Window *win = &video_win[id];
     if(*win) {
