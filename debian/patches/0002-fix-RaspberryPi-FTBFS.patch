@@ -7,10 +7,10 @@ Subject: fix RaspberryPi FTBFS
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile b/Makefile
-index 6d12d39..e33f440 100644
+index 41d4c68..d80c42c 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -14,6 +14,7 @@ CFLAGS += -g -pthread -std=gnu99
+@@ -14,6 +14,7 @@ CFLAGS += -g -Wall -pthread -std=gnu99
  CFLAGS += $(shell pkg-config --cflags $(DEPS))
  LDFLAGS = -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))
