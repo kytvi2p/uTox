@@ -1,3 +1,9 @@
+utox (0.1.8+20140928.1-3) UNRELEASED; urgency=medium
+
+  * Add manpage
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 30 Sep 2014 23:52:58 +0000
+
 utox (0.1.8+20140928.1-2) unstable; urgency=medium
 
   * Fix .desktop file's version
