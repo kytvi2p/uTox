@@ -1,3 +1,9 @@
+utox (0.1.8+20141001.1-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 02 Oct 2014 16:08:00 +0000
+
 utox (0.1.8+20141001.1-1) unstable; urgency=medium
 
   [ banditkroot ]
@@ -22,12 +28,6 @@ utox (0.1.8+20140928.1-2) unstable; urgency=medium
   * Fix .desktop file's version
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 29 Sep 2014 12:29:18 +0000
-
-utox (0.1.8+20140928.1-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 29 Sep 2014 13:06:47 +0000
 
 utox (0.1.8+20140928.1-1) unstable; urgency=medium
 
