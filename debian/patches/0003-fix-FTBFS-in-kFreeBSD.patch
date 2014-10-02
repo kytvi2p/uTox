@@ -7,10 +7,10 @@ Subject: fix FTBFS in kFreeBSD
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index e33f440..d06a8f9 100644
+index d80c42c..a6d6925 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -14,7 +14,7 @@ CFLAGS += -g -pthread -std=gnu99
+@@ -14,7 +14,7 @@ CFLAGS += -g -Wall -pthread -std=gnu99
  CFLAGS += $(shell pkg-config --cflags $(DEPS))
  LDFLAGS = -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))

@@ -1,3 +1,28 @@
+utox (0.1.8+20141001.1-1) unstable; urgency=medium
+
+  [ banditkroot ]
+  * Update french translation.
+
+  [ Alexander Belykh ]
+  * Fix text selection scrolling in messages window
+  * Add comments for some message structs
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ Kill Your TV ]
+  * Fix VCS URLs
+  * Add manpage
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 02 Oct 2014 15:24:42 +0000
+
+utox (0.1.8+20140928.1-2) unstable; urgency=medium
+
+  * Fix .desktop file's version
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 29 Sep 2014 12:29:18 +0000
+
 utox (0.1.8+20140928.1-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
