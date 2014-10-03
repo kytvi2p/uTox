@@ -1,3 +1,9 @@
+utox (0.1.8+20141003.1-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 03 Oct 2014 21:42:55 +0000
+
 utox (0.1.8+20141003.1-1) unstable; urgency=medium
 
   [ 9192 ]
@@ -12,12 +18,6 @@ utox (0.1.8+20141003.1-1) unstable; urgency=medium
   * New git upstream snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 03 Oct 2014 21:41:13 +0000
-
-utox (0.1.8+20141001.1-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 02 Oct 2014 16:08:00 +0000
 
 utox (0.1.8+20141001.1-1) unstable; urgency=medium
 
