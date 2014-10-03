@@ -1,3 +1,18 @@
+utox (0.1.8+20141003.1-1) unstable; urgency=medium
+
+  [ 9192 ]
+  * Add brazilian portuguese translation
+  * Don't uncomment unchanged strings
+
+  [ irungentoo ]
+  * Flush file to disk after writing it.
+  * Include required header for _commit() function.
+
+  [ Kill Your TV ]
+  * New git upstream snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 03 Oct 2014 21:41:13 +0000
+
 utox (0.1.8+20141001.1-1) unstable; urgency=medium
 
   [ banditkroot ]
