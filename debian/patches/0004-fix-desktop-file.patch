@@ -1,0 +1,27 @@
+From: Kill Your TV <killyourtv@i2pmail.org>
+Date: Mon, 29 Sep 2014 12:27:22 +0000
+Subject: fix desktop file
+
+---
+ utox.desktop | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/utox.desktop b/utox.desktop
+index ab365c1..216bc53 100644
+--- a/utox.desktop
++++ b/utox.desktop
+@@ -1,11 +1,10 @@
+ [Desktop Entry]
+-Version=0.18
++Version=1.0
+ Type=Application
+ Name=uTox
+ Comment=A lightweight Tox client
+-TryExec=utox
+-Exec=utox
++Exec=utox %U
+ Icon=utox
+-Categories=InstantMessaging;;AudioVideo;Network;
++Categories=InstantMessaging;AudioVideo;Network;FileTransfer;VideoConference
+ Terminal=false
+ MimeType=x-scheme-handler/tox;

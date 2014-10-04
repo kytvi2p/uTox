@@ -17,8 +17,8 @@ Build-Depends: debhelper (>= 9),
  libxrender-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/notsecure/uTox
-Vcs-Git: git://killyourtv.i2p/git/utox.git
-Vcs-Browser: http://killyourtv.i2p/gitweb/?p=utox.git;a=shortlog
+Vcs-Git: git://killyourtv.i2p/git/uTox.git
+Vcs-Browser: http://killyourtv.i2p/gitweb/?p=uTox.git;a=shortlog
 
 Package: utox
 Architecture: any
