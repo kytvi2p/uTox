@@ -1,3 +1,15 @@
+utox (0.1.8+20141004.2-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Extract LOG_FILE_MSG_HEADER struct
+  * Rid of magic offsets in log_read()
+  * Don't read whole file into memory in log_read()
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 04 Oct 2014 21:32:15 +0000
+
 utox (0.1.8+20141004.1-1) unstable; urgency=medium
 
   [ 9192 ]
