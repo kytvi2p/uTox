@@ -84,7 +84,6 @@ void log_write(Tox *tox, int fid, const uint8_t *message, uint16_t length, _Bool
 void log_read(Tox *tox, int fid)
 {
     uint8_t path[512], *p, *pp, *end, *file_r;
-    uint8_t client_id[TOX_CLIENT_ID_SIZE];
     uint32_t size, i;
 
     p = path + datapath(path);
@@ -151,7 +150,8 @@ void log_read(Tox *tox, int fid)
         p += 16;
 
         MESSAGE *msg = malloc(sizeof(MESSAGE) + length);
-        msg->flags = flags;
+        msg->author = flags & 1;
+        msg->msg_type = MSG_TYPE_TEXT;
         msg->length = length;
         memcpy(msg->msg, p + namelen, length);
 
@@ -620,7 +620,7 @@ static void write_save(Tox *tox)
         fclose(file);
         if (rename((char*)path_tmp, (char*)path_real) != 0) {
             debug("Failed to rename file. %s to %s deleting and trying again\n", path_tmp, path_real);
-            remove(path_real);
+            remove((const char *)path_real);
             if (rename((char*)path_tmp, (char*)path_real) != 0) {
                 debug("Saving Failed\n");
             } else {
@@ -1544,7 +1544,8 @@ void tox_message(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
         FILE_T *ft = &f->incoming[param2];
 
         MSG_FILE *msg = malloc(sizeof(MSG_FILE));
-        msg->flags = 6;
+        msg->author = 0;
+        msg->msg_type = MSG_TYPE_FILE;
         msg->filenumber = param2;
         msg->status = FILE_PENDING;
         msg->name_length = (ft->name_length > sizeof(msg->name)) ? sizeof(msg->name) : ft->name_length;
@@ -1569,7 +1570,8 @@ void tox_message(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
         FILE_T *ft = &f->incoming[param2];
 
         MSG_FILE *msg = malloc(sizeof(MSG_FILE));
-        msg->flags = 6;
+        msg->author = 0;
+        msg->msg_type = MSG_TYPE_FILE;
         msg->filenumber = param2;
         msg->status = FILE_OK;
         msg->name_length = (ft->name_length > sizeof(msg->name)) ? sizeof(msg->name) : ft->name_length;
@@ -1597,7 +1599,8 @@ void tox_message(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
         _Bool inline_png = (msg == FRIEND_FILE_OUT_NEW_INLINE);
 
         MSG_FILE *msg = malloc(sizeof(MSG_FILE));
-        msg->flags = 7;
+        msg->author = 1;
+        msg->msg_type = MSG_TYPE_FILE;
         msg->filenumber = param2;
         msg->status = FILE_PENDING;
         msg->name_length = (ft->name_length >= sizeof(msg->name)) ? sizeof(msg->name) - 1 : ft->name_length;
