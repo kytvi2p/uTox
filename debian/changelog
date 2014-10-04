@@ -1,3 +1,35 @@
+utox (0.1.8+20141004.2-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Extract LOG_FILE_MSG_HEADER struct
+  * Rid of magic offsets in log_read()
+  * Don't read whole file into memory in log_read()
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 04 Oct 2014 21:32:15 +0000
+
+utox (0.1.8+20141004.1-1) unstable; urgency=medium
+
+  [ 9192 ]
+  * fix typos on pt-br translation
+
+  [ Alexander Belykh ]
+  * Clarify that only 1 bit in flags is used/known
+  * Split MESSAGE->flags field into author and msg_type
+  * Add another minor comment to MSG_DATA
+  * Separate common fields in message structs visually
+  * Fix whitespace in messages.c
+
+  [ Ansa89 ]
+  * Fix couple of warnings
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 04 Oct 2014 17:24:35 +0000
+
 utox (0.1.8+20141003.1-1ubuntu1) trusty; urgency=medium
 
   * Upload to PPA
