@@ -1,3 +1,9 @@
+utox (0.1.8+20141005.2-1ubuntu1) trusty; urgency=medium
+
+  * Upload to PPA
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 05 Oct 2014 21:05:50 +0000
+
 utox (0.1.8+20141005.2-1) unstable; urgency=medium
 
   [ irungentoo ]
@@ -7,12 +13,6 @@ utox (0.1.8+20141005.2-1) unstable; urgency=medium
   * New upstream git shapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 05 Oct 2014 21:01:45 +0000
-
-utox (0.1.8+20141005.1-1ubuntu1) trusty; urgency=medium
-
-  * Upload to PPA
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 05 Oct 2014 02:33:07 +0000
 
 utox (0.1.8+20141005.1-1) unstable; urgency=medium
 
