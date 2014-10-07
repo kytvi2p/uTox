@@ -1,3 +1,13 @@
+utox (0.1.8+20141007.1~git82a0c8b-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Truncate to width in drawtextwidth_right() for Linux
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 07 Oct 2014 01:51:17 +0000
+
 utox (0.1.8+20141005.2-1) unstable; urgency=medium
 
   [ irungentoo ]
