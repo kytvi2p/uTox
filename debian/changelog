@@ -1,3 +1,9 @@
+utox (0.1.8+20141007.2~git0a02d0c-1ubuntu1) trusty; urgency=medium
+
+  * Upload to PPA
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 07 Oct 2014 18:00:32 +0000
+
 utox (0.1.8+20141007.2~git0a02d0c-1) unstable; urgency=medium
 
   [ Alexander Belykh ]
@@ -13,12 +19,6 @@ utox (0.1.8+20141007.2~git0a02d0c-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 07 Oct 2014 17:55:58 +0000
-
-utox (0.1.8+20141007.1~git82a0c8b-1ubuntu1) trusty; urgency=medium
-
-  * Upload to PPA
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 07 Oct 2014 01:54:06 +0000
 
 utox (0.1.8+20141007.1~git82a0c8b-1) unstable; urgency=medium
 
