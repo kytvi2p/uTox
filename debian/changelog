@@ -1,3 +1,19 @@
+utox (0.1.8+20141007.2~git0a02d0c-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Move STR enum aliases onto the same lines
+  * Rewrite buttons with i18n support
+  * Start bitmap ids from 1
+  * Add i18n text for audio input devices
+  * Improve i18n for audio devices list
+  * Move special video devices closer to tox_av.c
+  * Encode special handles for audio-in devices directly
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 07 Oct 2014 17:55:58 +0000
+
 utox (0.1.8+20141007.1~git82a0c8b-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
