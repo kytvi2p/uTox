@@ -7,7 +7,7 @@ Subject: fix desktop file
  1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/utox.desktop b/utox.desktop
-index ab365c1..216bc53 100644
+index ab365c1..6a6ed07 100644
 --- a/utox.desktop
 +++ b/utox.desktop
 @@ -1,11 +1,10 @@
@@ -22,6 +22,6 @@ index ab365c1..216bc53 100644
 +Exec=utox %U
  Icon=utox
 -Categories=InstantMessaging;;AudioVideo;Network;
-+Categories=InstantMessaging;AudioVideo;Network;FileTransfer;VideoConference
++Categories=InstantMessaging;Network;VideoConference;Telephony
  Terminal=false
  MimeType=x-scheme-handler/tox;
