@@ -1,3 +1,26 @@
+utox (0.1.8+20141008.1~gitdd6526b-1) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ Alexander Belykh ]
+  * Extract transfer-related stuff into tox_transfer.h
+  * Move transfer work out of main tox_thread loop
+  * Dedent utox_thread_work_for_transfers()
+  * Move utox_thread_work_for_transfers() to tox_transfer.h
+  * Extract transfer callbacks setup into tox_transfer.h
+  * Extract transfer stuff from friend.h into transfer.h
+  * Move FILE_PROGRESS struct to transfer.h
+  * Rename outgoing transfer functions
+  * Make tox_transfer a compilation unit
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * Fix desktop file
+  * Bump standards version, no source changes needed
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 08 Oct 2014 22:32:56 +0000
+
 utox (0.1.8+20141007.2~git0a02d0c-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
