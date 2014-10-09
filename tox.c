@@ -24,13 +24,20 @@ static int log_file_name(uint8_t *dest, size_t size_dest, Tox *tox, int fid)
     return TOX_CLIENT_ID_SIZE * 2 + sizeof(".txt");
 }
 
+enum {
+  LOG_FILE_MSG_TYPE_TEXT = 0,
+  LOG_FILE_MSG_TYPE_ACTION = 1,
+};
+
 typedef struct {
     uint64_t time;
     uint16_t namelen, length;
-    uint8_t flags, zeroes[3];
+    uint8_t flags;
+    uint8_t msg_type;
+    uint8_t zeroes[2];
 } LOG_FILE_MSG_HEADER;
 
-void log_write(Tox *tox, int fid, const uint8_t *message, uint16_t length, _Bool self)
+void log_write(Tox *tox, int fid, const uint8_t *message, uint16_t length, _Bool self, uint8_t msg_type)
 {
     if(!logging_enabled) {
         return;
@@ -66,6 +73,7 @@ void log_write(Tox *tox, int fid, const uint8_t *message, uint16_t length, _Bool
             .namelen = namelen,
             .length = length,
             .flags = self,
+            .msg_type = msg_type,
         };
 
         fwrite(&header, sizeof(header), 1, file);
@@ -144,13 +152,32 @@ void log_read(Tox *tox, int fid)
 
     /* add the messages */
     while((0 < i) && (1 == fread(&header, sizeof(LOG_FILE_MSG_HEADER), 1, file))) {
+        i--;
+
         // Skip unused friend name recorded at the time.
         fseeko(file, header.namelen, SEEK_CUR);
 
+        MESSAGE *msg = NULL;
+        switch(header.msg_type) {
+        case LOG_FILE_MSG_TYPE_ACTION: {
+            msg = malloc(sizeof(MESSAGE) + header.length);
+            msg->msg_type = MSG_TYPE_ACTION_TEXT;
+            break;
+        }
+        case LOG_FILE_MSG_TYPE_TEXT: {
+            msg = malloc(sizeof(MESSAGE) + header.length);
+            msg->msg_type = MSG_TYPE_TEXT;
+            break;
+        }
+        default: {
+            debug("Unknown backlog message type(%d), skipping.\n", (int)header.msg_type);
+            fseeko(file, header.length, SEEK_CUR);
+            continue;
+        }
+        }
+
         // Read text message.
-        MESSAGE *msg = malloc(sizeof(MESSAGE) + header.length);
         msg->author = header.flags & 1;
-        msg->msg_type = MSG_TYPE_TEXT;
         msg->length = header.length;
 
         if(1 != fread(msg->msg, msg->length, 1, file)) {
@@ -168,14 +195,12 @@ void log_read(Tox *tox, int fid)
         m->data[m->n++] = msg;
 
         debug("loaded backlog: %d: %.*s\n", fid, msg->length, msg->msg);
-
-        i--;
     }
 
     fclose(file);
 }
 
-static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1, uint16_t param2, void *data);
+static void tox_thread_message(Tox *tox, ToxAv *av, uint64_t time, uint8_t msg, uint16_t param1, uint16_t param2, void *data);
 
 void tox_postmessage(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
 {
@@ -382,6 +407,38 @@ void tox_settingschanged(void)
     list_start();
 }
 
+#define UTOX_TYPING_NOTIFICATION_TIMEOUT (1ul*1000*1000*1000)
+
+static struct {
+    Tox *tox;
+    uint16_t friendnumber;
+    uint64_t time;
+    _Bool sent_value;
+} typing_state = {
+        .tox = NULL,
+        .friendnumber = 0,
+        .time = 0,
+        .sent_value = 0,
+};
+
+static void utox_thread_work_for_typing_notifications(Tox *tox, uint64_t time)
+{
+    if(typing_state.tox != tox) {
+        // Guard against Tox engine restarts.
+        return;
+    }
+
+    _Bool is_typing = (time < typing_state.time + UTOX_TYPING_NOTIFICATION_TIMEOUT);
+    if(typing_state.sent_value ^ is_typing) {
+        // Need to send an update.
+        if(!tox_set_user_is_typing(tox, typing_state.friendnumber, is_typing)){
+            // Successfully sent. Mark new state.
+            typing_state.sent_value = is_typing;
+            debug("Sent typing state to friend (%d): %d\n", typing_state.friendnumber, typing_state.sent_value);
+        }
+    }
+}
+
 void tox_thread(void *UNUSED(args))
 {
     Tox *tox;
@@ -462,11 +519,12 @@ TOP:;
                 tox_thread_msg = 0;
                 break;
             }
-            tox_thread_message(tox, av, msg->msg, msg->param1, msg->param2, msg->data);
+            tox_thread_message(tox, av, time, msg->msg, msg->param1, msg->param2, msg->data);
             tox_thread_msg = 0;
         }
 
         utox_thread_work_for_transfers(tox, time);
+        utox_thread_work_for_typing_notifications(tox, time);
 
         uint32_t interval = tox_do_interval(tox);
         yieldcpu((interval > 20) ? 20 : interval);
@@ -490,7 +548,7 @@ TOP:;
     tox_thread_init = 0;
 }
 
-static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1, uint16_t param2, void *data)
+static void tox_thread_message(Tox *tox, ToxAv *av, uint64_t time, uint8_t msg, uint16_t param1, uint16_t param2, void *data)
 {
     switch(msg) {
     case TOX_SETNAME: {
@@ -579,7 +637,7 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1
          * param2: message length
          * data: message
          */
-        log_write(tox, param1, data, param2, 1);
+        log_write(tox, param1, data, param2, 1, LOG_FILE_MSG_TYPE_TEXT);
 
         void *p = data;
         while(param2 > TOX_MAX_MESSAGE_LENGTH) {
@@ -594,6 +652,27 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1
         break;
     }
 
+    case TOX_SENDACTION: {
+        /* param1: friend #
+         * param2: message length
+         * data: message
+         */
+
+        log_write(tox, param1, data, param2, 1, LOG_FILE_MSG_TYPE_ACTION);
+
+        void *p = data;
+        while(param2 > TOX_MAX_MESSAGE_LENGTH) {
+            uint16_t len = TOX_MAX_MESSAGE_LENGTH - utf8_unlen(p + TOX_MAX_MESSAGE_LENGTH);
+            tox_send_action(tox, param1, p, len);
+            param2 -= len;
+            p += len;
+        }
+
+        tox_send_action(tox, param1, p, param2);
+        free(data);
+        break;
+    }
+
     case TOX_SENDMESSAGEGROUP: {
         /* param1: group #
          * param2: message length
@@ -601,6 +680,43 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint8_t msg, uint16_t param1
          */
         tox_group_message_send(tox, param1, data, param2);
         free(data);
+        break;
+    }
+
+    case TOX_SENDACTIONGROUP: {
+        /* param1: group #
+         * param2: message length
+         * data: message
+         */
+        tox_group_action_send(tox, param1, data, param2);
+        free(data);
+    }
+
+    case TOX_SET_TYPING: {
+        /* param1: friend #
+         */
+
+        // Check if user has switched to another friend window chat.
+        // Take care not to react on obsolete data from old Tox instance.
+        _Bool need_resetting = (typing_state.tox == tox) &&
+            (typing_state.friendnumber != param1) &&
+            (typing_state.sent_value);
+
+        if(need_resetting) {
+            // Tell previous friend that he's betrayed.
+            tox_set_user_is_typing(tox, typing_state.friendnumber, 0);
+            // Mark that new friend doesn't know that we're typing yet.
+            typing_state.sent_value = 0;
+        }
+
+        // Mark us as typing to this friend at the moment.
+        // utox_thread_work_for_typing_notifications() will
+        // send a notification if it deems necessary.
+        typing_state.tox = tox;
+        typing_state.friendnumber = param1;
+        typing_state.time = time;
+
+        //debug("Set typing state for friend (%d): %d\n", typing_state.friendnumber, typing_state.sent_value);
         break;
     }
 
