@@ -1,3 +1,21 @@
+utox (0.1.8+20141009.r851-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Implement sending action on /me
+  * Implement saving actions in logs
+  * Implement outgoing typing notifications
+  * Add i18n text for video preview window title
+  * Add russian-localized text for video preview window title
+  * Support i18n for video preview window title
+
+  [ irungentoo ]
+  * Reduced typing timeout.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 09 Oct 2014 22:03:19 +0000
+
 utox (0.1.8+20141008.1~gitdd6526b-1ubuntu1) trusty; urgency=medium
 
   * Upload to PPA
