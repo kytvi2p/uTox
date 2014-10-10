@@ -1,3 +1,15 @@
+utox (0.1.8+20141010.r855-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Merge inline and non-inline FRIEND_FILE_IN_NEW
+  * Refactor image types and inline sending
+  * Improve image vars naming a bit
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 20:41:14 +0000
+
 utox (0.1.8+20141009.r851-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
