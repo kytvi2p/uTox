@@ -1,3 +1,9 @@
+utox (0.1.8+20141010.r857-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 23:28:52 +0000
+
 utox (0.1.8+20141010.r857-1) unstable; urgency=medium
 
   [ Ansa89 ]
@@ -7,12 +13,6 @@ utox (0.1.8+20141010.r857-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 23:26:56 +0000
-
-utox (0.1.8+20141010.r855-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 20:43:23 +0000
 
 utox (0.1.8+20141010.r855-1) unstable; urgency=medium
 
