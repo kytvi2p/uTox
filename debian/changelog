@@ -1,3 +1,9 @@
+utox (0.1.8+20141011.r878-2) UNRELEASED; urgency=medium
+
+  * Set utox-dbg to priority extra
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 16:44:50 +0000
+
 utox (0.1.8+20141011.r878-1) unstable; urgency=medium
 
   [ Alexander Belykh ]
