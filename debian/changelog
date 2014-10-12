@@ -1,3 +1,9 @@
+utox (0.1.8+20141011.r878-1ubuntu1) trusty; urgency=medium
+
+  * Build for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 16:39:15 +0000
+
 utox (0.1.8+20141011.r878-1) unstable; urgency=medium
 
   [ Alexander Belykh ]
@@ -29,12 +35,6 @@ utox (0.1.8+20141011.r878-1) unstable; urgency=medium
   * Add -dbg package
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 02:27:43 +0000
-
-utox (0.1.8+20141010.r857-1ubuntu1) trusty; urgency=medium
-
-  * Upload to PPA
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 23:30:10 +0000
 
 utox (0.1.8+20141010.r857-1) unstable; urgency=medium
 
