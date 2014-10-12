@@ -1,3 +1,9 @@
+utox (0.1.8+20141011.r878-1~precise+1) precise; urgency=medium
+
+  * Build for Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 16:41:11 +0000
+
 utox (0.1.8+20141011.r878-1) unstable; urgency=medium
 
   [ Alexander Belykh ]
@@ -29,12 +35,6 @@ utox (0.1.8+20141011.r878-1) unstable; urgency=medium
   * Add -dbg package
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 02:27:43 +0000
-
-utox (0.1.8+20141010.r857-1~precise+1) precise; urgency=medium
-
-  * Upload to PPA
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Oct 2014 23:31:35 +0000
 
 utox (0.1.8+20141010.r857-1) unstable; urgency=medium
 
