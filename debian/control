@@ -27,3 +27,15 @@ Description: lightweight gui Tox client
  This client is at the early stages of development but it currently supports
  some of the most important features, such as file transfers, A/V, group chats,
  and DNS Discovery
+
+Package: utox-dbg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, utox (= ${binary:Version}),
+ libtoxdns-dbg,
+ libtoxencryptsave-dbg,
+ libtoxcore-dbg,
+ libtoxav-dbg
+Description: lightweight gui Tox client
+ This client is at the early stages of development but it currently supports
+ some of the most important features, such as file transfers, A/V, group chats,
+ and DNS Discovery
