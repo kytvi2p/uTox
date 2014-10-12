@@ -1,3 +1,35 @@
+utox (0.1.8+20141011.r878-1) unstable; urgency=medium
+
+  [ Alexander Belykh ]
+  * Rename global window vars to sane names
+  * Add -Wshadow to Makefile
+  * Fix shadowing of redraw() in edit.c
+  * Fix shadowing of len in messages_draw()
+  * Fix shadowing of x in messages_draw()
+  * Fix shadowing of redraw() in messages_mmove()
+  * Fix shadowing of data in messages_selection()
+  * Fix shadowing of self in log_write()
+  * Fix shadowing of size in load_save()
+  * Fix shadowing of msg in tox_message()
+  * Fix shadowing of p in tox_transfer.c
+  * Fix shadowing of dx/dy in ui.c
+  * Fix shadowing of r in tox_av.h
+  * Fix shadowing of fd global variable in xlib/*
+  * Fix shadowing of event in xlib/event.c
+  * Fix shadowing of font in font_open()
+  * Fix shadowing of i in freefonts()
+  * Fix shadowing of i in get_color_profile()
+
+  [ irungentoo ]
+  * Fixed uTox not building for win64.
+  * Fixed android build.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * Add -dbg package
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 02:27:43 +0000
+
 utox (0.1.8+20141010.r857-1ubuntu1) trusty; urgency=medium
 
   * Upload to PPA
