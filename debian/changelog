@@ -1,3 +1,9 @@
+utox (0.1.8+20141012.r884-1ubuntu1) trusty; urgency=medium
+
+  * Build for Trusy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 13 Oct 2014 13:42:12 +0000
+
 utox (0.1.8+20141012.r884-1) unstable; urgency=medium
 
   [ Jonathan Armani ]
@@ -11,12 +17,6 @@ utox (0.1.8+20141012.r884-1) unstable; urgency=medium
   * Set utox-dbg to priority extra and section debug
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 13 Oct 2014 13:38:42 +0000
-
-utox (0.1.8+20141011.r878-1ubuntu1) trusty; urgency=medium
-
-  * Build for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 16:39:15 +0000
 
 utox (0.1.8+20141011.r878-1) unstable; urgency=medium
 
