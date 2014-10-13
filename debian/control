@@ -30,6 +30,8 @@ Description: lightweight gui Tox client
 
 Package: utox-dbg
 Architecture: any
+Priority: extra
+Section: debug
 Depends: ${shlibs:Depends}, ${misc:Depends}, utox (= ${binary:Version}),
  libtoxdns-dbg,
  libtoxencryptsave-dbg,
