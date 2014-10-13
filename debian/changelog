@@ -1,8 +1,16 @@
-utox (0.1.8+20141011.r878-2) UNRELEASED; urgency=medium
+utox (0.1.8+20141012.r884-1) unstable; urgency=medium
 
+  [ Jonathan Armani ]
+  * Add a way to disable libv4lconvert
+  * Adjust include for OpenBSD
+  * ioctl takes an unsigned long, not an int
+  * Use the new NO_LIBV4LCONVERT
+  * Rename LIBV4LCONVERT to V4LCONVERT, looks more consistent
+
+  [ Kill Your TV ]
   * Set utox-dbg to priority extra and section debug
 
- -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 12 Oct 2014 16:44:50 +0000
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 13 Oct 2014 13:38:42 +0000
 
 utox (0.1.8+20141011.r878-1) unstable; urgency=medium
 
