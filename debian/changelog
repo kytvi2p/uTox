@@ -1,3 +1,20 @@
+utox (0.1.8+20141015.r889-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * uTox now accepts lower case Tox ids.
+  * Increased max length of tox id edit box.
+
+  [ Nick Bakkegaard ]
+  * added danish translation
+
+  [ irungentoo ]
+  * Added danish tl properly to uTox.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 16 Oct 2014 06:46:08 +0000
+
 utox (0.1.8+20141012.r884-1~deb7u+1) stable; urgency=medium
 
   * Backport for Wheezy
