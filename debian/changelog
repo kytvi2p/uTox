@@ -1,3 +1,67 @@
+utox (0.1.8+20141019.r902-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Only one instance of uTox can now be opened at a time on windows.
+  * Increased maximum number of file transfers to 32.
+
+  [ bob ]
+  * Add optional Ringtone to uTox. Can be enabled in the settings page.
+
+  [ irungentoo ]
+  * Ringtone fixes: use looping source.
+  * ringtones should now work with multiple callers.
+  * Only generate the ringer sound once, clean up after.
+  * Fixed utox_save.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 19 Oct 2014 18:48:39 +0000
+
+utox (0.1.8+20141016.r893-1) unstable; urgency=medium
+
+  [ bob3434 ]
+  * Update INSTALL.md
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 16 Oct 2014 21:49:47 +0000
+
+utox (0.1.8+20141015.r889-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * uTox now accepts lower case Tox ids.
+  * Increased max length of tox id edit box.
+
+  [ Nick Bakkegaard ]
+  * added danish translation
+
+  [ irungentoo ]
+  * Added danish tl properly to uTox.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 16 Oct 2014 06:46:08 +0000
+
+utox (0.1.8+20141012.r884-1) unstable; urgency=medium
+
+  [ Jonathan Armani ]
+  * Add a way to disable libv4lconvert
+  * Adjust include for OpenBSD
+  * ioctl takes an unsigned long, not an int
+  * Use the new NO_LIBV4LCONVERT
+  * Rename LIBV4LCONVERT to V4LCONVERT, looks more consistent
+
+  [ Kill Your TV ]
+  * Set utox-dbg to priority extra and section debug
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 13 Oct 2014 13:38:42 +0000
+
 utox (0.1.8+20141011.r878-1~precise+1) precise; urgency=medium
 
   * Build for Precise

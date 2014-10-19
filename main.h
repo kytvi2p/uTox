@@ -36,7 +36,10 @@ typedef struct
     uint8_t version, scale, enableipv6, disableudp;
     uint16_t window_x, window_y, window_width, window_height;
     uint16_t proxy_port;
-    uint8_t proxyenable, logging_enabled;
+    uint8_t proxyenable;
+    uint8_t logging_enabled : 1;
+    uint8_t audible_notifications_enabled : 1;
+    uint8_t zero : 6;
     uint8_t proxy_ip[0];
 }UTOX_SAVE;
 
@@ -99,6 +102,8 @@ _Bool tox_connected;
 _Bool audio_preview, video_preview;
 
 volatile _Bool logging_enabled;
+
+volatile _Bool audible_notifications_enabled;
 
 #define MAX_NUM_FRIENDS 256
 

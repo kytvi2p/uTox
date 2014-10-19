@@ -1,4 +1,3 @@
-
 static void av_start(int32_t call_index, void *arg)
 {
     ToxAvCSettings peer_settings;
@@ -30,6 +29,7 @@ static void callback_av_invite(void *arg, int32_t call_index, void *UNUSED(userd
     _Bool video = (peer_settings.call_type == TypeVideo);
 
     postmessage(FRIEND_CALL_STATUS, fid, call_index, (void*)(size_t)(video ? CALL_INVITED_VIDEO : CALL_INVITED));
+    toxaudio_postmessage(AUDIO_PLAY_RINGTONE, call_index, 0, NULL);
 
     debug("A/V Invite (%i)\n", call_index);
 }
@@ -37,13 +37,15 @@ static void callback_av_invite(void *arg, int32_t call_index, void *UNUSED(userd
 static void callback_av_start(void *arg, int32_t call_index, void *UNUSED(userdata))
 {
     av_start(call_index, arg);
+    toxaudio_postmessage(AUDIO_STOP_RINGTONE, call_index, 0, NULL);
 
     debug("A/V Start (%i)\n", call_index);
 }
 
 #define endcall() \
     int fid = toxav_get_peer_id(arg, call_index, 0); \
-    postmessage(FRIEND_CALL_STATUS, fid, call_index, (void*)(size_t)CALL_NONE);
+    postmessage(FRIEND_CALL_STATUS, fid, call_index, (void*)(size_t)CALL_NONE); \
+    toxaudio_postmessage(AUDIO_STOP_RINGTONE, call_index, 0, NULL);
 
 #define stopcall() \
     toxav_kill_transmission(arg, call_index); \
@@ -309,6 +311,7 @@ static ALCdevice *device_out, *device_in;
 static ALCcontext *context;
 static ALuint source[MAX_CALLS];
 
+
 static ALCdevice* alcopencapture(void *handle)
 {
     if(!handle) {
@@ -441,6 +444,47 @@ static void audio_thread(void *args)
 
     alGenSources(countof(source), source);
 
+    static ALuint ringSrc[MAX_CALLS];
+    alGenSources(MAX_CALLS, ringSrc);
+
+    /* Create buffer to store samples */
+    ALuint RingBuffer;
+    alGenBuffers(1, &RingBuffer);
+
+    {
+        float frequency1 = 441.f;
+        float frequency2 = 882.f;
+        int seconds = 4;
+        unsigned sample_rate = 22050;
+        size_t buf_size = seconds * sample_rate * 2; //16 bit (2 bytes per sample)
+        int16_t *samples = malloc(buf_size * sizeof(int16_t));
+        if (!samples)
+            return;
+
+        /*Generate an electronic ringer sound that quickly alternates between two frequencies*/
+        int index = 0;
+        for(index = 0; index < buf_size; ++index) {
+            if ((index / (sample_rate)) % 4 < 2 ) {//4 second ring cycle, first 2 secondsring, the rest(2 seconds) is silence
+                if((index / 1000) % 2 == 1) {
+                    samples[index] = 5000 * sin((2.0 * 3.1415926 * frequency1) / sample_rate * index); //5000=amplitude(volume level). It can be from zero to 32700
+                } else {
+                    samples[index] = 5000 * sin((2.0 * 3.1415926 * frequency2) / sample_rate * index);
+                }
+            } else {
+                samples[index] = 0;
+            }
+        }
+
+        alBufferData(RingBuffer, AL_FORMAT_MONO16, samples, buf_size, sample_rate);
+        free(samples);
+    }
+
+    unsigned int i;
+    for (i = 0; i < MAX_CALLS; ++i) {
+        alSourcei(ringSrc[i], AL_LOOPING, AL_TRUE);
+        alSourcei(ringSrc[i], AL_BUFFER, RingBuffer);
+    }
+
     audio_thread_init = 1;
 
     while(1) {
@@ -555,6 +599,25 @@ static void audio_thread(void *args)
                 break;
             }
 
+            case AUDIO_PLAY_RINGTONE: {
+                if(!audible_notifications_enabled) {
+                    break;
+                }
+
+                alSourcePlay(ringSrc[m->param1]);
+                break;
+            }
+
+            case AUDIO_STOP_RINGTONE: {
+                    ALint state;
+                    alGetSourcei(ringSrc[m->param1], AL_SOURCE_STATE, &state);
+                    if(state == AL_PLAYING) {
+                        alSourceStop(ringSrc[m->param1]);
+                    }
+
+                    break;
+                }
+
             }
 
             audio_thread_msg = 0;
@@ -598,7 +661,10 @@ static void audio_thread(void *args)
         yieldcpu(5);
     }
 
-    //missing some cleanup
+    //missing some cleanup ?
+    alDeleteSources(MAX_CALLS, ringSrc);
+    alDeleteSources(countof(source), source);
+    alDeleteBuffers(1, &RingBuffer);
 
     if(device_in) {
         if(record_on) {
