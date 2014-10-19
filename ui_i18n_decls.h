@@ -19,8 +19,9 @@ enum {
     LANG_CN,
     LANG_TW,
     LANG_CS,
+    LANG_DK,
     //Do NOT add new values beyond this point, or alter LANGS_MAX accordingly.
-    LANGS_MAX = LANG_CS
+    LANGS_MAX = LANG_DK
 };
 
 enum {
@@ -79,6 +80,7 @@ enum {
     STR_PROXY,
     STR_WARNING,
     STR_LOGGING,
+    STR_AUDIONOTIFICATIONS,
     STR_IS_TYPING,
 
     STR_COPY, STR_COPY_TOX_ID = STR_COPY,
