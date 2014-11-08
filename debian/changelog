@@ -1,3 +1,9 @@
+utox (0.1.8+20141107.r916-1ubuntu1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 08 Nov 2014 18:00:15 +0000
+
 utox (0.1.8+20141107.r916-1) unstable; urgency=medium
 
   [ Ansa89 ]
