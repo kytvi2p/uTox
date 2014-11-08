@@ -1,3 +1,31 @@
+utox (0.1.8+20141107.r916-1) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ baloo79 ]
+  * Hungarian language added
+  * Corrected version of Hungarian translation
+
+  [ Yalvex ]
+  * Ukrainian  translation: update
+
+  [ xtotdam ]
+  * update russian localization for Video Preview and Audio Notifications
+
+  [ irungentoo ]
+  * Added hungarian tl properly to uTox.
+  * Remove spaces from added ids/dns names.
+
+  [ banditkroot ]
+  * Update french translation
+  * Update translation file comments
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 07 Nov 2014 01:21:00 +0000
+
 utox (0.1.8+20141019.r902-1ubuntu1) trusty; urgency=medium
 
   * Building for Trusty
