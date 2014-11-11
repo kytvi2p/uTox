@@ -1,3 +1,14 @@
+utox (0.1.8+20141111.r918-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Toxcore api change fix.
+  * xlib uTox now has a portable mode.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 11 Nov 2014 20:33:43 +0000
+
 utox (0.1.8+20141107.r916-1) unstable; urgency=medium
 
   [ Ansa89 ]
