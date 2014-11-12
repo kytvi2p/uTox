@@ -1,3 +1,9 @@
+utox (0.1.8+20141111.r920-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 12 Nov 2014 01:30:18 +0000
+
 utox (0.1.8+20141111.r920-1) unstable; urgency=medium
 
   [ irungentoo ]
