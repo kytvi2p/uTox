@@ -1,3 +1,9 @@
+utox (0.1.8+20141112.r922-1~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 13 Nov 2014 12:49:27 +0000
+
 utox (0.1.8+20141112.r922-1) unstable; urgency=medium
 
   [ irungentoo ]
@@ -20,12 +26,6 @@ utox (0.1.8+20141111.r920-1) unstable; urgency=medium
   * debian/control: bump dependencies on libtoxcoreav-dev and libtoxcore-dev
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 12 Nov 2014 01:17:48 +0000
-
-utox (0.1.8+20141111.r918-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 11 Nov 2014 22:49:56 +0000
 
 utox (0.1.8+20141111.r918-1) unstable; urgency=medium
 
