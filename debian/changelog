@@ -1,3 +1,14 @@
+utox (0.1.8+20141112.r922-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Fixed groupchat audio dropping when changing audio output.
+  * Added some 2 channel recording code.
+
+  [ Kill Your TV ]
+  * New upstream sit snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 13 Nov 2014 11:42:55 +0000
+
 utox (0.1.8+20141111.r920-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
