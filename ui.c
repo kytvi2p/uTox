@@ -84,11 +84,11 @@ static void drawgroup(int UNUSED(x), int UNUSED(y), int UNUSED(w), int UNUSED(he
 
     setcolor(C_TITLE);
     setfont(FONT_TITLE);
-    drawtext(LIST_RIGHT + 30 * SCALE, 5 * SCALE, g->name, g->name_length);
+    drawtext(LIST_RIGHT + 30 * SCALE, 1 * SCALE, g->name, g->name_length);
 
     setcolor(LIST_MAIN);
     setfont(FONT_STATUS);
-    drawtext(LIST_RIGHT + 30 * SCALE, 12 * SCALE, g->topic, g->topic_length);
+    drawtext(LIST_RIGHT + 30 * SCALE, 8 * SCALE, g->topic, g->topic_length);
 
     setcolor(GRAY(150));
     uint32_t i = 0;
@@ -96,6 +96,7 @@ static void drawgroup(int UNUSED(x), int UNUSED(y), int UNUSED(w), int UNUSED(he
 
     uint64_t time = get_time();
 
+    unsigned int pos_y = 15;
     while(i < g->peers)
     {
         uint8_t *name = g->peername[i];
@@ -114,12 +115,17 @@ static void drawgroup(int UNUSED(x), int UNUSED(y), int UNUSED(w), int UNUSED(he
                 setcolor(GRAY(150));
             }
 
-            if(k + w >= utox_window_width) {
-                drawtext(k, 18 * SCALE, (uint8_t*)"...", 3);
-                break;
+            if(k + w >= (utox_window_width - 32 * SCALE)) {
+                if (pos_y == 15) {
+                    pos_y += 6;
+                    k = LIST_RIGHT + 30 * SCALE;
+                } else {
+                    drawtext(k, pos_y * SCALE, (uint8_t*)"...", 3);
+                    break;
+                }
             }
 
-            drawtext(k, 18 * SCALE, buf, name[0] + 2);
+            drawtext(k, pos_y * SCALE, buf, name[0] + 2);
 
             k += w;
         }
@@ -419,6 +425,7 @@ panel_item[] = {
             (void*)&edit_msg,
             (void*)&scroll_group,
             (void*)&messages_group,
+            (void*)&button_group_audio,
             NULL
         }
     },
@@ -549,6 +556,14 @@ void ui_scale(uint8_t scale)
         .height = BM_LBUTTON_HEIGHT,
     },
 
+    b_group_audio = {
+        .type = PANEL_BUTTON,
+        .x = -31 * SCALE,
+        .y = 5 * SCALE,
+        .width = BM_LBUTTON_WIDTH,
+        .height = BM_LBUTTON_HEIGHT,
+    },
+
     b_video = {
         .type = PANEL_BUTTON,
         .x = -31 * SCALE,
@@ -636,6 +651,7 @@ void ui_scale(uint8_t scale)
     button_copyid.panel = b_copyid;
     button_addfriend.panel = b_addfriend;
     button_call.panel = b_call;
+    button_group_audio.panel = b_group_audio;
     button_video.panel = b_video;
     button_sendfile.panel = b_sendfile;
     button_acceptfriend.panel = b_acceptfriend;
