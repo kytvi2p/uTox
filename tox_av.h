@@ -399,9 +399,12 @@ static void audio_thread(void *args)
     void *audio_device = NULL;
 
     _Bool call[MAX_CALLS] = {0}, preview = 0;
+    _Bool groups_audio[MAX_NUM_GROUPS] = {0};
 
     int perframe = (av_DefaultSettings.audio_frame_duration * av_DefaultSettings.audio_sample_rate) / 1000;
     uint8_t buf[perframe * 2 * av_DefaultSettings.audio_channels], dest[perframe * 2 * av_DefaultSettings.audio_channels];
+    memset(buf, 0, sizeof(buf));
+
     uint8_t audio_count = 0;
     _Bool record_on = 0;
 
@@ -553,7 +556,7 @@ static void audio_thread(void *args)
                     for (i = 0; i < max; ++i) {
                         if (tox_group_get_type(tox, chats[i]) == TOX_GROUPCHAT_TYPE_AV) {
                             GROUPCHAT *g = &group[chats[i]];
-                            alGenSources(g->peers, source);
+                            alGenSources(g->peers, g->source);
                         }
                     }
                 }
@@ -592,6 +595,7 @@ static void audio_thread(void *args)
 
             case GROUP_AUDIO_CALL_START: {
                 audio_count++;
+                groups_audio[m->param1] = 1;
                 if(!record_on) {
                     device_in = alcopencapture(audio_device);
                     if(device_in) {
@@ -631,7 +635,11 @@ static void audio_thread(void *args)
             }
 
             case GROUP_AUDIO_CALL_END: {
+                if(!groups_audio[m->param1]) {
+                    break;
+                }
                 audio_count--;
+                groups_audio[m->param1] = 0;
                 if(!audio_count && record_on) {
                     alccapturestop(device_in);
                     alccaptureclose(device_in);
@@ -705,8 +713,9 @@ static void audio_thread(void *args)
                     int32_t chats[num_chats];
                     uint32_t max = tox_get_chatlist(tox, chats, num_chats);
                     for (i = 0; i < max; ++i) {
-                        int ret = toxav_group_send_audio(tox, chats[i], buf, perframe, av_DefaultSettings.audio_channels, av_DefaultSettings.audio_sample_rate);
-                        debug("toxav_group_send_audio %i\n", ret);
+                        if (groups_audio[chats[i]]) {
+                            toxav_group_send_audio(tox, chats[i], buf, perframe, av_DefaultSettings.audio_channels, av_DefaultSettings.audio_sample_rate);
+                        }
                     }
                 }
             }
@@ -771,6 +780,7 @@ void callback_av_group_audio(Tox *tox, int groupnumber, int peernumber, const in
     alGetSourcei(g->source[peernumber], AL_BUFFERS_PROCESSED, &processed);
     alGetSourcei(g->source[peernumber], AL_BUFFERS_QUEUED, &queued);
     alSourcei(g->source[peernumber], AL_LOOPING, AL_FALSE);
+    g->last_recv_audio[peernumber] = get_time();
 
     if(processed) {
         ALuint bufids[processed];
@@ -802,7 +812,7 @@ void group_av_peer_add(GROUPCHAT *g, int peernumber)
 
 void group_av_peer_remove(GROUPCHAT *g, int peernumber)
 {
-    alDeleteSources(1, &g->source[g->peers]);
+    alDeleteSources(1, &g->source[peernumber]);
 }
 
 #else
