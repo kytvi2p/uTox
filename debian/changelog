@@ -1,3 +1,14 @@
+utox (0.1.8+20141115.r925-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Fixed possible issue.
+  * Added colors to group chat name list.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 15 Nov 2014 15:25:57 +0000
+
 utox (0.1.8+20141114.r923-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
