@@ -266,6 +266,7 @@ static void set_callbacks(Tox *tox)
     tox_callback_group_message(tox, callback_group_message, NULL);
     tox_callback_group_action(tox, callback_group_action, NULL);
     tox_callback_group_namelist_change(tox, callback_group_namelist_change, NULL);
+    tox_callback_group_title(tox, callback_group_title, NULL);
 
     utox_set_callbacks_for_transfer(tox);
 }
@@ -801,7 +802,7 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint64_t time, uint8_t msg, 
             g = tox_add_groupchat(tox);
         }
         if(g != -1) {
-            postmessage(GROUP_ADD, g, 0, NULL);
+            postmessage(GROUP_ADD, g, 0, tox);
         }
 
         break;
@@ -819,6 +820,30 @@ static void tox_thread_message(Tox *tox, ToxAv *av, uint64_t time, uint8_t msg, 
          * param2: friend #
          */
         tox_invite_friend(tox, param2, param1);
+        break;
+    }
+
+    case TOX_GROUPCHANGETOPIC: {
+        /* param1: group #
+         * param2: topic length
+         * data: topic
+         */
+        tox_group_set_title(tox, param1, data, param2);
+        postmessage(GROUP_TITLE, param1, param2, data);
+        break;
+    }
+
+    case TOX_GROUP_AUDIO_START:{
+        /* param1: group #
+         */
+        postmessage(GROUP_AUDIO_START, param1, 0, NULL);
+        break;
+    }
+
+    case TOX_GROUP_AUDIO_END:{
+        /* param1: group #
+         */
+        postmessage(GROUP_AUDIO_END, param1, 0, NULL);
         break;
     }
 
@@ -1507,6 +1532,7 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
         g->topic_length = sizeof("Drag friends to invite them") - 1;
         memcpy(g->topic, "Drag friends to invite them", sizeof("Drag friends to invite them") - 1);
         g->msg.scroll = 1.0;
+        g->type = tox_group_get_type(data, param1);
         list_addgroup(g);
         redraw();
         break;
@@ -1539,13 +1565,15 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
         g->peername[param2] = g->peername[g->peers];
         g->peername[g->peers] = NULL;
 
-        if (tox_group_get_type(data, param1) == TOX_GROUPCHAT_TYPE_AV) {
-            if (g->peers == 1) {
-                toxaudio_postmessage(GROUP_AUDIO_CALL_END, 0, 0, NULL);
-            }
-
+        if (g->type == TOX_GROUPCHAT_TYPE_AV) {
             g->source[param2] = g->source[g->peers];
+            g->last_recv_audio[param2] = g->last_recv_audio[g->peers];
+            g->last_recv_audio[g->peers] = 0;
             group_av_peer_remove(g, param2);
+        }
+
+        if (g->peers == g->our_peer_number) {
+            g->our_peer_number = param2;
         }
 
         g->topic_length = snprintf((char*)g->topic, sizeof(g->topic), "%u users in chat", g->peers);
@@ -1567,12 +1595,12 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
         }
 
         if(tox_message_id == GROUP_PEER_ADD) {
-            if (tox_group_get_type(data, param1) == TOX_GROUPCHAT_TYPE_AV) {
+            if (g->type == TOX_GROUPCHAT_TYPE_AV) {
                 group_av_peer_add(g, param2);
+            }
 
-                if (g->peers == 1) {
-                    toxaudio_postmessage(GROUP_AUDIO_CALL_START, 0, 0, NULL);
-                }
+            if (tox_group_peernumber_is_ours(data, param1, param2)) {
+                g->our_peer_number = param2;
             }
 
             uint8_t *n = malloc(10);
@@ -1580,6 +1608,7 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
             memcpy(n + 1, "<unknown>", 9);
             data = n;
             g->peers++;
+
         }
 
         g->peername[param2] = data;
@@ -1588,6 +1617,43 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
 
         updategroup(g);
 
+        break;
+    }
+
+    case GROUP_TITLE: {
+        GROUPCHAT *g = &group[param1];
+
+        if (param2 > sizeof(g->name)) {
+            memcpy(g->name, data, sizeof(g->name));
+            g->name_length = sizeof(g->name);
+        } else {
+            memcpy(g->name, data, param2);
+            g->name_length = param2;
+        }
+
+        free(data);
+        updategroup(g);
+        break;
+    }
+
+    case GROUP_AUDIO_START: {
+        GROUPCHAT *g = &group[param1];
+
+        if (g->type == TOX_GROUPCHAT_TYPE_AV) {
+            g->audio_calling = 1;
+            toxaudio_postmessage(GROUP_AUDIO_CALL_START, param1, 0, NULL);
+            updategroup(g);
+        }
+        break;
+    }
+    case GROUP_AUDIO_END: {
+        GROUPCHAT *g = &group[param1];
+
+        if (g->type == TOX_GROUPCHAT_TYPE_AV) {
+            g->audio_calling = 0;
+            toxaudio_postmessage(GROUP_AUDIO_CALL_END, param1, 0, NULL);
+            updategroup(g);
+        }
         break;
     }
     }
