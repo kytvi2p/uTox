@@ -1,3 +1,17 @@
+utox (0.1.8+20141115.r930-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Group names are now drawn on two lines instead of only one.
+  * Added button to send audio to audio group chats.
+  * Fixed text bug.
+  * Fixed audio bug.
+  * Fixed group audio bug when switching output devices.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 15 Nov 2014 21:07:26 +0000
+
 utox (0.1.8+20141115.r925-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
