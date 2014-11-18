@@ -1,3 +1,9 @@
+utox (0.1.8+20141117.r941-1~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 23:11:45 +0000
+
 utox (0.1.8+20141117.r941-1) unstable; urgency=medium
 
   [ ovalseven8 ]
