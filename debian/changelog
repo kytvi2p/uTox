@@ -1,3 +1,20 @@
+utox (0.1.8+20141117.r941-1) unstable; urgency=medium
+
+  [ ovalseven8 ]
+  * Update de.h
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ irungentoo ]
+  * uTox can now mute a group chat by right clicking it in and selecting mute.
+  * Added colors to group chat name in the friends list.
+
+  [ Kill Your TV ]
+  * New git upstream snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 20:55:33 +0000
+
 utox (0.1.8+20141116.r935-1) unstable; urgency=medium
 
   [ nachfuellbar ]
