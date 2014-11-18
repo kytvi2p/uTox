@@ -1,3 +1,9 @@
+utox (0.1.8+20141117.r941-1ubuntu1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 23:03:02 +0000
+
 utox (0.1.8+20141117.r941-1) unstable; urgency=medium
 
   [ ovalseven8 ]
@@ -14,12 +20,6 @@ utox (0.1.8+20141117.r941-1) unstable; urgency=medium
   * New git upstream snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 20:55:33 +0000
-
-utox (0.1.8+20141116.r935-1ubuntu1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 02:54:04 +0000
 
 utox (0.1.8+20141116.r935-1) unstable; urgency=medium
 
