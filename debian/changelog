@@ -1,3 +1,18 @@
+utox (0.1.8+20141118.r946-1) unstable; urgency=medium
+
+  [ ovalseven8 ]
+  * Update de.h
+
+  [ irungentoo ]
+  * Redraw group when a peer starts streaming audio to chat.
+  * Grey out send audio button when group chat is text only.
+  * Save online only filter to utox_save.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 19 Nov 2014 13:59:15 +0000
+
 utox (0.1.8+20141117.r941-1) unstable; urgency=medium
 
   [ ovalseven8 ]
