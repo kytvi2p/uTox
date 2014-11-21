@@ -1,3 +1,16 @@
+utox (0.1.8+20141121.r949-1) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ irungentoo ]
+  * Actions messages are now blue.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 21 Nov 2014 21:20:49 +0000
+
 utox (0.1.8+20141118.r946-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
