@@ -1,3 +1,14 @@
+utox (0.1.8+20141123.r951-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Added audio filtering to uTox.
+  * Remove dropdown when audio filtering isn't compiled in.
+
+  [ Kill Your TV ]
+  * New git upstream snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 24 Nov 2014 21:47:35 +0000
+
 utox (0.1.8+20141121.r949-1) unstable; urgency=medium
 
   [ Ansa89 ]
