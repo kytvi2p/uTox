@@ -1,3 +1,9 @@
+utox (0.1.8+20141125.r952-2~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:40:51 +0000
+
 utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
   * Bump dependency on libtoxcoreav-dev
@@ -24,12 +30,6 @@ utox (0.1.8+20141123.r951-1) unstable; urgency=medium
   * New git upstream snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 24 Nov 2014 21:47:35 +0000
-
-utox (0.1.8+20141121.r949-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 21 Nov 2014 23:04:25 +0000
 
 utox (0.1.8+20141121.r949-1) unstable; urgency=medium
 
@@ -75,12 +75,6 @@ utox (0.1.8+20141117.r941-1) unstable; urgency=medium
   * New git upstream snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 20:55:33 +0000
-
-utox (0.1.8+20141116.r935-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 18 Nov 2014 02:55:15 +0000
 
 utox (0.1.8+20141116.r935-1) unstable; urgency=medium
 
