@@ -1,3 +1,9 @@
+utox (0.1.8+20141125.r952-2~trusty+1) trusty; urgency=medium
+
+  * Bduiling for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:39:27 +0000
+
 utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
   * Bump dependency on libtoxcoreav-dev
@@ -24,12 +30,6 @@ utox (0.1.8+20141123.r951-1) unstable; urgency=medium
   * New git upstream snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 24 Nov 2014 21:47:35 +0000
-
-utox (0.1.8+20141121.r949-1ubuntu1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 21 Nov 2014 23:03:10 +0000
 
 utox (0.1.8+20141121.r949-1) unstable; urgency=medium
 
