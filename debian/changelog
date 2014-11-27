@@ -1,3 +1,30 @@
+utox (0.1.8+20141125.r952-2) unstable; urgency=medium
+
+  * Bump dependency on libtoxcoreav-dev
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:36:15 +0000
+
+utox (0.1.8+20141125.r952-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Port uTox to new toxav api.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 26 Nov 2014 01:01:16 +0000
+
+utox (0.1.8+20141123.r951-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Added audio filtering to uTox.
+  * Remove dropdown when audio filtering isn't compiled in.
+
+  [ Kill Your TV ]
+  * New git upstream snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 24 Nov 2014 21:47:35 +0000
+
 utox (0.1.8+20141121.r949-1ubuntu1) trusty; urgency=medium
 
   * Building for Trusty
