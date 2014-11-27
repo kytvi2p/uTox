@@ -1,3 +1,9 @@
+utox (0.1.8+20141125.r952-2) unstable; urgency=medium
+
+  * Bump dependency on libtoxcoreav-dev
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:36:15 +0000
+
 utox (0.1.8+20141125.r952-1) unstable; urgency=medium
 
   [ irungentoo ]
