@@ -1,3 +1,9 @@
+utox (0.1.8+20141125.r952-2ubuntu1) utopic; urgency=medium
+
+  * Building for Utopic
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:37:45 +0000
+
 utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
   * Bump dependency on libtoxcoreav-dev
