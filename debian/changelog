@@ -1,3 +1,20 @@
+utox (0.1.8+20141129.r957-1) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ irungentoo ]
+  * Api fixes.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * Bump build-dep on libtoxav-dev
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 29 Nov 2014 22:07:03 +0000
+
 utox (0.1.8+20141125.r952-2~precise+1) precise; urgency=medium
 
   * Backport to Precise
