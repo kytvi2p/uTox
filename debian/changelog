@@ -1,3 +1,9 @@
+utox (0.1.8+20141129.r957-1ubuntu1) utopic; urgency=medium
+
+  * Building for Utopic
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 30 Nov 2014 19:36:31 +0000
+
 utox (0.1.8+20141129.r957-1) unstable; urgency=medium
 
   [ Ansa89 ]
@@ -14,12 +20,6 @@ utox (0.1.8+20141129.r957-1) unstable; urgency=medium
   * Bump build-dep on libtoxav-dev
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 29 Nov 2014 22:07:03 +0000
-
-utox (0.1.8+20141125.r952-2ubuntu1) utopic; urgency=medium
-
-  * Building for Utopic
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:37:45 +0000
 
 utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
