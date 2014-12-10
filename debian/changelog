@@ -1,3 +1,22 @@
+utox (0.1.8+20141204.r964-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * Test if openal on android works.
+
+  [ Max Danielsson ]
+  * Adds swedish sv_SE and se_SE translation file
+
+  [ irungentoo ]
+  * Fixed android build.
+  * Properly added swedish tl.
+  * Enable logging by default for new uTox saves.
+  * Fix possible audio issues.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 05 Dec 2014 23:51:42 +0000
+
 utox (0.1.8+20141129.r957-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty
