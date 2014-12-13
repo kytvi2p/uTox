@@ -42,10 +42,13 @@ typedef struct
     uint8_t filter : 1;
     uint8_t audio_filtering_enabled : 1;
     uint8_t zero : 4;
+    uint16_t audio_device_in;
+    uint16_t audio_device_out;
+    uint16_t unused[32];
     uint8_t proxy_ip[0];
 }UTOX_SAVE;
 
-#define SAVE_VERSION 2
+#define SAVE_VERSION 3
 
 typedef struct
 {
@@ -108,6 +111,8 @@ volatile _Bool logging_enabled;
 volatile _Bool audible_notifications_enabled;
 
 volatile _Bool audio_filtering_enabled;
+
+volatile uint16_t loaded_audio_in_device, loaded_audio_out_device;
 
 #define MAX_NUM_FRIENDS 256
 #define MAX_NUM_GROUPS 512
