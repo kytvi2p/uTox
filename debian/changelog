@@ -1,3 +1,18 @@
+utox (0.1.8+20141212.r969-1) unstable; urgency=medium
+
+  [ Roman Zabaluev ]
+  * Updated and impoved russian localization
+
+  [ irungentoo ]
+  * Load gtk before running tox_thread to prevent possible threading issue.
+  * New utox_save format.
+  * uTox now loads and saves audio input and output devices.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 12 Dec 2014 23:12:09 +0000
+
 utox (0.1.8+20141204.r964-1ubuntu1) utopic; urgency=medium
 
   * Building for Utopic
