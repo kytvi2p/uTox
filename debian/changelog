@@ -1,3 +1,31 @@
+utox (0.1.8+20141227.r986-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * tray icon now returns active tox name
+  * win32 tray now shows "self.name : self.statusmsg"
+  * renamed redraw_tray() to update_tray() && fixed typo
+  * version tick
+  * Added some comments to functions I've had to trace twice
+  * other random comments while traceinc #705
+  * fixed a missed function name change
+
+  [ irungentoo ]
+  * Fixed build issues.
+
+  [ Gregory Mullen (grayhatter) ]
+  * ui.c fuction comments
+
+  [ irungentoo ]
+  * Api fixes.
+
+  [ GrayHatter ]
+  * Correction to comments
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 28 Dec 2014 01:25:56 +0000
+
 utox (0.1.8+20141218.r972-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
