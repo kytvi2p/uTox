@@ -1,3 +1,43 @@
+utox (0.1.8+20150104.r1011-1) unstable; urgency=medium
+
+  [ DoomBoom ]
+  * Added avatars, most features working but crashes immediately when getting
+    avatar data on windows
+  * Lots of stuff: Fixed windows crashing whenever it gets avatar data, added
+    saving and loading avatar hashes, made "avatars" the default avatar
+    subdir, added comments and cleaned up some names.
+
+  [ draziw ]
+  * add "clear history" string
+  * add french traduction for "clear history"
+  * add message clear function
+  * add friend history delete function
+  * add context menu on friends for clearing history
+  * fix coding style, use 4 spaces to indent
+
+  [ DoomBoom ]
+  * Fixed corrupt avatars on windows
+  * Fixed copypaste error in comment
+
+  [ irungentoo ]
+  * Fixed threading issue.
+
+  [ DoomBoom ]
+  * Version tick, and fixed issues found in pull req.:
+
+  [ Gregory Mullen (grayhatter) ]
+  * uTox will now try the save file tox_save.tmp if tox_save fails
+
+  [ muchweb ]
+  * Adding more Latvian translations :book:
+  * Comments typo fix, removed 'IP'
+  * Added 'desktop' phrase
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 04 Jan 2015 23:29:13 +0000
+
 utox (0.1.8+20150102.r990-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy

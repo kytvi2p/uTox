@@ -49,7 +49,12 @@ static void drawitem(ITEM *i, int UNUSED(x), int y)
     case ITEM_FRIEND: {
         FRIEND *f = i->data;
 
-        drawalpha(BM_CONTACT, LIST_AVATAR_X, y + LIST_AVATAR_Y, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH, (sitem == i) ? LIST_MAIN : WHITE);
+        // draw avatar or default image
+        if (friend_has_avatar(f)) {
+            drawavatarimage(f->avatar.image, LIST_AVATAR_X, y + LIST_AVATAR_Y, f->avatar.width, f->avatar.height, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH);
+        } else {
+            drawalpha(BM_CONTACT, LIST_AVATAR_X, y + LIST_AVATAR_Y, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH, (sitem == i) ? LIST_MAIN : WHITE);
+        }
 
         drawname(i, y, f->name, f->status_message, f->name_length, f->status_length, 0, 0);
 
@@ -534,6 +539,11 @@ static void contextmenu_list_onselect(uint8_t i)
         return;
     }
 
+    if (ritem->item == ITEM_FRIEND && i == 1) {
+        friend_history_clear((FRIEND*)ritem->data);
+        return;
+    }
+
     if (ritem->item == ITEM_GROUP && i == 0) {
         GROUPCHAT *g = ritem->data;
         if (g->type == TOX_GROUPCHAT_TYPE_AV) {
@@ -547,7 +557,7 @@ static void contextmenu_list_onselect(uint8_t i)
 
 _Bool list_mright(void *UNUSED(n))
 {
-    static UI_STRING_ID menu_friend[] = {STR_REMOVE_FRIEND};
+    static UI_STRING_ID menu_friend[] = {STR_REMOVE_FRIEND, STR_CLEAR_HISTORY};
     static UI_STRING_ID menu_group_unmuted[] = {STR_MUTE, STR_REMOVE_GROUP};
     static UI_STRING_ID menu_group_muted[] = {STR_UNMUTE, STR_REMOVE_GROUP};
     static UI_STRING_ID menu_group[] = {STR_REMOVE_GROUP};
