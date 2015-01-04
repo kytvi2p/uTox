@@ -1,3 +1,9 @@
+utox (0.1.8+20150104.r1011-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 04 Jan 2015 23:58:45 +0000
+
 utox (0.1.8+20150104.r1011-1) unstable; urgency=medium
 
   [ DoomBoom ]
@@ -37,12 +43,6 @@ utox (0.1.8+20150104.r1011-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 04 Jan 2015 23:29:13 +0000
-
-utox (0.1.8+20150102.r990-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 03 Jan 2015 00:01:13 +0000
 
 utox (0.1.8+20150102.r990-1) unstable; urgency=medium
 
