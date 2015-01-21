@@ -1,3 +1,40 @@
+utox (0.1.8+20150119.r1062-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * utox now checks if we can save file here, prompts user on error
+
+  [ Gregory Mullen grayhatter ]
+  * lower right chat button now sends on click
+  * made new send button pretty
+  * comments for changed code
+  * more comments for lower right send button
+
+  [ new-account ]
+  * Added tooltip feature for buttons. notsecure/uTox#277
+  * Fixed tooltip blinking on win32 and do not show when holding down the left
+    mouse button
+
+  [ Gregory Mullen (grayhatter) ]
+  * added tooltips per notsecure/utox#653
+  * more comments
+  * temp commit working on creating tooltips
+
+  [ Gregory Mullen grayhatter ]
+  * fixed merge conflict between master..tooltips
+  * fflush stdout on debug, because win32 needs some poking
+
+  [ irungentoo ]
+  * Changed tooltip show time to 500ms.
+  * This pane isn't for file transfers.
+
+  [ Gregory Mullen grayhatter ]
+  * hotfix for #774
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 21 Jan 2015 22:29:39 +0000
+
 utox (0.1.8+20150115.r1043-1~deb7u+1) stable; urgency=medium
 
   * Backport to Wheezy
