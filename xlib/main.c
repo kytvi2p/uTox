@@ -74,6 +74,7 @@ uint32_t scolor;
 Atom XA_CLIPBOARD, XA_UTF8_STRING, targets, XA_INCR;
 Atom XdndAware, XdndEnter, XdndLeave, XdndPosition, XdndStatus, XdndDrop, XdndSelection, XdndDATA, XdndActionCopy;
 Atom XA_URI_LIST, XA_PNG_IMG;
+Atom XRedraw;
 
 Pixmap drawbuf;
 Picture renderpic;
@@ -222,6 +223,44 @@ void drawimage(UTOX_NATIVE_IMAGE data, int x, int y, int width, int height, int 
             XRenderComposite(display, PictOpSrc, bm, None, renderpic, 0, 0, 0, 0, x, y, width, height);
         }
     }
+}
+
+void drawavatarimage(UTOX_NATIVE_IMAGE data, int x, int y, int width, int height, int targetwidth, int targetheight)
+{
+    Picture bm = data;
+
+    uint32_t resize;
+    {
+        /* get smallest rational difference of width or height */
+        uint32_t w_resize = (width * 65536) / targetwidth;
+        uint32_t h_resize = (height * 65536) / targetheight;
+        resize = (abs((int)w_resize - 65536) > abs((int)h_resize - 65536)) ? h_resize : w_resize;
+    }
+
+    /* transformation matrix to scale image to mostly fit within target dimensions */
+    XTransform trans = {
+        {{resize, 0, 0},
+        {0, resize, 0},
+        {0, 0, 65536}}
+    };
+    XRenderSetPictureTransform(display, bm, &trans);
+    XRenderSetPictureFilter(display, bm, FilterBilinear, NULL, 0);
+
+    /* set position to show the middle of the image in the center  */
+    int xpos = (int) ((double)width * 65536 / resize / 2 - (double)targetwidth / 2);
+    int ypos = (int) ((double)height * 65536 / resize / 2 - (double)targetheight / 2);
+
+    /* draw the image */
+    XRenderComposite(display, PictOpSrc, bm, None, renderpic, xpos, ypos, 0, 0, x, y, targetwidth, targetheight);
+
+    /* reset matrix and filter */
+    XTransform trans2 = {
+        {{65536, 0, 0},
+        {0, 65536, 0},
+        {0, 0, 65536}}
+    };
+    XRenderSetPictureFilter(display, bm, FilterNearest, NULL, 0);
+    XRenderSetPictureTransform(display, bm, &trans2);
 }
 
 static int _drawtext(int x, int xmax, int y, char_t *str, STRING_IDX length)
@@ -403,6 +442,13 @@ void openfilesend(void)
 {
     if(libgtk) {
         gtk_openfilesend();
+    }
+}
+
+void openfileavatar(void)
+{
+    if(libgtk) {
+        gtk_openfileavatar();
     }
 }
 
@@ -612,12 +658,11 @@ static Picture image_to_picture(XImage *img)
     return picture;
 }
 
-UTOX_NATIVE_IMAGE png_to_image(UTOX_PNG_IMAGE data, size_t size, uint16_t *w, uint16_t *h)
+UTOX_NATIVE_IMAGE png_to_image(const UTOX_PNG_IMAGE data, size_t size, uint16_t *w, uint16_t *h)
 {
     uint8_t *out;
     unsigned width, height;
     unsigned r = lodepng_decode32(&out, &width, &height, data->png_data, size);
-    //free(data);
 
     if(r != 0 || !width || !height) {
         return None;
@@ -668,6 +713,24 @@ int datapath(uint8_t *dest)
 
         return l;
     }
+}
+
+int datapath_subdir(uint8_t *dest, const char *subdir)
+{
+    int l = datapath(dest);
+    l += sprintf((char*)(dest+l), "%s", subdir);
+    mkdir((char*)dest, 0700);
+    dest[l++] = '/';
+
+    return l;
+}
+
+/** Sets file system permissions to something slightly safer.
+ *
+ * returns 0 and 1 on sucess and failure.
+ */
+int ch_mod(uint8_t *file){
+    return chmod((char*)file, S_IRUSR | S_IWUSR);
 }
 
 void flush_file(FILE *file)
@@ -738,6 +801,23 @@ void showkeyboard(_Bool show)
 void redraw(void)
 {
     _redraw = 1;
+}
+void force_redraw(void) {
+    XEvent ev = {
+        .xclient = {
+            .type = ClientMessage,
+            .display = display,
+            .window = window,
+            .message_type = XRedraw,
+            .format = 8,
+            .data = {
+                .s = {0,0}
+            }
+        }
+    };
+    _redraw = 1;
+    XSendEvent(display, window, 0, 0, &ev);
+    XFlush(display);
 }
 
 void update_tray(void)
@@ -852,6 +932,8 @@ int main(int argc, char *argv[])
 
     XA_URI_LIST = XInternAtom(display, "text/uri-list", False);
     XA_PNG_IMG = XInternAtom(display, "image/png", False);
+
+    XRedraw = XInternAtom(display, "XRedraw", False);
 
     /* create the draw buffer */
     drawbuf = XCreatePixmap(display, window, DEFAULT_WIDTH, DEFAULT_HEIGHT, depth);

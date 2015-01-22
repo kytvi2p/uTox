@@ -1,3 +1,119 @@
+utox (0.1.8+20150119.r1062-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * utox now checks if we can save file here, prompts user on error
+
+  [ Gregory Mullen grayhatter ]
+  * lower right chat button now sends on click
+  * made new send button pretty
+  * comments for changed code
+  * more comments for lower right send button
+
+  [ new-account ]
+  * Added tooltip feature for buttons. notsecure/uTox#277
+  * Fixed tooltip blinking on win32 and do not show when holding down the left
+    mouse button
+
+  [ Gregory Mullen (grayhatter) ]
+  * added tooltips per notsecure/utox#653
+  * more comments
+  * temp commit working on creating tooltips
+
+  [ Gregory Mullen grayhatter ]
+  * fixed merge conflict between master..tooltips
+  * fflush stdout on debug, because win32 needs some poking
+
+  [ irungentoo ]
+  * Changed tooltip show time to 500ms.
+  * This pane isn't for file transfers.
+
+  [ Gregory Mullen grayhatter ]
+  * hotfix for #774
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 21 Jan 2015 22:29:39 +0000
+
+utox (0.1.8+20150115.r1043-1) unstable; urgency=medium
+
+  [ DoomBoom ]
+  * Set focus on edit_msg when clicking on friend, and on edit_addid when
+    adding a friend
+
+  [ muchweb ]
+  * Added dbus-c++ & toxcore note (thanks to @tsudoko)
+
+  [ Gregory Mullen (grayhatter) ]
+  * shrunk the hight of the settings page
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ Gregory Mullen (grayhatter) ]
+  * File system enhansements for win32 + *nix
+  * moved install.md
+  * order depends sanely
+  * seperate build and install
+  * minor rename
+  * deleted distro build instructions
+  * there's an script for windows
+  * links changed
+
+  [ irungentoo ]
+  * bootstrap nodes update.
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ Nick Bakkegaard ]
+  * updated danish translation
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 16 Jan 2015 08:45:32 +0000
+
+utox (0.1.8+20150104.r1011-1) unstable; urgency=medium
+
+  [ DoomBoom ]
+  * Added avatars, most features working but crashes immediately when getting
+    avatar data on windows
+  * Lots of stuff: Fixed windows crashing whenever it gets avatar data, added
+    saving and loading avatar hashes, made "avatars" the default avatar
+    subdir, added comments and cleaned up some names.
+
+  [ draziw ]
+  * add "clear history" string
+  * add french traduction for "clear history"
+  * add message clear function
+  * add friend history delete function
+  * add context menu on friends for clearing history
+  * fix coding style, use 4 spaces to indent
+
+  [ DoomBoom ]
+  * Fixed corrupt avatars on windows
+  * Fixed copypaste error in comment
+
+  [ irungentoo ]
+  * Fixed threading issue.
+
+  [ DoomBoom ]
+  * Version tick, and fixed issues found in pull req.:
+
+  [ Gregory Mullen (grayhatter) ]
+  * uTox will now try the save file tox_save.tmp if tox_save fails
+
+  [ muchweb ]
+  * Adding more Latvian translations :book:
+  * Comments typo fix, removed 'IP'
+  * Added 'desktop' phrase
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 04 Jan 2015 23:29:13 +0000
+
 utox (0.1.8+20150102.r990-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty

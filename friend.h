@@ -7,7 +7,7 @@ typedef struct friend {
     int32_t callid;
     uint16_t call_width, call_height;
 
-    uint8_t cid[TOX_CLIENT_ID_SIZE];
+    uint8_t cid[TOX_CLIENT_ID_SIZE], tooltip[8];
     STRING_IDX name_length, status_length, typed_length;
     char_t *name, *status_message, *typed;
 
@@ -15,6 +15,8 @@ typedef struct friend {
 
     EDIT_CHANGE **edit_history;
     uint16_t edit_history_cur, edit_history_length;
+
+    AVATAR avatar;
 
     FILE_T incoming[MAX_FILE_TRANSFERS];
     FILE_T outgoing[MAX_FILE_TRANSFERS];
@@ -56,6 +58,8 @@ void friend_set_typing(FRIEND *f, int typing);
 
 void friend_addid(uint8_t *id, char_t *msg, STRING_IDX msg_length);
 void friend_add(char_t *name, STRING_IDX length, char_t *msg, STRING_IDX msg_length);
+
+void friend_history_clear(FRIEND *f);
 
 void friend_free(FRIEND *f);
 void group_free(GROUPCHAT *g);
