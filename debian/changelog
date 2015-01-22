@@ -1,3 +1,21 @@
+utox (0.1.8+20150121.r1070-1) unstable; urgency=medium
+
+  [ DoomBoom ]
+  * Added transparent avatars. Required changing all image functions. This
+    breaks images on android.
+  * Fixed transparency looking ugly on windows. It also only uses 1 byte for
+    transparency now(instead of 4).
+  * Added comments and improved naming in some image functions
+  * Fixed comment in drawalpha about pixel format
+  * Fixed scaled avatars not showing up on windows
+  * Fixed comment and made avatar_free_image private to avatar.c
+  * Added TODO to draw_image comment
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 15:28:12 +0000
+
 utox (0.1.8+20150119.r1062-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty
