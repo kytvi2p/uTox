@@ -1,3 +1,19 @@
+utox (0.1.8+20150122.r1076-1) unstable; urgency=medium
+
+  [ Yann Privé ]
+  * Adding avatars to the notifications using DBus
+  * Modified comment, changed the position of a variable and removed the
+    useless include
+
+  [ irungentoo ]
+  * Fixed uTox crash.
+  * Attempted tooltip issue fix.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 23:05:01 +0000
+
 utox (0.1.8+20150121.r1070-1) unstable; urgency=medium
 
   [ DoomBoom ]
