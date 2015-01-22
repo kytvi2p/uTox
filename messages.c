@@ -58,9 +58,10 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
             drawtext(x + width - TIME_WIDTH, y, (char_t*)timestr, len);
         }
 
+        // Draw the names for groups or friends
         if(m->type) {
             /* group */
-            setcolor(0);
+            setcolor(C_BLUE);
             setfont(FONT_TEXT);
             drawtextwidth_right(x, MESSAGES_X - NAME_OFFSET, y, &msg->msg[msg->length] + 1, msg->msg[msg->length]);
         } else {
@@ -863,6 +864,7 @@ void message_add(MESSAGES *m, MESSAGE *msg, MSG_DATA *p)
     time(&rawtime);
     ti = localtime(&rawtime);
 
+    // Set the time this message was recived by utox
     msg->time = ti->tm_hour * 60 + ti->tm_min;
 
     if(p->n < MAX_BACKLOG_MESSAGES) {
@@ -967,4 +969,25 @@ void message_free(MESSAGE *msg)
         break;
     }
     free(msg);
+}
+
+void message_clear(MESSAGES *m, MSG_DATA *p)
+{
+    MSG_IDX i;
+
+    for(i = 0; i < p->n; i++)
+    {
+        message_free((MESSAGE*)p->data[i]);
+    }
+
+    free(p->data);
+    p->data = NULL;
+    p->n = 0;
+
+    p->istart = p->iend = p->start = p->end = 0;
+
+    p->height = 0;
+    if(m->data == p) {
+        m->panel.content_scroll->content_height = p->height;
+    }
 }
