@@ -1,3 +1,9 @@
+utox (0.1.8+20150119.r1062-1~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 00:19:07 +0000
+
 utox (0.1.8+20150119.r1062-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -114,12 +120,6 @@ utox (0.1.8+20150104.r1011-1) unstable; urgency=medium
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 04 Jan 2015 23:29:13 +0000
 
-utox (0.1.8+20150102.r990-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 03 Jan 2015 16:24:12 +0000
-
 utox (0.1.8+20150102.r990-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -233,11 +233,6 @@ utox (0.1.8+20141129.r957-1) unstable; urgency=medium
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 29 Nov 2014 22:07:03 +0000
 
-utox (0.1.8+20141125.r952-2~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:40:51 +0000
 
 utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
