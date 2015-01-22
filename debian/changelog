@@ -1,3 +1,9 @@
+utox (0.1.8+20150121.r1070-1~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 21:56:29 +0000
+
 utox (0.1.8+20150121.r1070-1) unstable; urgency=medium
 
   [ DoomBoom ]
@@ -15,12 +21,6 @@ utox (0.1.8+20150121.r1070-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 15:28:12 +0000
-
-utox (0.1.8+20150119.r1062-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 00:19:07 +0000
 
 utox (0.1.8+20150119.r1062-1) unstable; urgency=medium
 
