@@ -44,12 +44,16 @@ static void drawname(ITEM *i, int y, char_t *name, char_t *msg, STRING_IDX name_
 static void drawitem(ITEM *i, int UNUSED(x), int y)
 {
     drawitembox(i, y);
-
     switch(i->item) {
     case ITEM_FRIEND: {
         FRIEND *f = i->data;
 
-        drawalpha(BM_CONTACT, LIST_AVATAR_X, y + LIST_AVATAR_Y, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH, (sitem == i) ? LIST_MAIN : WHITE);
+        // draw avatar or default image
+        if (friend_has_avatar(f)) {
+            drawavatarimage(f->avatar.image, LIST_AVATAR_X, y + LIST_AVATAR_Y, f->avatar.width, f->avatar.height, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH);
+        } else {
+            drawalpha(BM_CONTACT, LIST_AVATAR_X, y + LIST_AVATAR_Y, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH, (sitem == i) ? LIST_MAIN : WHITE);
+        }
 
         drawname(i, y, f->name, f->status_message, f->name_length, f->status_length, 0, 0);
 
@@ -58,6 +62,7 @@ static void drawitem(ITEM *i, int UNUSED(x), int y)
         if(f->notify) {
             drawalpha(BM_STATUS_NOTIFY, LIST_RIGHT - SCALE * 13, y + ITEM_HEIGHT / 2 - BM_STATUS_NOTIFY_WIDTH / 2, BM_STATUS_NOTIFY_WIDTH, BM_STATUS_NOTIFY_WIDTH, status_color[status]);
         }
+        // tooltip_new(utf8tonative(snprint_t(f->name, sizeof(char_t)*8));
         break;
     }
 
@@ -114,10 +119,12 @@ void list_scale(void)
 
 static ITEM* item_hit(int mx, int my, int UNUSED(height))
 {
+    /* Mouse is outsite the list */
     if(mx < LIST_X || mx >= LIST_RIGHT) {
         return NULL;
     }
 
+    /* Mouse is above the list */
     if(my < 0) {
         return NULL;
     }
@@ -139,6 +146,8 @@ static void selectitem(ITEM *i)
 {
     panel_item[sitem->item - 1].disabled = 1;
     panel_item[i->item - 1].disabled = 0;
+
+    edit_resetfocus();
 
     if(sitem->item == ITEM_FRIEND) {
         FRIEND *f = sitem->data;
@@ -202,6 +211,7 @@ static void selectitem(ITEM *i)
         edit_msg.history = f->edit_history;
         edit_msg.history_cur = f->edit_history_cur;
         edit_msg.history_length = f->edit_history_length;
+        edit_setfocus(&edit_msg);
     }
 
     if(i->item == ITEM_GROUP) {
@@ -216,6 +226,7 @@ static void selectitem(ITEM *i)
         messages_group.iover = MSG_IDX_MAX;
         messages_group.panel.content_scroll->content_height = g->msg.height;
         messages_group.panel.content_scroll->d = g->msg.scroll;
+        edit_setfocus(&edit_msg);
 
         g->msg.id = g - group;
 
@@ -230,6 +241,7 @@ static void selectitem(ITEM *i)
 
     if(i->item == ITEM_ADD) {
         button_add.disabled = 1;
+        edit_setfocus(&edit_addid);
     }
 
     if(i->item == ITEM_TRANSFER) {
@@ -237,8 +249,6 @@ static void selectitem(ITEM *i)
     }
 
     sitem = i;
-
-    edit_resetfocus();
 
     addfriend_status = 0;
 
@@ -251,6 +261,7 @@ void list_start(void)
 
     item_add.item = ITEM_ADD;
     button_add.disabled = 1;
+    edit_setfocus(&edit_addid);
 
     item_settings.item = ITEM_SETTINGS;
     item_transfer.item = ITEM_TRANSFER;
@@ -505,6 +516,8 @@ _Bool list_mmove(void *UNUSED(n), int UNUSED(x), int UNUSED(y), int UNUSED(width
         }
 
         draw = 1;
+    } else {
+    tooltip_draw();
     }
 
     return draw;
@@ -513,7 +526,7 @@ _Bool list_mmove(void *UNUSED(n), int UNUSED(x), int UNUSED(y), int UNUSED(width
 _Bool list_mdown(void *UNUSED(n))
 {
     _Bool draw = 0;
-
+    tooltip_mdown(); /* may need to return on true */
     if(mitem) {
         if(mitem != sitem) {
             selectitem(mitem);
@@ -534,6 +547,11 @@ static void contextmenu_list_onselect(uint8_t i)
         return;
     }
 
+    if (ritem->item == ITEM_FRIEND && i == 1) {
+        friend_history_clear((FRIEND*)ritem->data);
+        return;
+    }
+
     if (ritem->item == ITEM_GROUP && i == 0) {
         GROUPCHAT *g = ritem->data;
         if (g->type == TOX_GROUPCHAT_TYPE_AV) {
@@ -547,7 +565,7 @@ static void contextmenu_list_onselect(uint8_t i)
 
 _Bool list_mright(void *UNUSED(n))
 {
-    static UI_STRING_ID menu_friend[] = {STR_REMOVE_FRIEND};
+    static UI_STRING_ID menu_friend[] = {STR_REMOVE_FRIEND, STR_CLEAR_HISTORY};
     static UI_STRING_ID menu_group_unmuted[] = {STR_MUTE, STR_REMOVE_GROUP};
     static UI_STRING_ID menu_group_muted[] = {STR_UNMUTE, STR_REMOVE_GROUP};
     static UI_STRING_ID menu_group[] = {STR_REMOVE_GROUP};
@@ -587,6 +605,7 @@ _Bool list_mwheel(void *UNUSED(n), int UNUSED(height), double UNUSED(d))
 _Bool list_mup(void *UNUSED(n))
 {
     _Bool draw = 0;
+    tooltip_mup(); /* may need to return one true */
     if(sitem_mousedown && abs(sitem_dy) >= 5) {
         if(nitem) {
             if(sitem->item == ITEM_FRIEND) {

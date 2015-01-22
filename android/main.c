@@ -82,6 +82,10 @@ void drawimage(UTOX_NATIVE_IMAGE data, int x, int y, int width, int height, int 
     glUniform3fv(k2, 1, one);
 }
 
+void drawavatarimage(UTOX_NATIVE_IMAGE data, int x, int y, int width, int height, int targetwidth, int targetheight)
+{
+}
+
 void thread(void func(void*), void *args)
 {
     pthread_t thread_temp;
@@ -121,6 +125,10 @@ void openfilesend(void)
 {
 }
 
+void openfileavatar(void)
+{
+}
+
 void savefilerecv(uint32_t fid, MSG_FILE *file)
 {
 }
@@ -133,7 +141,7 @@ void setselection(char_t *data, STRING_IDX length)
 {
 }
 
-UTOX_NATIVE_IMAGE png_to_image(UTOX_PNG_IMAGE data, size_t size, uint16_t *w, uint16_t *h)
+UTOX_NATIVE_IMAGE png_to_image(const UTOX_PNG_IMAGE data, size_t size, uint16_t *w, uint16_t *h)
 {
     uint8_t *out;
     unsigned width, height;
@@ -183,11 +191,22 @@ int datapath(uint8_t *dest)
     return 0;
 }
 
+int datapath_subdir(uint8_t *dest, const char *subdir)
+{
+    return 0;
+}
+
 void flush_file(FILE *file)
 {
     fflush(file);
     int fd = fileno(file);
     fsync(fd);
+}
+
+
+
+int ch_mod(uint8_t *file){
+    /* You're probably looking for ./xlib as android isn't working when this was written. */
 }
 
 void setscale(void)
@@ -442,6 +461,10 @@ static uint32_t getkeychar(int32_t key) /* get a character from an android keyco
 void redraw(void)
 {
     _redraw = 1;
+}
+void force_redraw(void)
+{
+    redraw();
 }
 
 void update_tray(void)
