@@ -28,7 +28,9 @@
 #define DEFAULT_STATUS "Toxing on uTox"
 #define DEFAULT_SCALE 2
 
-#define VERSION "0.1.9"
+#define TITLE "uTox"
+#define SUB_TITLE "(Alpha)"
+#define VERSION "0.2.k"
 
 #define MAX_CALLS 16
 #define MAX_BACKLOG_MESSAGES 128
