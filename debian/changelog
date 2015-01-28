@@ -1,3 +1,93 @@
+utox (0.2.k+20150127.r1113-2) unstable; urgency=medium
+
+  * Fix versioned dependency on libfilteraudio-dev
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 28 Jan 2015 12:09:30 +0000
+
+utox (0.2.k+20150127.r1113-1) unstable; urgency=medium
+
+  [ Ярослав ]
+  * Ukrainian translation: update
+  * Update ua.h
+  * Update Ukrainian translation
+  * Update ua.h
+
+  [ draziw ]
+  * add cancel call toxthread message
+  * update call button: 	   - cancel call if press while ringing
+    - button now appear yellow while ringing
+  * use 4 spaces instead of one indent
+
+  [ Candy Gumdrop ]
+  * Added tab-completion to group chats
+  * Added tabcompletion for /topic, code style, bugs
+
+  [ Ansa89 ]
+  * Makefile: add support for audio filtering
+
+  [ DoomBoom ]
+  * Made cancelling video calls use the video button
+  * Fixed potential memory leak when loading corrupted avatars and made hash
+    bytes const when saving avatar hash
+  * removed all warnings in linux build
+  * removed all warnings on win and filter_audio
+  * tooltip fixes:  - tooltip no longer becomes visible when mouse left window
+    - tooltip no longer becomes visible when resizing  - tooltip now uses
+    black on white instead of yellow
+
+  [ irungentoo ]
+  * Changed button colors for previous PR.
+
+  [ Ярослав ]
+  * Ukranian translation: update
+
+  [ DoomBoom ]
+  * Fixed tooltips sometimes not disappearing when leaving window
+
+  [ Callum Burns ]
+  * Bugfixes, added shift+tab backwards completion
+
+  [ Candy Gumdrop ]
+  * Prevented win32 UI from sending Tab twice
+  * Fixed buffer overflow, modifier flag detection
+
+  [ Gregory Mullen grayhatter ]
+  * switched to a uniform title
+
+  [ Candy Gumdrop ]
+  * Fixed undo behaviour, overflow behaviour
+  * Fixed overflow bug
+
+  [ Gregory Mullen grayhatter ]
+  * added name bump to unix as well
+  * Well, it's better than nothing
+
+  [ irungentoo ]
+  * Fix build on jenkins.
+  * Make uTox version match updater version.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * Build dep on libfilteraudio-dev
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 28 Jan 2015 02:34:40 +0000
+
+utox (0.1.8+20150122.r1076-1) unstable; urgency=medium
+
+  [ Yann Privé ]
+  * Adding avatars to the notifications using DBus
+  * Modified comment, changed the position of a variable and removed the
+    useless include
+
+  [ irungentoo ]
+  * Fixed uTox crash.
+  * Attempted tooltip issue fix.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 22 Jan 2015 23:05:01 +0000
+
 utox (0.1.8+20150121.r1070-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty

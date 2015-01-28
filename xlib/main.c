@@ -792,7 +792,7 @@ void setscale(void)
     }
 }
 
-void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length)
+void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length, uint8_t *cid)
 {
     if(havefocus) {
         return;
@@ -804,7 +804,7 @@ void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_
     #ifdef HAVE_DBUS
     char_t *str = tohtml(msg, msg_length);
 
-    dbus_notify((char*)title, (char*)str);
+    dbus_notify((char*)title, (char*)str, (uint8_t*)cid);
 
     free(str);
     #endif
@@ -970,8 +970,13 @@ int main(int argc, char *argv[])
     Atom dndversion = 3;
     XChangeProperty(display, window, XdndAware, XA_ATOM, 32, PropModeReplace, (uint8_t*)&dndversion, 1);
 
+    char title_name[128];
+    snprintf(title_name, 128, "%s %s (version: %s)", TITLE, SUB_TITLE, VERSION);
+    // Effett, I give up! No OS can agree how to handle non ascii bytes, so effemm!
+    // may be needed when uTox becomes muTox
+    //memmove(title_name, title_name+1, strlen(title_name))
     /* set the window name */
-    XSetStandardProperties(display, window, "uTox", "uTox", None, argv, argc, None);
+    XSetStandardProperties(display, window, title_name, "uTox", None, argv, argc, None);
 
     /* initialize fontconfig */
     initfonts();
@@ -1164,10 +1169,10 @@ void video_frame(uint32_t id, uint8_t *img_data, uint16_t width, uint16_t height
     }
 
 
-    GC gc = DefaultGC(display, screen);
+    GC default_gc = DefaultGC(display, screen);
     Pixmap pixmap = XCreatePixmap(display, window, attrs.width, attrs.height, 24);
-    XPutImage(display, pixmap, gc, &image, 0, 0, 0, 0, attrs.width, attrs.height);
-    XCopyArea(display, pixmap, video_win[id], gc, 0, 0, attrs.width, attrs.height, 0, 0);
+    XPutImage(display, pixmap, default_gc, &image, 0, 0, 0, 0, attrs.width, attrs.height);
+    XCopyArea(display, pixmap, video_win[id], default_gc, 0, 0, attrs.width, attrs.height, 0, 0);
     XFreePixmap(display, pixmap);
     free(new_data);
 }
