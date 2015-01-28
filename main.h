@@ -28,7 +28,9 @@
 #define DEFAULT_STATUS "Toxing on uTox"
 #define DEFAULT_SCALE 2
 
-#define VERSION "0.1.9"
+#define TITLE "uTox"
+#define SUB_TITLE "(Alpha)"
+#define VERSION "0.2.k"
 
 #define MAX_CALLS 16
 #define MAX_BACKLOG_MESSAGES 128
@@ -220,7 +222,7 @@ enum
 void drawalpha(int bm, int x, int y, int width, int height, uint32_t color);
 void loadalpha(int bm, void *data, int width, int height);
 void desktopgrab(_Bool video);
-void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length);
+void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length, uint8_t *cid);
 void setscale(void);
 
 enum {

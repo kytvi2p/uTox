@@ -332,6 +332,32 @@ void unicode_to_utf8(uint32_t ch, char_t *dst)
     return;// 0;
 }
 
+_Bool memcmp_case(const char_t *s1, const char_t *s2, uint32_t n)
+{
+    uint32_t i;
+
+    for (i = 0; i < n; i++) {
+        char_t c1, c2;
+
+        c1 = s1[i];
+        c2 = s2[i];
+
+        if (c1 >= (char_t) 'a' && c1 <= (char_t) 'z') {
+            c1 += ('A' - 'a');
+        }
+
+        if (c2 >= (char_t) 'a' && c2 <= (char_t) 'z') {
+            c2 += ('A' - 'a');
+        }
+
+        if (c1 != c2) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 char_t* tohtml(char_t *str, STRING_IDX length)
 {
     STRING_IDX i = 0;
@@ -388,7 +414,7 @@ char_t* tohtml(char_t *str, STRING_IDX length)
     return out;
 }
 
-void yuv420torgb(vpx_image_t *img, uint8_t *out)
+void yuv420torgb(const vpx_image_t *img, uint8_t *out)
 {
     unsigned long int i, j;
     for (i = 0; i < img->d_h; ++i) {
@@ -570,8 +596,8 @@ UTOX_SAVE* config_load(void)
             }
             goto NEXT;
         } else if (save->version == 2) {
-            UTOX_SAVE_V2 *save_v2 = save;
-            save = calloc(sizeof(UTOX_SAVE) + 1 + strlen(save_v2->proxy_ip), 1);
+            UTOX_SAVE_V2 *save_v2 = (UTOX_SAVE_V2*)save;
+            save = calloc(sizeof(UTOX_SAVE) + 1 + strlen((char *)save_v2->proxy_ip), 1);
 
             memcpy(save, save_v2, sizeof(UTOX_SAVE_V2));
             save->version = SAVE_VERSION;
