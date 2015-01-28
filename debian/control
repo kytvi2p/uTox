@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 9),
  libtoxcore-dev (>= 0.0.0+20141111.r2928),
  libtoxdns-dev (>= 0.0.0+20140928.1),
  libtoxencryptsave-dev (>= 0.0.0+20140928.1),
- libfilteraudio-dev (>= 0.0.0+git20150127-1),
+ libfilteraudio-dev (>= 0.0.0+git20150127),
  libv4l-dev,
  libxext-dev,
  libxrender-dev
