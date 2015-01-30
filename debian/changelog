@@ -5,6 +5,7 @@ utox (0.2.l+20150129.r1119-1) unstable; urgency=medium
 
   [ Kill Your TV ]
   * New usptream git snapshot
+  * Add experimental apparmor profile
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 30 Jan 2015 15:15:28 +0000
 
