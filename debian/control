@@ -15,7 +15,8 @@ Build-Depends: debhelper (>= 9),
  libfilteraudio-dev (>= 0.0.0+git20150127),
  libv4l-dev,
  libxext-dev,
- libxrender-dev
+ libxrender-dev,
+ dh-apparmor
 Standards-Version: 3.9.6
 Homepage: https://github.com/notsecure/uTox
 Vcs-Git: git://killyourtv.i2p/git/uTox.git
@@ -24,6 +25,7 @@ Vcs-Browser: http://killyourtv.i2p/gitweb/?p=uTox.git;a=shortlog
 Package: utox
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: apparmor
 Description: lightweight gui Tox client
  This client is at the early stages of development but it currently supports
  some of the most important features, such as file transfers, A/V, group chats,
