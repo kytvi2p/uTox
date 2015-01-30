@@ -1,0 +1,46 @@
+# Last Modified: Fri Jan 30 13:15:09 2015
+# vim:syntax=apparmor et ts=8 sw=4
+#include <tunables/global>
+
+/usr/bin/utox flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/audio>
+  #include <abstractions/gnome>
+  #include <abstractions/kde>
+  #include <abstractions/nameservice>
+  #include <abstractions/X>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/fonts>
+  #include <abstractions/video>
+  #include <abstractions/dbus-session-strict>
+  #include <abstractions/private-files-strict>
+
+  network inet  stream,
+  network inet6 stream,
+  network inet  dgram,
+  network inet6 dgram,
+
+  /usr/bin/utox mr,
+
+  # sound - assume pulseaudio
+  owner /dev/shm/pulse-shm-* m,
+  # if there is a search for the below, pulseaudio is not working
+  /etc/asound.conf r,
+  /dev/snd/* mr,
+  # video
+  /dev/video[0-9]* rwm,
+
+  @{PROC}/[0-9]*/cmdline        r,
+
+  deny /sys/devices/**/video4linux/video[0-9]*/dev r,
+  deny /sys/devices/**/usb[0-9]*/**/idVendor r,
+  deny /usr/local/share/** r,
+
+  owner @{HOME}/** rw,
+  owner @{HOME}/.config/tox/ rw,
+  owner @{HOME}/.config/tox/** rwk,
+  owner /media/**  rw,
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.bin.utox>
+}

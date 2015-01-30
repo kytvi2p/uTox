@@ -12,5 +12,10 @@ override_dh_auto_build:
 override_dh_auto_install:
 	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/utox
 
+override_dh_install:
+	dh_install --fail-missing
+	cp debian/apparmor/usr.bin.utox debian/utox/etc/apparmor.d
+	dh_apparmor --profile=usr.bin.utox -putox
+
 override_dh_strip:
 	dh_strip --dbg-package=utox-dbg
