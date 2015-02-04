@@ -1,3 +1,15 @@
+utox (0.2.l+20150201.r1122-2) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Update for toxcore API break
+
+  [ Gregory Mullen grayhatter ]
+  * uTox no longer activates links preceded by non-whitespace
+
+  [ Kill Your TV ]
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 03 Feb 2015 11:22:28 +0000
+
 utox (0.2.l+20150201.r1122-1) unstable; urgency=medium
 
   [ Gregory Mullen grayhatter ]
