@@ -62,7 +62,7 @@ enum {
 };
 
 //HBITMAP bitmap[32];
-void *bitmap[32];
+void *bitmap[BM_CI1 + 1];
 HFONT font[32];
 HCURSOR cursors[8];
 HICON my_icon, unread_messages_icon;
@@ -583,7 +583,7 @@ void setselection(char_t *data, STRING_IDX length)
 {
 }
 
-/** Toggels the main window to/from hidden to tray/shown. */
+/** Toggles the main window to/from hidden to tray/shown. */
 void togglehide(void)
 {
     if(hidden) {

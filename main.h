@@ -30,7 +30,7 @@
 
 #define TITLE "uTox"
 #define SUB_TITLE "(Alpha)"
-#define VERSION "0.2.l"
+#define VERSION "0.2.m"
 
 #define MAX_CALLS 16
 #define MAX_BACKLOG_MESSAGES 128
@@ -212,6 +212,8 @@ enum
 
     BM_CB1,
     BM_CB2,
+    BM_CHAT_SEND,
+    BM_CHAT_SEND_OVERLAY,
     BM_CI1
 };
 
