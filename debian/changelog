@@ -1,3 +1,70 @@
+utox (0.2.m+20150206.r1158-1) unstable; urgency=medium
+
+  [ Gregory Mullen grayhatter ]
+  * if no content to scroll, don't draw scroll bar
+  * utox now saves window size in addition to location
+  * comments & second chat button now changes color
+  * renamed some buttons
+  * added new bigger send button
+  * pulled the friends list closer to the left
+  * added send message icon overlay
+  * add buttons to group chat
+  * revert userlist resize as requested
+  * dropped group buttons and centered group msg box
+
+  [ irungentoo ]
+  * Check for freetype errors and print them if they happen.
+
+  [ Ярослав ]
+  * added translation of tray options
+
+  [ irungentoo ]
+  * Increased uTox version.
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ irungentoo ]
+  * Edit functions now depend less on globals.
+  * Fix scrollable issue.
+  * Fixed groupchat send message button.
+  * Fixed crash.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 08 Feb 2015 01:12:40 +0000
+
+utox (0.2.l+20150203.r1137-1) unstable; urgency=medium
+
+  [ Ansa89 ]
+  * Update for toxcore API break
+
+  [ Gregory Mullen grayhatter ]
+  * uTox no longer activates links preceded by non-whitespace
+
+  [ Gregory Mullen grayhatter ]
+  * Enable close to tray on win*
+  * use bitwise instead of uint8_t && don't break save
+  * enable start in tray option.
+  * bitwise correction
+
+  [ GrayHatter ]
+  * Added the wording
+
+  [ Gregory Mullen grayhatter ]
+  * added debug and fast options to ming-w64 script
+  * open links on mouse-up, not mouse-down
+
+  [ irungentoo ]
+  * Attempted fix of screenshot bug on windows 7 without aero.
+  * Last PR fix.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 04 Feb 2015 00:54:14 +0000
+
 utox (0.2.l+20150201.r1122-1~precise+1) precise; urgency=medium
 
   * Backport to Precise
