@@ -1,3 +1,9 @@
+utox (0.2.m+20150206.r1158-1ubuntu1) utopic; urgency=medium
+
+  * Building for Utopic
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 08 Feb 2015 02:59:46 +0000
+
 utox (0.2.m+20150206.r1158-1) unstable; urgency=medium
 
   [ Gregory Mullen grayhatter ]
@@ -64,12 +70,6 @@ utox (0.2.l+20150203.r1137-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 04 Feb 2015 00:54:14 +0000
-
-utox (0.2.l+20150201.r1122-1ubuntu1) utopic; urgency=medium
-
-  * Building for Utopic
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 02 Feb 2015 13:04:56 +0000
 
 utox (0.2.l+20150201.r1122-1) unstable; urgency=medium
 
