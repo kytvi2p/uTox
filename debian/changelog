@@ -1,3 +1,9 @@
+utox (0.2.n+20150212.r1172-1~precise+1) precise; urgency=medium
+
+  * Backport to Precise
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 23:44:17 +0000
+
 utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
 
   [ GDR! ]
@@ -11,12 +17,6 @@ utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 18:27:11 +0000
-
-utox (0.2.m+20150210.r1167-1~precise+1) precise; urgency=medium
-
-  * Backport to Precise
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 12 Feb 2015 01:06:14 +0000
 
 utox (0.2.m+20150210.r1167-1) unstable; urgency=medium
 
