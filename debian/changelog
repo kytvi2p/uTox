@@ -1,3 +1,9 @@
+utox (0.2.n+20150212.r1172-1ubuntu1) utopic; urgency=medium
+
+  * Building for Utopic
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 23:35:51 +0000
+
 utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
 
   [ GDR! ]
@@ -11,12 +17,6 @@ utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 18:27:11 +0000
-
-utox (0.2.m+20150210.r1167-1ubuntu1) utopic; urgency=medium
-
-  * Building for Utopic
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 12 Feb 2015 01:03:22 +0000
 
 utox (0.2.m+20150210.r1167-1) unstable; urgency=medium
 
