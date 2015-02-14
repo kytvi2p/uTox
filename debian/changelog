@@ -1,3 +1,17 @@
+utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
+
+  [ GDR! ]
+  * Added Intel CUA copy/paste shortcuts
+
+  [ irungentoo ]
+  * Print in terminal if audio filtering and echo canceling are present.
+  * Version number increase and spelling fix.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 18:27:11 +0000
+
 utox (0.2.m+20150210.r1167-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty
