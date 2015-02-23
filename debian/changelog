@@ -1,3 +1,9 @@
+utox (0.2.n+20150222.r1185-1~trusty+1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 23 Feb 2015 22:00:38 +0000
+
 utox (0.2.n+20150222.r1185-1) unstable; urgency=medium
 
   [ Yann Privé ]
@@ -25,12 +31,6 @@ utox (0.2.n+20150219.r1176-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 21 Feb 2015 12:01:47 +0000
-
-utox (0.2.n+20150212.r1172-1~trusty+1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Feb 2015 23:36:51 +0000
 
 utox (0.2.n+20150212.r1172-1) unstable; urgency=medium
 
