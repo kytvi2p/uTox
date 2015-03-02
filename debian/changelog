@@ -1,3 +1,27 @@
+utox (0.2.n+20150301.r1202-1) unstable; urgency=medium
+
+  [ Simon Grim ]
+  * improving of ru and es localization
+  * fix of mistypo in es localization
+
+  [ GrayHatter ]
+  * closes #363
+  * Add info about toxcore.
+
+  [ muchweb ]
+  * Add manpage
+  * Latvian translation update
+
+  [ flan ]
+  * add BUGS to the manpage, cosmetic changes
+  * add FILES to the man page, rephrase some features
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * Remove debian/utox.1 and use the upstream manpage
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 02 Mar 2015 00:30:53 +0000
+
 utox (0.2.n+20150222.r1185-1~precise+1) precise; urgency=medium
 
   * Backport to Precise
