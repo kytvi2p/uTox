@@ -1,3 +1,9 @@
+utox (0.2.n+20150306.r1276-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Mar 2015 18:31:53 +0000
+
 utox (0.2.n+20150306.r1276-1) unstable; urgency=medium
 
   [ flan ]
@@ -34,12 +40,6 @@ utox (0.2.n+20150306.r1276-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Mar 2015 17:56:58 +0000
-
-utox (0.2.n+20150306.r1255-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Mar 2015 00:40:50 +0000
 
 utox (0.2.n+20150306.r1255-1) unstable; urgency=medium
 
@@ -634,12 +634,6 @@ utox (0.1.8+20141125.r952-2) unstable; urgency=medium
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 27 Nov 2014 02:36:15 +0000
 
-utox (0.1.8+20141125.r952-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 26 Nov 2014 02:08:41 +0000
-
 utox (0.1.8+20141125.r952-1) unstable; urgency=medium
 
   [ irungentoo ]
@@ -778,12 +772,6 @@ utox (0.1.8+20141111.r920-1) unstable; urgency=medium
   * debian/control: bump dependencies on libtoxcoreav-dev and libtoxcore-dev
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 12 Nov 2014 01:17:48 +0000
-
-utox (0.1.8+20141111.r918-1~deb7u+1) stable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 11 Nov 2014 21:00:58 +0000
 
 utox (0.1.8+20141111.r918-1) unstable; urgency=medium
 
