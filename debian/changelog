@@ -1,3 +1,40 @@
+utox (0.2.n+20150306.r1276-1) unstable; urgency=medium
+
+  [ flan ]
+  * make edit hints and typing notifications lighter
+  * add a comment about edit hints
+  * make author color darker as well
+  * make self status msg lighter and friends' status msg darker
+  * fix high contrast theme
+  * fix default avatars blending with background in dark and light themes
+  * fix friends' avatars blending with list bg
+  * fix text not visible on mouseover in highcontrast
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix settings page, missing text
+
+  [ irungentoo ]
+  * Fixed possible issue.
+  * Fix android color issue.
+
+  [ flan ]
+  * fix wrong menu colors
+  * fix self status message being too light in light theme
+  * fix placeholder avatars having wrong colors
+  * use a different color for sent messages
+  * fix avatar color for friend requests
+  * fix hover in highcontrast
+  * fix file transfer colors
+  * make transfer color a bit lighter
+
+  [ irungentoo ]
+  * Make function return something.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Mar 2015 17:56:58 +0000
+
 utox (0.2.n+20150306.r1255-1) unstable; urgency=medium
 
   [ muchweb ]
