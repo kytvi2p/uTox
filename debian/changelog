@@ -1,3 +1,113 @@
+utox (0.2.n+20150306.r1276-1) unstable; urgency=medium
+
+  [ flan ]
+  * make edit hints and typing notifications lighter
+  * add a comment about edit hints
+  * make author color darker as well
+  * make self status msg lighter and friends' status msg darker
+  * fix high contrast theme
+  * fix default avatars blending with background in dark and light themes
+  * fix friends' avatars blending with list bg
+  * fix text not visible on mouseover in highcontrast
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix settings page, missing text
+
+  [ irungentoo ]
+  * Fixed possible issue.
+  * Fix android color issue.
+
+  [ flan ]
+  * fix wrong menu colors
+  * fix self status message being too light in light theme
+  * fix placeholder avatars having wrong colors
+  * use a different color for sent messages
+  * fix avatar color for friend requests
+  * fix hover in highcontrast
+  * fix file transfer colors
+  * make transfer color a bit lighter
+
+  [ irungentoo ]
+  * Make function return something.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Mar 2015 17:56:58 +0000
+
+utox (0.2.n+20150306.r1255-1) unstable; urgency=medium
+
+  [ muchweb ]
+  * Reducing amount of colours
+  * Restore original colours
+  * Better colour structure
+  * Updating font colours
+  * Dropdown and imput improvements
+  * Ability to customise context menu colours
+  * Sorting our top&bottom menu colours
+  * :bug: Fix cursor display
+  * Status text enchasements, closes #841
+  * Ability to set a theme form command line
+  * Ability to change menu buttons
+  * Fix chat author name
+  * Separate menu colours
+  * Update theme icon colours
+  * Fix 1px broken line and update border colours
+  * Header alignment fixes
+  * Updated pallette
+  * Moved themes into separate files
+  * :fire: Simplifying includes
+  * Update theme_load definition
+  * Add new options to man pages
+  * :fire: Remove unused code
+  * Add a dropdown to settings
+  * Add high contrast theme and improve greentext
+  * Mention new theme in manual pages
+
+  [ GrayHatter ]
+  * added themes to windows
+
+  [ muchweb ]
+  * Improve colour names and remove "u" with "colour" :uk: :us:
+
+  [ irungentoo ]
+  * Fixed avatars sometimes not drawing.
+
+  [ muchweb ]
+  * Fix dropdown hover font colour
+  * Remove duplicate comments
+  * Add highcontrast to man
+  * Ability to customise status colours
+  * :fire: Remove unused variable
+  * Ability to theme button backgrounds
+  * Move `char theme` to `theme.h`
+  * Updating settings theme dropdown on startup
+  * Ability to style buttons
+
+  [ GrayHatter ]
+  * avoid buffer overflow or segfault issues
+
+  [ muchweb ]
+  * Colour variables type should be uint32_t
+  * BGR colour on win32
+  * Updating colours from original theme
+  * Original theme menu colours
+  * Using unified colour macro
+  * Crossplatform COLOR_PROC macro
+
+  [ irungentoo ]
+  * Line ending fixes.
+  * Attempt to fix building on android.
+  * Attempted fix of building on android.
+  * Android build fix.
+  * Fix android build.
+  * Revert breaking android change.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 06 Mar 2015 19:03:06 +0000
+
 utox (0.2.n+20150301.r1202-1ubuntu1) utopic; urgency=medium
 
   * Building for Utopic
