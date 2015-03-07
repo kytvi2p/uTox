@@ -226,6 +226,7 @@ void flush_file(FILE *file)
 
 int ch_mod(uint8_t *file){
     /* You're probably looking for ./xlib as android isn't working when this was written. */
+    return -1;
 }
 
 void setscale(void)
@@ -500,6 +501,8 @@ static void android_main(void) /* main thread */
 
     pipe(pipefd);
     fcntl(pipefd[0], F_SETFL, O_NONBLOCK);
+
+    theme_load(THEME_DEFAULT);
 
     thread(tox_thread, NULL);
 
