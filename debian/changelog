@@ -1,3 +1,34 @@
+utox (0.2.n+20150308.r1305-1) unstable; urgency=medium
+
+  [ Yann Privé ]
+  * Adding support for the status in the Messaging Menu
+
+  [ muchweb ]
+  * Search to match header line
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ flan ]
+  * fix comment typos
+  * fix inner parts of transfer buttons not changing color on hover
+  * rephrase man page to be more consistent
+  * fix alignment of theme selection dropdown
+  * make transfer in progress color in highcontrast more high contrast
+  * make group peer list theme-dependent
+  * remove unused define
+  * fix highcontrast theme name displaying as "High contr..." when set
+  * add a more understandable description for COLOR_MENU_*
+  * make muted groupchats more visible in the friends list
+  * separate groupchat colors
+  * make case and ordering consistent in theme.c/theme.h
+  * show default friend request message if there's no custom one entered
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 10 Mar 2015 01:57:54 +0000
+
 utox (0.2.n+20150306.r1276-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty
