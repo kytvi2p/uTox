@@ -7,10 +7,10 @@ Subject: hardening-flags
  1 file changed, 3 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index bb35154..41d4c68 100644
+index d1f5ff6..da6d711 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -15,6 +15,9 @@ CFLAGS += $(shell pkg-config --cflags $(DEPS))
+@@ -31,6 +31,9 @@ CFLAGS += $(shell pkg-config --cflags $(DEPS))
  LDFLAGS = -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))
  

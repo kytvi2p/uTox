@@ -149,7 +149,7 @@ uint8_t SCALE;
 
 #define MESSAGES_BOTTOM (-47 * SCALE)
 
-#define SEARCH_Y (31 * SCALE)
+#define SEARCH_Y (31 * SCALE) - 1
 
 /* main */
 //#define MAIN_X
@@ -157,5 +157,4 @@ uint8_t SCALE;
 
 /* colors */
 #define C_RED                   RGB(200, 78, 78)
-#define C_GRAY                  GRAY(209)
 #define C_SCROLL                GRAY(209)
