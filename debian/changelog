@@ -1,3 +1,9 @@
+utox (0.2.o+20150311.r1322-1ubuntu1) vivid; urgency=medium
+
+  * Building for Vivid
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 11 Mar 2015 22:30:13 +0000
+
 utox (0.2.o+20150311.r1322-1) unstable; urgency=medium
 
   [ DoomBoom ]
@@ -28,12 +34,6 @@ utox (0.2.o+20150311.r1322-1) unstable; urgency=medium
   * drop debian/patches/0005-fix-ftbfs.patch as the bug was fixed upstream
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 11 Mar 2015 17:27:05 +0000
-
-utox (0.2.n+20150308.r1305-1ubuntu1) vivid; urgency=medium
-
-  * Building for Vivid
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 10 Mar 2015 21:55:22 +0000
 
 utox (0.2.n+20150308.r1305-1) unstable; urgency=medium
 
