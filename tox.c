@@ -1267,10 +1267,18 @@ void tox_message(uint8_t tox_message_id, uint16_t param1, uint16_t param2, void 
     }
 
     case NEW_AUDIO_IN_DEVICE: {
+        /* param1: string
+         * param2: default device?
+         * data: device identifier.
+         */
         if(UI_STRING_ID_INVALID == param1) {
             list_dropdown_add_hardcoded(&dropdown_audio_in, data, data);
         } else {
             list_dropdown_add_localized(&dropdown_audio_in, param1, data);
+        }
+
+        if (loaded_audio_in_device == (uint16_t)~0 && param2) {
+            loaded_audio_in_device = (dropdown_audio_in.dropcount - 1);
         }
 
         if (loaded_audio_in_device != 0 && (dropdown_audio_in.dropcount - 1) == loaded_audio_in_device) {
