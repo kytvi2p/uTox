@@ -71,8 +71,22 @@ void image_set_scale(UTOX_NATIVE_IMAGE *image, double scale)
 {
 }
 
-void draw_image(const UTOX_NATIVE_IMAGE *image, int x, int y, uint32_t width, uint32_t height, uint32_t imgx, uint32_t imgy)
+void draw_image(const UTOX_NATIVE_IMAGE *data, int x, int y, uint32_t width, uint32_t height, uint32_t imgx, uint32_t imgy)
 {
+    GLuint texture = data;
+
+    makequad(&quads[0], x - imgx, y - imgy, x + width, y + height);
+
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    float one[] = {1.0, 1.0, 1.0};
+    float zero[] = {0.0, 0.0, 0.0};
+    glUniform3fv(k, 1, one);
+    glUniform3fv(k2, 1, zero);
+
+    glDrawQuads(0, 1);
+
+    glUniform3fv(k2, 1, one);
 }
 
 
@@ -253,25 +267,6 @@ void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_
 
 void desktopgrab(_Bool video)
 {
-}
-
-void audio_detect(void)
-{
-}
-
-_Bool audio_init(void *handle)
-{
-    return 0;
-}
-
-_Bool audio_close(void *handle)
-{
-    return 0;
-}
-
-_Bool audio_frame(int16_t *buffer)
-{
-    return 0;
 }
 
 void video_frame(uint32_t id, uint8_t *img_data, uint16_t width, uint16_t height, _Bool resize)
@@ -515,6 +510,7 @@ static void android_main(struct android_app* state){
     pipe(pipefd);
     fcntl(pipefd[0], F_SETFL, O_NONBLOCK);
 
+    UTOX_SAVE *save = config_load();
     theme_load(THEME_DEFAULT);
 
     thread(tox_thread, NULL);
@@ -530,14 +526,24 @@ static void android_main(struct android_app* state){
     while(!tox_thread_init) {
         yieldcpu(1);
     }
-
+/*
     createEngine();
     createAudioRecorder(global_av);
     startRecording();
-
+*/
     list_start();
 
+    uint64_t p_last_down;
+    _Bool p_down, already_up;
+
     while(!destroy) {
+        if (p_down && (p_last_down + 500 * 1000 * 1000) < get_time()) {
+            panel_mup(&panel_main);
+            panel_mright(&panel_main);
+            p_down = 0;
+            already_up = 1;
+        }
+
         inputQueue = (AInputQueue*)inputQueueNew;
         if(inputQueue != NULL) {
             AInputEvent *event = NULL;
@@ -564,27 +570,39 @@ static void android_main(struct android_app* state){
 
                            // pointerinput2(pointer_index);
 
+                            already_up = 0;
+                            debug("down %f %f, %u\n", x, y, pointer_index);
+                            p_down = 1;
+                            p_last_down = get_time();
                             break;
                         }
 
                         case AMOTION_EVENT_ACTION_UP:
                         case AMOTION_EVENT_ACTION_POINTER_UP: {
                             //panel_mmove(&panel_main, 0, 0, width, height, x, y, 0);
-                            panel_mup(&panel_main);
-                            panel_mleave(&panel_main);
+                            if (!already_up) {
+                                panel_mup(&panel_main);
+                                panel_mleave(&panel_main);
+                            }
                             //pointer[pointer_index].down = false;
                             //pointer[pointer_index].x = x;
                             //pointer[pointer_index].y = y;
 
                             //pointerinput(pointer_index);
 
+                            debug("up %f %f, %u\n", x, y, pointer_index);
+                            p_down = 0;
                             break;
                         }
 
                         case AMOTION_EVENT_ACTION_MOVE: {
                             panel_mmove(&panel_main, 0, 0, utox_window_width, utox_window_height, x, y, x - lx, y - ly);
-                            lx = x;
-                            ly = y;
+                            if (lx != (int)x || ly != (int)y) {
+                                p_down = 0;
+                                lx = x;
+                                ly = y;
+                                debug("move %f %f, %u\n", x, y, pointer_index);
+                            }
                             //pointer[pointer_index].x = x;
                             //pointer[pointer_index].y = y;
 
