@@ -1,3 +1,9 @@
+utox (0.2.o+20150313.r1340-1ubuntu1) vivid; urgency=medium
+
+  * Building for Vivid
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Mar 2015 22:26:18 +0000
+
 utox (0.2.o+20150313.r1340-1) unstable; urgency=medium
 
   [ irungentoo ]
@@ -15,12 +21,6 @@ utox (0.2.o+20150313.r1340-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Mar 2015 21:01:26 +0000
-
-utox (0.2.o+20150311.r1322-1ubuntu1) vivid; urgency=medium
-
-  * Building for Vivid
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 11 Mar 2015 22:30:13 +0000
 
 utox (0.2.o+20150311.r1322-1) unstable; urgency=medium
 
