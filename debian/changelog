@@ -1,3 +1,104 @@
+utox (0.2.o+20150324.r1395-1) unstable; urgency=medium
+
+  [ DoomBoom ]
+  * Fixed group chats sharing the same input buffer
+
+  [ irungentoo ]
+  * Fixed uTox proxy issue.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 24 Mar 2015 14:38:13 +0000
+
+utox (0.2.o+20150323.r1392-1) unstable; urgency=medium
+
+  [ irungentoo ]
+  * First part of porting uTox to the new api.
+  * Api change fix.
+  * Api update.
+
+  [ GrayHatter ]
+  * New callback for toxcore API messages
+
+  [ irungentoo ]
+  * Api fix.
+
+  [ GrayHatter ]
+  * fix toxcore api user_status var change
+  * skel code for new_api file transfers
+  * rename send file enum
+  * start work on windows file transfers
+  * commit squash
+  * skel commit for incoming transfers
+  * moved message add code into messages.c
+  * use the defined title, eventually append the number too
+  * toxcore api receive => recv patch
+  * File transfers now work, UI in-progress
+  * Rewrite of UI messages with new file transfer format
+  * added skel for incoming avatars
+  * code legiblity fixes
+  * hoxfix sqashup
+  * Avatars work in both directions
+  * Added comments && minor code cleanup
+  * multifile should work on windows
+  * double free hotfix
+  * comment static functions for warnings (left for documentation)
+  * use proper C function formatting
+
+  [ Gregory Mullen (grayhatter) ]
+  * removed a shortcut that should never have existed
+
+  [ GrayHatter ]
+  * Helpful file death information
+
+  [ Gregory Mullen (grayhatter) ]
+  * avatar and file_id hotfix
+  * bulk avatar var rename
+  * Avatar fixup's:
+
+  [ GrayHatter ]
+  * multi messages should work
+  * finished outgoing avatar error correction code
+
+  [ Gregory Mullen (grayhatter) ]
+  * add inline image support (outgoing)
+
+  [ GrayHatter ]
+  * inline images incoming support
+
+  [ irungentoo ]
+  * File transfer fixes.
+
+  [ flan ]
+  * fix file transfer colors
+
+  [ irungentoo ]
+  * uTox file transfer fixes.
+  * Fixed a bunch of issues with file transfers.
+  * Fixed some avatar related issues.
+  * Avatar and file transfer fixes.
+  * Remove avatar hash files.
+  * Removed useless code, added TODOs.
+
+  [ GrayHatter ]
+  * added comments to how messages tracks the mouse for buttons
+
+  [ Gregory Mullen (grayhatter) ]
+  * use a sane load_save logic flow
+  * missed a single ;
+  * +1step a local var
+  * clear compile warnings and fix folding indentation
+
+  [ irungentoo ]
+  * Allow zero length names and statuses.
+  * File notifications are back.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 24 Mar 2015 02:06:38 +0000
+
 utox (0.2.o+20150313.r1340-1~utopic+1) utopic; urgency=medium
 
   * Building for Utopic
