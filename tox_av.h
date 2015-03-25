@@ -406,13 +406,13 @@ static void audio_thread(void *args)
 
     uint8_t audio_count = 0;
     _Bool record_on = 0;
-#ifdef AUDIO_FILTERING
+    #ifdef AUDIO_FILTERING
     debug("Audio Filtering");
-#ifdef ALC_LOOPBACK_CAPTURE_SAMPLES
+    #ifdef ALC_LOOPBACK_CAPTURE_SAMPLES
     debug(" and Echo cancellation");
-#endif
+    #endif
     debug(" enabled in this build\n");
-#endif
+    #endif
 
     debug("frame size: %u\n", perframe);
 
@@ -501,9 +501,9 @@ static void audio_thread(void *args)
             alSourcei(ringSrc[i], AL_BUFFER, RingBuffer);
         }
     }
-#ifdef AUDIO_FILTERING
+    #ifdef AUDIO_FILTERING
     Filter_Audio *f_a = NULL;
-#endif
+    #endif
 
     audio_thread_init = 1;
 
@@ -688,7 +688,7 @@ static void audio_thread(void *args)
             audio_thread_msg = 0;
         }
 
-#ifdef AUDIO_FILTERING
+        #ifdef AUDIO_FILTERING
         if (!f_a && audio_filtering_enabled) {
             f_a = new_filter_audio(av_DefaultSettings.audio_sample_rate);
             if (!f_a) {
@@ -702,10 +702,10 @@ static void audio_thread(void *args)
             f_a = NULL;
             debug("filter audio off\n");
         }
-#else
+        #else
         if (audio_filtering_enabled)
             audio_filtering_enabled = 0;
-#endif
+        #endif
 
         _Bool sleep = 1;
 
@@ -728,30 +728,30 @@ static void audio_thread(void *args)
                 }
             }
 
-#ifdef AUDIO_FILTERING
-#ifdef ALC_LOOPBACK_CAPTURE_SAMPLES
+            #ifdef AUDIO_FILTERING
+            #ifdef ALC_LOOPBACK_CAPTURE_SAMPLES
             if (f_a && audio_filtering_enabled) {
                 ALint samples;
                 alcGetIntegerv(device_out, ALC_LOOPBACK_CAPTURE_SAMPLES, sizeof(samples), &samples);
                 if(samples >= perframe) {
-                    int16_t buf[perframe];
-                    alcCaptureSamplesLoopback(device_out, buf, perframe);
-                    int ret = pass_audio_output(f_a, buf, perframe);
+                    int16_t buffer[perframe];
+                    alcCaptureSamplesLoopback(device_out, buffer, perframe);
+                    pass_audio_output(f_a, buffer, perframe);
                     set_echo_delay_ms(f_a, 5);
                     if (samples >= perframe * 2) {
                         sleep = 0;
                     }
                 }
             }
-#endif
-#endif
+            #endif
+            #endif
 
             if(frame) {
-#ifdef AUDIO_FILTERING
+                #ifdef AUDIO_FILTERING
                 if (f_a && filter_audio(f_a, (int16_t*)buf, perframe) == -1) {
                     debug("filter audio error\n");
                 }
-#endif
+                #endif
                 if(preview) {
                     sourceplaybuffer(0, (int16_t*)buf, perframe, av_DefaultSettings.audio_channels, av_DefaultSettings.audio_sample_rate);
                 }
@@ -791,9 +791,9 @@ static void audio_thread(void *args)
         }
     }
 
-#ifdef AUDIO_FILTERING
+    #ifdef AUDIO_FILTERING
     kill_filter_audio(f_a);
-#endif
+    #endif
 
     //missing some cleanup ?
     alDeleteSources(MAX_CALLS, ringSrc);
@@ -823,7 +823,7 @@ static void callback_av_audio(void *av, int32_t call_index, const int16_t *data,
     }
 }
 
-void toxaudio_postmessage(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
+void toxaudio_postmessage(uint8_t msg, uint32_t param1, uint32_t param2, void *data)
 {
     while(audio_thread_msg) {
         yieldcpu(1);
@@ -898,7 +898,7 @@ static void audio_thread(void *args)
 {
 }
 
-void toxaudio_postmessage(uint8_t msg, uint16_t param1, uint16_t param2, void *data)
+void toxaudio_postmessage(uint8_t msg, uint32_t param1, uint32_t param2, void *data)
 {
     switch(msg) {
     case AUDIO_SET_INPUT: {;
