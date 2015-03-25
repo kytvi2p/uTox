@@ -1,3 +1,19 @@
+utox (0.2.o+20150325.r1401-1) unstable; urgency=medium
+
+  [ baloo79 ]
+  * Hungarian translation: update
+  * Corrected update of Hungarian translation
+
+  [ irungentoo ]
+  * Copy button now selects the copied Tox id.
+  * Code cleanups.
+  * Added base emoji tox id support.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 25 Mar 2015 19:27:00 +0000
+
 utox (0.2.o+20150324.r1395-1) unstable; urgency=medium
 
   [ DoomBoom ]
