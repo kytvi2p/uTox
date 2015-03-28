@@ -10,13 +10,23 @@ If you're looking for it to "just work" you're going to want [these instructions
 
 ### Xlib
 
-`cc -o uTox.o *.c ./png/png.c -lX11 -lXrender -lXext -ltoxcore -ltoxav -ltoxdns -lopenal -pthread -lresolv -ldl -lm -lfilteraudio -lfontconfig -lv4lconvert -lvpx -I/usr/include/freetype2 -ldbus-1`
+The easy way out is:
+```sh
+cd uTox/
+make
+make install
+```
 
-or if you built toxcore statically:
+But if the hard way is more your thing, this might work:
+```clang -o utox *.c png/png.c -g -Wall -Wshadow -pthread -std=gnu99 `pkg-config --libs --cflags fontconfig freetype2 libtoxav libtoxcore openal vpx x11 xext xrender dbus-1 libv4lconvert filteraudio` -pthread -lm  -lresolv -ldl```
+
+or if you built toxcore statically, less likely to work:
 
 `cc -o uTox.o *.c ./png/png.c -lX11 -lXrender -lXext -ltoxcore -ltoxav -ltoxdns -lopenal -lsodium -lopus -lvpx -lm -pthread -lresolv -ldl -lfilteraudio -lfontconfig -lfreetype -lv4lconvert -I/usr/include/freetype2 -ldbus-1`
 
 For the build to pass you need to install the following from sources: [filteraudio](https://github.com/irungentoo/filter_audio) [libtoxcore](https://github.com/irungentoo/toxcore)
+
+For base emoji ids support you need: [base_emoji](https://github.com/irungentoo/base_emoji)
 
 <a name="win" />
 ## Windows

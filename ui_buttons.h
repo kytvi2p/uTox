@@ -43,8 +43,23 @@ static void button_setcolors_disabled(BUTTON *b)
 
 static void button_copyid_onpress(void)
 {
-    address_to_clipboard();
+    edit_setfocus(&edit_toxid);
+    copy(0);
 }
+
+#ifdef EMOJI_IDS
+static void button_change_id_type_onpress(void)
+{
+    edit_resetfocus();
+    if (self.id_buffer_length == TOX_FRIEND_ADDRESS_SIZE * 2) {
+        self.id_buffer_length = bytes_to_emoji_string(self.id_buffer, sizeof(self.id_buffer), self.id_binary, TOX_FRIEND_ADDRESS_SIZE);
+        edit_toxid.length = self.id_buffer_length;
+    } else {
+        id_to_string(self.id_buffer, self.id_binary);
+        self.id_buffer_length = edit_toxid.length = TOX_FRIEND_ADDRESS_SIZE * 2;
+    }
+}
+#endif
 
 static void button_audiopreview_onpress(void)
 {
@@ -442,6 +457,7 @@ button_groups = {
     .bh = _BM_ADD_WIDTH,
     .updatecolor = button_bottommenu_updatecolor,
     .onpress = button_groups_onpress,
+    .tooltip_text = { .i18nal = STR_CREATEGROUPCHAT },
 },
 
 button_transfer = {
@@ -450,6 +466,7 @@ button_transfer = {
     .bh = _BM_ADD_WIDTH,
     .updatecolor = button_bottommenu_updatecolor,
     .onpress = button_transfer_onpress,
+    .tooltip_text = { .i18nal = STR_SWITCHPROFILE },
 },
 
 button_settings = {
@@ -458,7 +475,7 @@ button_settings = {
     .bh = _BM_ADD_WIDTH,
     .updatecolor = button_bottommenu_updatecolor,
     .onpress = button_settings_onpress,
-    .tooltip_text = { .i18nal = STR_OTHERSETTINGS },
+    .tooltip_text = { .i18nal = STR_USERSETTINGS },
 },
 
 button_copyid = {
@@ -467,6 +484,15 @@ button_copyid = {
     .updatecolor = button_setcolors_success,
     .onpress = button_copyid_onpress,
 },
+
+#ifdef EMOJI_IDS
+button_change_id_type = {
+    .bm = BM_SBUTTON,
+    //.button_text = { .i18nal = STR_COPY_TOX_ID },
+    .updatecolor = button_setcolors_success,
+    .onpress = button_change_id_type_onpress,
+},
+#endif
 
 button_addfriend = {
     .bm = BM_SBUTTON,
@@ -545,6 +571,7 @@ button_chat1 = {
     .bh = _BM_CI_WIDTH,
     .onpress = button_chat1_onpress,
     .updatecolor = button_chat1_updatecolor,
+    .tooltip_text = { .i18nal = STR_SENDSCREENSHOT },
 },
 
 /* bottom right chat message window button */
