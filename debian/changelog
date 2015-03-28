@@ -1,3 +1,17 @@
+utox (0.2.o+20150327.r1411-1) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * Added instructions for `make`
+  * Replaced the build command with one that does work
+
+  [ irungentoo ]
+  * Tooltip threading fixes.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 28 Mar 2015 20:10:16 +0000
+
 utox (0.2.o+20150325.r1408-1~deb7u+1) stable; urgency=medium
 
   * Backpot to Wheezy
