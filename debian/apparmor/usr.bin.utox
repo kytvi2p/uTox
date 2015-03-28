@@ -12,7 +12,6 @@
   #include <abstractions/freedesktop.org>
   #include <abstractions/fonts>
   #include <abstractions/video>
-  #include <abstractions/dbus-session-strict>
   #include <abstractions/private-files-strict>
 
   network inet  stream,
