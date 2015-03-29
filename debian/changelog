@@ -1,3 +1,49 @@
+utox (0.2.o+20150327.r1411-1) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * Added instructions for `make`
+  * Replaced the build command with one that does work
+
+  [ irungentoo ]
+  * Tooltip threading fixes.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 28 Mar 2015 20:10:16 +0000
+
+utox (0.2.o+20150325.r1408-1) unstable; urgency=medium
+
+  [ flan ]
+  * fix tooltips for bottom buttons
+  * add a tooltip for the screenshot button
+  * update the man page
+  * man page: use indented paragraphs for options and files
+
+  [ irungentoo ]
+  * Don't call the online functions twice.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 26 Mar 2015 02:10:05 +0000
+
+utox (0.2.o+20150325.r1401-1) unstable; urgency=medium
+
+  [ baloo79 ]
+  * Hungarian translation: update
+  * Corrected update of Hungarian translation
+
+  [ irungentoo ]
+  * Copy button now selects the copied Tox id.
+  * Code cleanups.
+  * Added base emoji tox id support.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 25 Mar 2015 19:27:00 +0000
+
 utox (0.2.o+20150324.r1395-1~trusty+1) trusty; urgency=medium
 
   * Building for Trusty
