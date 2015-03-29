@@ -1,3 +1,9 @@
+utox (0.2.o+20150327.r1411-1~trusty+1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 29 Mar 2015 00:02:23 +0000
+
 utox (0.2.o+20150327.r1411-1) unstable; urgency=medium
 
   [ GrayHatter ]
@@ -43,12 +49,6 @@ utox (0.2.o+20150325.r1401-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 25 Mar 2015 19:27:00 +0000
-
-utox (0.2.o+20150324.r1395-1~trusty+1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 25 Mar 2015 14:29:27 +0000
 
 utox (0.2.o+20150324.r1395-1) unstable; urgency=medium
 
@@ -150,12 +150,6 @@ utox (0.2.o+20150323.r1392-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 24 Mar 2015 02:06:38 +0000
-
-utox (0.2.o+20150313.r1340-1~trusty+1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 14 Mar 2015 22:28:37 +0000
 
 utox (0.2.o+20150313.r1340-1) unstable; urgency=medium
 
