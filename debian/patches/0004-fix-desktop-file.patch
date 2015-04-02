@@ -6,22 +6,16 @@ Subject: fix desktop file
  utox.desktop | 7 +++----
  1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/utox.desktop b/utox.desktop
-index ab365c1..0c8c441 100644
 --- a/utox.desktop
 +++ b/utox.desktop
-@@ -1,11 +1,10 @@
- [Desktop Entry]
--Version=0.18
-+Version=1.0
- Type=Application
+@@ -4,8 +4,8 @@
  Name=uTox
  Comment=A lightweight Tox client
--TryExec=utox
+ TryExec=utox
 -Exec=utox
 +Exec=utox %U
  Icon=utox
--Categories=InstantMessaging;;AudioVideo;Network;
+-Categories=InstantMessaging;AudioVideo;Network;
 +Categories=InstantMessaging;Network;VideoConference;Telephony
  Terminal=false
  MimeType=x-scheme-handler/tox;
