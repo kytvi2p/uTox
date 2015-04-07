@@ -1,3 +1,47 @@
+utox (0.2.o+20150406.r1428-1) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * Prompt to overwrite inline images
+  * uTox minor version tick
+
+  [ irungentoo ]
+  * Small fixes.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 06 Apr 2015 18:05:45 +0000
+
+utox (0.2.o+20150401.r1424-1) unstable; urgency=medium
+
+  [ muchweb ]
+  * Add correct version entry
+
+  [ kelto ]
+  * add french translation for AUDIOFILTERING, SENDSCREENSHOT,
+    MUTE,UNMUTE,THEME, THEME_DEFAULT, THEME_LIGHT, THEME_DARK,
+    THEME_HIGHTCONTRAST
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ Gregory Mullen (grayhatter) ]
+  * fixes #945 and #740
+
+  [ GrayHatter ]
+  * readablity fix
+
+  [ Gregory Mullen (grayhatter) ]
+  * fixes #929
+
+  [ irungentoo ]
+  * Updated bootstrap node list.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 02 Apr 2015 23:26:26 +0000
+
 utox (0.2.o+20150327.r1411-1~precise+1) precise; urgency=medium
 
   * Backport to Precise
