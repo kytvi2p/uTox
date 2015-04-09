@@ -1,3 +1,13 @@
+utox (0.2.o+20150406.r1430-1) unstable; urgency=medium
+
+  [ stal ]
+  * Fixed segfault
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 08 Apr 2015 20:58:28 +0000
+
 utox (0.2.o+20150406.r1428-1~precise+1) precise; urgency=medium
 
   * Backport to Precise
