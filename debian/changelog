@@ -1,3 +1,126 @@
+utox (0.2.o+20150414.r1498-1) unstable; urgency=medium
+
+  [ flan ]
+  * don't change cursor to hand for disabled buttons
+  * move b->disabled to _update() functions
+
+  [ stal ]
+  * Add support for custom theme overrides
+  * example theme
+  * add theme setting to utox_save
+  * let's use strpbrk for compatibility
+
+  [ irungentoo ]
+  * Print error code when tox_new() fails.
+  * Fixed font rendering on linux.
+
+  [ flan ]
+  * make search bar darker in dark theme
+  * make the header darker too
+
+  [ Kill Your TV ]
+  * New usptream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 16 Apr 2015 23:50:41 +0000
+
+utox (0.2.o+20150409.r1485-1) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * fix log spam for blank files
+
+  [ Gregory Mullen (grayhatter) ]
+  * Start by saving files to a temp directory
+  * Added ablity to store broken tranfers
+  * This is a combination of 2 commits. General fixes
+  * change who gets credit for killing a file
+
+  [ GrayHatter ]
+  * file transfers should resume both ways
+
+  [ Gregory Mullen (grayhatter) ]
+  * utox_pause_file rewrite
+  * minor cleanups for resumed tranfers
+  * don't create a new file, and 0 broken_list
+  * number and struct type corrections
+
+  [ GrayHatter ]
+  * Restored improtant data for file resuming
+  * always update the msg_data with current file number
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix complier warning about FILE_TRANSFERS
+  * dont decrement at 0
+  * added file locking to tranfers
+
+  [ GrayHatter ]
+  * fixed locking file for windows
+
+  [ Gregory Mullen (grayhatter) ]
+  * file transfer fixes
+  * broken != killed anymore
+  * nightly commit
+
+  [ GrayHatter ]
+  * Always seek from the start of the file
+
+  [ Gregory Mullen (grayhatter) ]
+  * file transfers can now be resumed
+
+  [ GrayHatter ]
+  * cleared some todos
+  * cleaning file_transfer v1
+  * Only do this if we want to resume
+  * Only do this if we want to resume
+
+  [ Gregory Mullen (grayhatter) ]
+  * clear compiler warnings
+
+  [ GrayHatter ]
+  * added file kind to build_file_transfer
+
+  [ Gregory Mullen (grayhatter) ]
+  * restore *file after memset
+  * correctly reset file status
+
+  [ GrayHatter ]
+  * fix windows file lock segfaults
+
+  [ Gregory Mullen (grayhatter) ]
+  * First helpful error
+  * save incoming file to tmp dir on first click
+  * Fix the way files get stored when broken
+  * Files now resume across restarts in the WRONGEST way
+  * add the path of the file to the message once complete
+
+  [ GrayHatter ]
+  * Added define UTOX_FILE_NAME_LENGTH & replaced 256,512 hardcodes
+  * outgoing transfers now resume too
+
+  [ Gregory Mullen (grayhatter) ]
+  * update outgoing ft
+  * Use a define instead of a hardcode
+  * disabled for file consistincy checks
+  * correct for loops
+  * fix memcpy overrun
+  * clean up last of the memory leaks in file transfers
+  * free the last remaining mempointers.
+
+  [ GrayHatter ]
+  * make sure that we won't cancel a completed file ++comments
+
+  [ Gregory Mullen (grayhatter) ]
+  * remove dependency on NULL term for file name&path
+  * don't touch completed files
+  * final cleanup for inlines
+  * return when we want to do nothing, be extra sure not to resume
+  * don't clobber exist data! & dont remove needed path yet
+  * now avatars work again too
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 10 Apr 2015 00:16:13 +0000
+
 utox (0.2.o+20150406.r1430-1~precise+1) precise; urgency=medium
 
   * Backport to Precise
