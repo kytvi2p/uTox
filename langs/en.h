@@ -56,13 +56,13 @@ msgid(TRANSFER_BROKEN)
 msgstr("File transfer broken")
 
 msgid(TRANSFER_CANCELLED)
-msgstr("File transfer cancelled")
+msgstr("File transfer canceled")
 
 msgid(TRANSFER_COMPLETE)
 msgstr("File transfer complete")
 
 msgid(CALL_CANCELLED)
-msgstr("Call cancelled")
+msgstr("Call canceled")
 
 msgid(CALL_INVITED)
 msgstr("Call invited")
@@ -303,3 +303,6 @@ msgstr("Dark theme")
 
 msgid(THEME_HIGHCONTRAST)
 msgstr("High contrast")
+
+msgid(THEME_CUSTOM)
+msgstr("Custom (see docs)")
