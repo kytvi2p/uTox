@@ -6,11 +6,9 @@ Subject: hardening-flags
  Makefile | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/Makefile b/Makefile
-index d1f5ff6..da6d711 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -31,6 +31,9 @@ CFLAGS += $(shell pkg-config --cflags $(DEPS))
+@@ -31,6 +31,9 @@
  LDFLAGS = -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))
  
@@ -18,5 +16,5 @@ index d1f5ff6..da6d711 100644
 +LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
 +
  ifneq ($(DBUS), 1)
- 	CFLAGS += -DNO_DBUS
+     CFLAGS += -DNO_DBUS
  endif
