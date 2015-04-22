@@ -1,3 +1,23 @@
+utox (0.2.o+201504w1.r1509-1) unstable; urgency=medium
+
+  [ flan ]
+  * add /topic to the man page
+
+  [ irungentoo ]
+  * Font rendering fixes.
+
+  [ Thomas Ross ]
+  * Add /me to the man page
+
+  [ irungentoo ]
+  * Attempted font fixes.
+  * Added support for vertical subpixel rendering.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 22 Apr 2015 18:29:49 +0000
+
 utox (0.2.o+20150419.r1502-1) unstable; urgency=medium
 
   [ Colby Skeggs ]
