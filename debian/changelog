@@ -14,6 +14,12 @@ utox (0.2.o+20150426.r1519-1) unstable; urgency=medium
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 26 Apr 2015 21:27:02 +0000
 
+utox (0.2.o+20150423.r1511-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 24 Apr 2015 10:15:26 +0000
+
 utox (0.2.o+20150423.r1511-1) unstable; urgency=medium
 
   [ irungentoo ]
@@ -234,6 +240,14 @@ utox (0.2.o+20150401.r1424-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 02 Apr 2015 23:26:26 +0000
+
+utox (0.2.o+20150327.r1411-1~deb7u+1) stable; urgency=medium
+
+  * Backport to Wheezy
+  * Disable abstractions/dbus-session-strict in the apparmor rule since this
+    abstraction is not available in Wheezy.
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 28 Mar 2015 20:19:29 +0000
 
 utox (0.2.o+20150327.r1411-1) unstable; urgency=medium
 
