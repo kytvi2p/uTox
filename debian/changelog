@@ -1,3 +1,101 @@
+utox (0.2.o+20150502.r1575-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * save files is a much more sane way
+  * Inbound transfers now resume safely
+  * save outgoing files differently
+  * outgoing transfers now resume from .ftoutfo file on disk
+
+  [ GrayHatter ]
+  * fix complier warnings for windows
+
+  [ Gregory Mullen (grayhatter) ]
+  * fclose on cancel
+
+  [ GrayHatter ]
+  * remove unworking function
+  * removed outdated comments TODO add them back in
+  * remove unneeded avatar function, wrapped it into incoming callback
+  * moved file_handle check up
+  * roll incoming data/inline into new switch
+  * roll up file existing function
+  * moved utox_build_file_transfer()
+  * comments
+  * update to the local file C&C function
+  * roll up outgoing transfers
+  * always refresh file_id, selectivly change trasfer_count
+  * we also need to pass along the file handle
+  * restore name with resumed files
+  * gen fixes
+  * save size and path
+  * this in done for us elsewhere
+  * be a little less verbose
+
+  [ Gregory Mullen (grayhatter) ]
+  * clean up memory usages, fclose files
+  * copy the path for the UI bar
+  * close saveinfo, before delete
+  * clean and releas files when broken
+
+  [ GrayHatter ]
+  * avoid cleaning when unneeded
+
+  [ Gregory Mullen (grayhatter) ]
+  * threading patch from irungentoo via GH
+
+  [ GrayHatter ]
+  * change the order of when we clear data
+
+  [ Gregory Mullen (grayhatter) ]
+  * debug before we clear
+
+  [ irungentoo ]
+  * Fixed loaded avatar not getting sent.
+
+  [ Gregory Mullen (grayhatter) ]
+  * removed support for kind_existing
+  * only one file handle please
+
+  [ GrayHatter ]
+  * close when friend is offline
+
+  [ irungentoo ]
+  * Enable close to tray and start in tray in linux.
+
+  [ GrayHatter ]
+  * patch from irungentoo
+
+  [ irungentoo ]
+  * Linux font fixes.
+
+  [ GrayHatter ]
+  * fixes #998
+  * fixes saving and opening images in windows
+
+  [ irungentoo ]
+  * Fixed a threading issue with inline images.
+  * Fixed some file transfer issues.
+
+  [ GrayHatter ]
+  * restore hoxfix 878
+
+  [ irungentoo ]
+  * Receiver can now save the inline image.
+  * Fixed not being able to cancel incoming transfers.
+  * Fixed one resuming issue.
+  * Unhiding window no longer moves it.
+  * Fixed a double free.
+  * Version increase.
+
+  [ He who must not be named ]
+  * fix truncated hex string in theme.c
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+  * fix gbp config file
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 04 May 2015 11:45:14 +0000
+
 utox (0.2.o+20150426.r1519-1) unstable; urgency=medium
 
   [ stal ]
