@@ -1,8 +1,28 @@
-utox (0.2.o+20150502.r1575-1~deb8u1+rpi) stable; urgency=medium
+utox (0.2.r+20150508.r1586-1~deb8u+1) stable; urgency=medium
 
-  * Backport to Jessie
+  * Backport to Jesie
 
- -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 04 May 2015 19:24:20 +0000
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 08 May 2015 20:54:06 +0000
+
+utox (0.2.r+20150508.r1586-1) unstable; urgency=medium
+
+  [ flan ]
+  * make light theme colors more distinguishable
+  * make description for COLOR_AUX_* less ambiguous
+  * fix AUX_EDGE_ACTIVE not getting parsed
+
+  [ Alventoor ]
+  * Update fr.h
+
+  [ irungentoo ]
+  * Fixed use after free.
+  * Use better scaling for inline images.
+  * Increased uTox version.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 08 May 2015 20:33:04 +0000
 
 utox (0.2.o+20150502.r1575-1) unstable; urgency=medium
 
