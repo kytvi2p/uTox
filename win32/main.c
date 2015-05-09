@@ -41,6 +41,13 @@ extern const CLSID CLSID_NullRenderer;
 #include <shlobj.h>
 
 #include <io.h>
+#include <error.h>
+
+/* mingw64 doesn't provide this def, but it should exist... */
+errno_t _chsize_s(
+   int fd,
+   __int64 size
+);
 
 #undef CLEARTYPE_QUALITY
 #define CLEARTYPE_QUALITY 5
@@ -528,7 +535,7 @@ void savefilerecv(uint32_t fid, MSG_FILE *file)
         .hwndOwner = hwnd,
         .lpstrFile = path,
         .nMaxFile = UTOX_FILE_NAME_LENGTH,
-        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN |OFN_OVERWRITEPROMPT,
+        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN | OFN_OVERWRITEPROMPT,
     };
 
     if(GetSaveFileName(&ofn)) {
@@ -549,7 +556,7 @@ void savefiledata(MSG_FILE *file)
         .hwndOwner = hwnd,
         .lpstrFile = path,
         .nMaxFile = UTOX_FILE_NAME_LENGTH,
-        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR,
+        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN | OFN_OVERWRITEPROMPT,
     };
 
     if(GetSaveFileName(&ofn)) {
@@ -559,7 +566,7 @@ void savefiledata(MSG_FILE *file)
             fclose(fp);
 
             free(file->path);
-            file->path = (uint8_t*)strdup("inline.png");
+            file->path = (uint8_t*)strdup(path);
             file->inline_png = 0;
         }
     } else {
@@ -950,6 +957,10 @@ void flush_file(FILE *file)
     _commit(fd);
 }
 
+int resize_file(FILE *file, uint64_t size){
+    return _chsize_s(fileno(file), size);
+}
+
 
 int ch_mod(uint8_t *file){
     /* You're probably looking for ./xlib as windows is lamesauce and wants nothing to do with sane permissions */
@@ -1235,17 +1246,26 @@ void config_osdefaults(UTOX_SAVE *r)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int nCmdShow){
 
     /* if opened with argument, check if uTox is already open and pass the argument to the existing process */
-    CreateMutex(NULL, 0, TITLE);
+    HANDLE utox_mutex = CreateMutex(NULL, 0, TITLE);
+
+    if (!utox_mutex) {
+        return 0;
+    }
+
     if(GetLastError() == ERROR_ALREADY_EXISTS) {
         HWND window = FindWindow(TITLE, NULL);
-        SetForegroundWindow(window);
-        if (*cmd) {
-            COPYDATASTRUCT data = {
-                .cbData = strlen(cmd),
-                .lpData = cmd
-            };
-            SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
+
+        if (window) {
+            SetForegroundWindow(window);
+            if (*cmd) {
+                COPYDATASTRUCT data = {
+                    .cbData = strlen(cmd),
+                    .lpData = cmd
+                };
+                SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
+            }
         }
+
         return 0;
     }
 
@@ -1253,6 +1273,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     LPWSTR *arglist;
     int argc, i;
 
+    _Bool no_updater = 0;
     /* Convert PSTR command line args from windows to argc */
     arglist = CommandLineToArgvW(GetCommandLineW(), &argc);
     if( NULL == arglist ){
@@ -1290,9 +1311,41 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
                         theme = THEME_DEFAULT;
                     }
                 }
+            } else if(wcscmp(arglist[i], L"--no-updater") == 0){
+                no_updater = 1;
             }
         }
     }
+
+#ifdef UPDATER_BUILD
+#define UTOX_EXE "\\uTox.exe"
+#define UTOX_UPDATER_EXE "\\utox_runner.exe"
+#define UTOX_VERSION_FILE "\\version"
+
+    if (!no_updater) {
+        char path[MAX_PATH + 20];
+        int len = GetModuleFileName(NULL, path, MAX_PATH);
+
+        /* Is the uTox exe named like the updater one. */
+        if (len > sizeof(UTOX_EXE) && memcmp(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_EXE, sizeof(UTOX_EXE)) == 0) {
+            memcpy(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_VERSION_FILE, sizeof(UTOX_VERSION_FILE));
+            FILE *fp = fopen(path, "rb");
+            if (fp) {
+                fclose(fp);
+                /* Updater is here. */
+                memcpy(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_UPDATER_EXE, sizeof(UTOX_UPDATER_EXE));
+                FILE *fp = fopen(path, "rb");
+                if (fp) {
+                    fclose(fp);
+                    CloseHandle(utox_mutex);
+                    /* This is an updater build not being run by the updater. Run the updater and exit. */
+                    ShellExecute(NULL, "open", path, cmd, NULL, SW_SHOW);
+                    return 0;
+                }
+            }
+        }
+    }
+#endif
 
     theme_load(theme);
 
