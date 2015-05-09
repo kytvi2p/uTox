@@ -1,3 +1,9 @@
+utox (0.2.r+20150508.r1586-1~trusty+1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 09 May 2015 19:31:51 +0000
+
 utox (0.2.r+20150508.r1586-1) unstable; urgency=medium
 
   [ flan ]
@@ -115,12 +121,6 @@ utox (0.2.o+20150502.r1575-1) unstable; urgency=medium
   * fix gbp config file
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 04 May 2015 11:45:14 +0000
-
-utox (0.2.o+20150426.r1519-1~trusty+1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 27 Apr 2015 10:42:20 +0000
 
 utox (0.2.o+20150426.r1519-1) unstable; urgency=medium
 
