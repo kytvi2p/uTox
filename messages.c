@@ -23,6 +23,8 @@ static FRIEND* get_typers(MESSAGES *m) {
  *  position is the y position along the image the player has scrolled */
 static void draw_message_image(UTOX_NATIVE_IMAGE *image, int x, int y, uint32_t width, uint32_t height, uint32_t maxwidth, _Bool zoom, double position)
 {
+    image_set_filter(image, FILTER_BILINEAR);
+
     if(!zoom && width > maxwidth) {
         image_set_scale(image, (double)maxwidth / width);
 
@@ -56,7 +58,7 @@ MSG_FILE* message_add_type_file(FILE_TRANSFER *file){//TODO shove on ui thread
 
     FRIEND *f = &friend[file->friend_number];
     // *str = file_translate_status(*file->status);
-    friend_addmessage(f, msg);
+
     return msg;
 }
 
