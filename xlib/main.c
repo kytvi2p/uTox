@@ -1020,6 +1020,12 @@ int main(int argc, char *argv[])
                     theme_was_set_on_argv = 1;
                     continue;
                 }
+                if(!strcmp(argv[i], "zenburn")) {
+                    theme = THEME_ZENBURN;
+                    parse_args_wait_for_theme = 0;
+                    theme_was_set_on_argv = 1;
+                    continue;
+                }
                 debug("Please specify correct theme (please check user manual for list of correct values).");
                 return 1;
             }
@@ -1555,7 +1561,7 @@ int video_getframe(vpx_image_t *image)
         uint64_t t = get_time();
         if(t - lasttime >= (uint64_t)1000 * 1000 * 1000 / 24) {
             XShmGetImage(deskdisplay,RootWindow(deskdisplay, deskscreen), screen_image, video_x, video_y, AllPlanes);
-            rgbxtoyuv420(image->planes[0], image->planes[1], image->planes[2], (uint8_t*)screen_image->data, screen_image->width, screen_image->height);
+            bgrxtoyuv420(image->planes[0], image->planes[1], image->planes[2], (uint8_t*)screen_image->data, screen_image->width, screen_image->height);
             lasttime = t;
             return 1;
         }

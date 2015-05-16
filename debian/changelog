@@ -1,3 +1,49 @@
+utox (0.2.s+20150515.r1607-1) unstable; urgency=medium
+
+  [ Shit I'm not going to make T1 ]
+  * fix audio device list bug
+
+  [ irungentoo ]
+  * Add a 500ms delay to the audio preview.
+  * Attempted echo cancelling fix.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 15 May 2015 23:51:46 +0000
+
+utox (0.2.s+20150514.r1603-1) unstable; urgency=medium
+
+  [ Callum Burns ]
+  * Add Zenburn theme
+  * Add default theme to example utox_theme.ini
+  * Add zenburn to command line options on win32
+  * Fix invisible file transfer text on Zenburn
+
+  [ irungentoo ]
+  * Support tox: addresses on windows.
+  * Make uTox work with future api change.
+  * Fixed the annoying typing message.
+
+  [ He who must not be named ]
+  * fix send button height
+
+  [ irungentoo ]
+  * More accurate rgb to yuv code.
+
+  [ flan ]
+  * handle text overflow in groupchat header
+
+  [ irungentoo ]
+  * Treat uTox video as bgr instead of rgb.
+  * uTox version increase.
+  * Fixed some button placements.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 14 May 2015 22:48:38 +0000
+
 utox (0.2.r+20150508.r1586-1~deb8u+1) stable; urgency=medium
 
   * Backport to Jesie
