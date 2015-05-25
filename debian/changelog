@@ -1,3 +1,62 @@
+utox (0.2.s+20150524.r1706-1) unstable; urgency=medium
+
+  [ stal ]
+  * disable some non-working things
+  * fix prompt string in file picker
+  * differentiate between real urls and file paths
+
+  [ SmoothDude ]
+  * Added option to toggle send of typing notifications.
+  * Forget to set setting for typing notifications, when save is loaded
+
+  [ irungentoo ]
+  * uTox now works with latest VAD filter_audio.
+
+  [ Mate Bene ]
+  * Auto startup feature implemented.
+
+  [ Gregory Mullen (grayhatter) ]
+  * don't resize file on disk for file transfers
+  * subversion tick, rev reset
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ stal ]
+  * Fix desktop video capture
+  * fix various IroncladWIndow nits
+  * end call, preview when closing ironclad window
+  * Fix desktop capture for real.
+  * Code cleanups and fixed bug.
+  * fix desktop capture on retina display
+  * implement resize_file
+  * rudimentary rich input support
+  * more IME support
+
+  [ Mate Bene ]
+  * Auto startup feature implemented.
+
+  [ GrayHatter ]
+  * added start-on-boot to xlib
+  * adds --set show and hide-window to win and xlib
+
+  [ irungentoo ]
+  * Updated uTox to latest api.
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ irungentoo ]
+  * Don't try to load save if no save is found in utox.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 25 May 2015 22:41:40 +0000
+
 utox (0.2.s+20150515.r1607-1) unstable; urgency=medium
 
   [ Shit I'm not going to make T1 ]
