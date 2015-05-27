@@ -3,7 +3,8 @@ enum {
     THEME_LIGHT,
     THEME_DARK,
     THEME_HIGHCONTRAST,
-    THEME_CUSTOM, // !!!!
+    THEME_CUSTOM,
+    THEME_ZENBURN, // !!!!
     // @TODO
     // THEME_XRESOURCE
 };
@@ -71,7 +72,7 @@ void read_custom_theme(const char *path);
 
 uint32_t status_color[4];
 
-char theme;
+uint32_t theme;
 
 extern const char *COLOUR_NAME_TABLE[];
 extern uint32_t *COLOUR_POINTER_TABLE[];
