@@ -21,7 +21,12 @@ void id_to_string(char_t *dest, char_t *src);
  */
 void cid_to_string(char_t *dest, char_t *src);
 
-/* convert tox hash to string, 
+
+/* same as id_to_string(), but for TOX_FILE_ID_LENGTH
+ */
+void fid_to_string(char_t *dest, char_t *src);
+
+/* convert tox hash to string,
  *  notes: dest must be (TOX_HASH_LENGTH * 2) bytes large, src must be TOX_HASH_LENGTH bytes large
  */
 void hash_to_string(char_t *dest, char_t *src);
@@ -73,10 +78,10 @@ char_t* tohtml(char_t *str, STRING_IDX len);
 /* color format conversion functions
  *
  */
-void yuv420torgb(const vpx_image_t *img, uint8_t *out);
+void yuv420tobgr(uint16_t width, uint16_t height, const uint8_t *y, const uint8_t *u, const uint8_t *v, unsigned int ystride, unsigned int ustride, unsigned int vstride, uint8_t *out);
 void yuv422to420(uint8_t *plane_y, uint8_t *plane_u, uint8_t *plane_v, uint8_t *input, uint16_t width, uint16_t height);
-void rgbtoyuv420(uint8_t *plane_y, uint8_t *plane_u, uint8_t *plane_v, uint8_t *rgb, uint16_t width, uint16_t height);
-void rgbxtoyuv420(uint8_t *plane_y, uint8_t *plane_u, uint8_t *plane_v, uint8_t *rgb, uint16_t width, uint16_t height);
+void bgrtoyuv420(uint8_t *plane_y, uint8_t *plane_u, uint8_t *plane_v, uint8_t *rgb, uint16_t width, uint16_t height);
+void bgrxtoyuv420(uint8_t *plane_y, uint8_t *plane_u, uint8_t *plane_v, uint8_t *rgb, uint16_t width, uint16_t height);
 
 /*
  */

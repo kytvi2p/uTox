@@ -1,28 +1,13 @@
 #include "main.h"
 
-// Ideally this function would have returned an array of simultaneously
-// typing friends, e.g. in a groupchat. But since groupchats don't support
-// notifications, it simply returns the friend associated with
-// given MESSAGES, or NULL if he is not typing.
-static FRIEND* get_typers(MESSAGES *m) {
-    // Currently only friends support typing notifications
-    if(sitem->item == ITEM_FRIEND) {
-        FRIEND *f = sitem->data;
-        // check just in case that we're given the messages panel for
-        // the currently selected friend
-        if(&f->msg == m->data) {
-            if(f->typing) return f;
-        }
-    }
-    return NULL;
-}
-
 /* draws an inline image at rect (x,y,width,height)
  *  maxwidth is maximum width the image can take in
  *  zoom is whether the image is currently zoomed in
  *  position is the y position along the image the player has scrolled */
 static void draw_message_image(UTOX_NATIVE_IMAGE *image, int x, int y, uint32_t width, uint32_t height, uint32_t maxwidth, _Bool zoom, double position)
 {
+    image_set_filter(image, FILTER_BILINEAR);
+
     if(!zoom && width > maxwidth) {
         image_set_scale(image, (double)maxwidth / width);
 
@@ -56,7 +41,7 @@ MSG_FILE* message_add_type_file(FILE_TRANSFER *file){//TODO shove on ui thread
 
     FRIEND *f = &friend[file->friend_number];
     // *str = file_translate_status(*file->status);
-    friend_addmessage(f, msg);
+
     return msg;
 }
 
@@ -174,7 +159,7 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
             }
 
             setfont(FONT_TEXT);
-            int ny = drawtextmultiline(x + MESSAGES_X, x + width - TIME_WIDTH, y, y, y + msg->height, font_small_lineheight, msg->msg, msg->length, h1, h2 - h1, 1);
+            int ny = drawtextmultiline(x + MESSAGES_X, x + width - TIME_WIDTH, y, y, y + msg->height, font_small_lineheight, msg->msg, msg->length, h1, h2 - h1, 0, 0, 1);
             if(ny < y || (uint32_t)(ny - y) + MESSAGES_SPACING != msg->height) {
                 debug("error101 %u %u\n", ny -y, msg->height - MESSAGES_SPACING);
             }
@@ -356,18 +341,6 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
         }
 
         y += MESSAGES_SPACING;
-    }
-
-    if(i == n) {
-        // Last message is visible. Append typing notifications, if needed.
-        FRIEND *f = get_typers(m);
-        if(f) {
-            setfont(FONT_TEXT);
-            // @TODO: separate these colours if needed
-            setcolor(COLOR_MAIN_HINTTEXT);
-            drawtextwidth_right(x, MESSAGES_X - NAME_OFFSET, y, f->name, f->name_length);
-            drawtextwidth(x + MESSAGES_X, x + width, y, S(IS_TYPING), SLEN(IS_TYPING));
-        }
     }
 }
 
@@ -959,10 +932,6 @@ void messages_updateheight(MESSAGES *m)
         height += msg->height;
         i++;
     }
-    if(get_typers(m)) {
-        // Add space for typing notification
-        height += font_small_lineheight + MESSAGES_SPACING;
-    }
 
     m->height = height;
     data->height = height;
@@ -1061,14 +1030,6 @@ void message_add(MESSAGES *m, MESSAGE *msg, MSG_DATA *p)
     }
 
     message_setheight(m, msg, p);
-}
-
-void messages_set_typing(MESSAGES *m, MSG_DATA *p, int UNUSED(typing)) {
-    if(m->data == p) {
-        // MSG_DATA associated with typing notification
-        // corresponds to given MESSAGES, so update their height.
-        messages_updateheight(m);
-    }
 }
 
 _Bool messages_char(uint32_t ch)

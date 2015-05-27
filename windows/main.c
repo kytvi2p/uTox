@@ -1,101 +1,15 @@
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x500
-
-#ifndef WINVER
-#define WINVER 0x410
-#endif
-
-#define STRSAFE_NO_DEPRECATE
-
 #include <windows.h>
 #include <windowsx.h>
 
-#ifdef __CRT__NO_INLINE
-#undef __CRT__NO_INLINE
-#define DID_UNDEFINE__CRT__NO_INLINE
-#include <dshow.h>
-#ifdef DID_UNDEFINE__CRT__NO_INLINE
-#define __CRT__NO_INLINE
-#endif
-#endif
-
-#include <strmif.h>
-#include <amvideo.h>
-#include <control.h>
-#include <uuids.h>
-#include <vfwmsgs.h>
-
-#include <qedit.h>
-extern const CLSID CLSID_SampleGrabber;
-extern const CLSID CLSID_NullRenderer;
-
-#include <audioclient.h>
-#include <mmdeviceapi.h>
-
 #include "audio.c"
 
-#include <process.h>
-
-#include <shlobj.h>
-
-#include <io.h>
-
-#undef CLEARTYPE_QUALITY
-#define CLEARTYPE_QUALITY 5
-
-#define WM_NOTIFYICON   (WM_APP + 0)
-#define WM_TOX          (WM_APP + 1)
-
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
+static TRACKMOUSEEVENT tme = {sizeof(TRACKMOUSEEVENT), TME_LEAVE, 0, 0};
+static _Bool mouse_tracked = 0;
 _Bool draw = 0;
-
 float scale = 1.0;
 _Bool connected = 0;
 _Bool havefocus;
 
-enum {
-    MENU_TEXTINPUT = 101,
-    MENU_MESSAGES = 102,
-};
-
-//HBITMAP bitmap[32];
-void *bitmap[BM_CI1 + 1];
-HFONT font[32];
-HCURSOR cursors[8];
-HICON my_icon, unread_messages_icon;
-
-HWND hwnd, capturewnd;
-HINSTANCE hinstance;
-HDC main_hdc, hdc, hdcMem;
-HBRUSH hdc_brush;
-HBITMAP hdc_bm;
-HWND video_hwnd[MAX_NUM_FRIENDS];
-
-
-//static char save_path[280];
-
-static _Bool flashing, desktopgrab_video;
-
-static TRACKMOUSEEVENT tme = {sizeof(TRACKMOUSEEVENT), TME_LEAVE, 0, 0};
-static _Bool mouse_tracked = 0;
-
-static _Bool hidden;
-
-_Bool utox_portable;
-char utox_portable_save_path[MAX_PATH];
-
-//WM_COMMAND
-enum
-{
-    TRAY_SHOWHIDE,
-    TRAY_EXIT,
-    TRAY_STATUS_AVAILABLE,
-    TRAY_STATUS_AWAY,
-    TRAY_STATUS_BUSY,
-};
 
 BLENDFUNCTION blend_function = {
     .BlendOp = AC_SRC_OVER,
@@ -103,6 +17,15 @@ BLENDFUNCTION blend_function = {
     .SourceConstantAlpha = 0xFF,
     .AlphaFormat = AC_SRC_ALPHA
 };
+
+/** Select the true main.c for legacy XP support.
+ *  else default to xlib
+ **/
+#ifdef __WIN_LEGACY
+ #include "main.XP.c"
+#else
+ #include "main.7.c"
+#endif
 
 /** Translate a char* from UTF-8 encoding to OS native;
  *
@@ -528,7 +451,7 @@ void savefilerecv(uint32_t fid, MSG_FILE *file)
         .hwndOwner = hwnd,
         .lpstrFile = path,
         .nMaxFile = UTOX_FILE_NAME_LENGTH,
-        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN |OFN_OVERWRITEPROMPT,
+        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN | OFN_OVERWRITEPROMPT,
     };
 
     if(GetSaveFileName(&ofn)) {
@@ -549,7 +472,7 @@ void savefiledata(MSG_FILE *file)
         .hwndOwner = hwnd,
         .lpstrFile = path,
         .nMaxFile = UTOX_FILE_NAME_LENGTH,
-        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR,
+        .Flags = OFN_EXPLORER | OFN_NOCHANGEDIR | OFN_NOREADONLYRETURN | OFN_OVERWRITEPROMPT,
     };
 
     if(GetSaveFileName(&ofn)) {
@@ -559,7 +482,7 @@ void savefiledata(MSG_FILE *file)
             fclose(fp);
 
             free(file->path);
-            file->path = (uint8_t*)strdup("inline.png");
+            file->path = (uint8_t*)strdup(path);
             file->inline_png = 0;
         }
     } else {
@@ -604,8 +527,8 @@ void ShowContextMenu(void)
 
         InsertMenu(hMenu, -1, MF_BYPOSITION, TRAY_EXIT, "Exit");
 
-        // note:	must set window to the foreground or the
-        //			menu won't disappear when it should
+        // note:    must set window to the foreground or the
+        //          menu won't disappear when it should
         SetForegroundWindow(hwnd);
 
         TrackPopupMenu(hMenu, TPM_BOTTOMALIGN, pt.x, pt.y, 0, hwnd, NULL);
@@ -619,17 +542,17 @@ static void parsecmd(uint8_t *cmd, int len)
 
     //! lacks max length checks, writes to inputs even on failure, no notice of failure
     //doesnt reset unset inputs
-    if(len < 6)
-    {
+
+    if(len > 6 && memcmp(cmd, "tox://", 6) == 0) {
+        cmd += 6;
+        len -= 6;
+    } else if (len > 4 && memcmp(cmd, "tox:", 4) == 0) {
+        cmd += 4;
+        len -= 4;
+    } else {
         return;
     }
 
-    if(memcmp(cmd, "tox://", 6) != 0) {
-        return;
-    }
-
-    cmd += 6;
-    len -= 6;
 
     uint8_t *b = edit_addid.data, *a = cmd, *end = cmd + len;
     uint16_t *l = &edit_addid.length;
@@ -950,7 +873,6 @@ void flush_file(FILE *file)
     _commit(fd);
 }
 
-
 int ch_mod(uint8_t *file){
     /* You're probably looking for ./xlib as windows is lamesauce and wants nothing to do with sane permissions */
     return 1;
@@ -1002,7 +924,9 @@ void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_
     Shell_NotifyIconW(NIM_MODIFY, &nid);
 }
 
-void showkeyboard(_Bool show)
+void showkeyboard(_Bool show){} /* Added for android support. */
+
+void edit_will_deactivate(void)
 {
 
 }
@@ -1235,16 +1159,22 @@ void config_osdefaults(UTOX_SAVE *r)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int nCmdShow){
 
     /* if opened with argument, check if uTox is already open and pass the argument to the existing process */
-    CreateMutex(NULL, 0, TITLE);
+    HANDLE utox_mutex = CreateMutex(NULL, 0, TITLE);
+
+    if (!utox_mutex) {
+        return 0;
+    }
     if(GetLastError() == ERROR_ALREADY_EXISTS) {
         HWND window = FindWindow(TITLE, NULL);
-        SetForegroundWindow(window);
-        if (*cmd) {
-            COPYDATASTRUCT data = {
-                .cbData = strlen(cmd),
-                .lpData = cmd
-            };
-            SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
+        if (window) {
+            SetForegroundWindow(window);
+            if (*cmd) {
+                COPYDATASTRUCT data = {
+                    .cbData = strlen(cmd),
+                    .lpData = cmd
+                };
+                SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
+            }
         }
         return 0;
     }
@@ -1252,7 +1182,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     /* Process argc/v the backwards (read: windows) way. */
     LPWSTR *arglist;
     int argc, i;
+    /* Variables for --set */
+    int32_t set_show_window = 0;
 
+
+    _Bool no_updater = 0;
     /* Convert PSTR command line args from windows to argc */
     arglist = CommandLineToArgvW(GetCommandLineW(), &argc);
     if( NULL == arglist ){
@@ -1285,14 +1219,89 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
                         theme = THEME_LIGHT;
                     } else if(wcscmp(arglist[(i+1)], L"highcontrast") == 0){
                         theme = THEME_HIGHCONTRAST;
+                    } else if(wcscmp(arglist[(i+1)], L"zenburn") == 0){
+                        theme = THEME_ZENBURN;
                     } else {
                         debug("Please specify correct theme (please check user manual for list of correct values).");
                         theme = THEME_DEFAULT;
                     }
                 }
+            /* Set flags */
+            } else if(wcsncmp(arglist[i], L"--set", 5) == 0){
+                // debug("Set flag on\n");
+                if(wcsncmp(arglist[i], L"--set=", 6) == 0){
+                    if(wcscmp(arglist[i]+6, L"start-on-boot") == 0){
+                        launch_at_startup(1);
+                    } else if(wcscmp(arglist[i]+6, L"show-window") == 0){
+                        set_show_window = 1;
+                    } else if(wcscmp(arglist[i]+6, L"hide-window") == 0){
+                        set_show_window = -1;
+                    }
+                } else {
+                    if(arglist[i+1]){
+                        if(wcscmp(arglist[i+1], L"start-on-boot") == 0){
+                            launch_at_startup(1);
+                        } else if(wcscmp(arglist[i+1], L"show-window") == 0){
+                            set_show_window = 1;
+                        } else if(wcscmp(arglist[i+1], L"hide-window") == 0){
+                            set_show_window = -1;
+                        }
+                    }
+                }
+            /* Unset flags */
+            } else if(wcsncmp(arglist[i], L"--unset", 7) == 0){
+                // debug("Unset flag on\n");
+                if(wcsncmp(arglist[i], L"--unset=", 8) == 0){
+                    if(wcscmp(arglist[i]+8, L"start-on-boot") == 0)
+                        // debug("unset start\n");
+                        launch_at_startup(0);
+                } else {
+                    if(arglist[i+1]){
+                        if(wcscmp(arglist[i+1], L"start-on-boot") == 0)
+                            // debug("unset start\n");
+                            launch_at_startup(0);
+                    }
+                }
+            } else if(wcscmp(arglist[i], L"--no-updater") == 0){
+                no_updater = 1;
             }
         }
     }
+#ifdef UPDATER_BUILD
+#define UTOX_EXE "\\uTox.exe"
+#define UTOX_UPDATER_EXE "\\utox_runner.exe"
+#define UTOX_VERSION_FILE "\\version"
+
+    if (!no_updater) {
+        char path[MAX_PATH + 20];
+        int len = GetModuleFileName(NULL, path, MAX_PATH);
+
+        /* Is the uTox exe named like the updater one. */
+        if (len > sizeof(UTOX_EXE) && memcmp(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_EXE, sizeof(UTOX_EXE)) == 0) {
+            memcpy(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_VERSION_FILE, sizeof(UTOX_VERSION_FILE));
+            FILE *fp = fopen(path, "rb");
+            if (fp) {
+                fclose(fp);
+                /* Updater is here. */
+                memcpy(path + (len - (sizeof(UTOX_EXE) - 1)), UTOX_UPDATER_EXE, sizeof(UTOX_UPDATER_EXE));
+                FILE *fp = fopen(path, "rb");
+                if (fp) {
+                    fclose(fp);
+                    CloseHandle(utox_mutex);
+                    /* This is an updater build not being run by the updater. Run the updater and exit. */
+                    ShellExecute(NULL, "open", path, cmd, NULL, SW_SHOW);
+                    return 0;
+                }
+            }
+        }
+    }
+#endif
+
+#ifdef __WIN_LEGACY
+    debug("Legacy windows build\n");
+#else
+    debug("Normal windows build\n");
+#endif
 
     theme_load(theme);
 
@@ -1396,6 +1405,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     redraw();
     update_tray();
 
+    /* From --set flag */
+    if(set_show_window){
+        if(set_show_window == 1){
+            start_in_tray = 0;
+        } else if(set_show_window == -1){
+            start_in_tray = 1;
+        }
+    }
+
     if(start_in_tray){
         ShowWindow(hwnd, SW_HIDE);
         hidden = 1;
@@ -1434,7 +1452,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     };
     config_save(&d);
 
-    printf("uTox Clean Exit	::\n");
+    printf("uTox Clean Exit    ::\n");
 
     return 0;
 }
@@ -2399,8 +2417,13 @@ void video_close(void *handle)
     debug("closed webcam\n");
 }
 
-int video_getframe(vpx_image_t *image)
+int video_getframe(uint8_t *y, uint8_t *u, uint8_t *v, uint16_t width, uint16_t height)
 {
+    if (width != video_width || height != video_height) {
+        debug("width/height mismatch %u %u != %u %u\n", width, height, video_width, video_height);
+        return 0;
+    }
+
     if(capturedesktop) {
         static uint64_t lasttime;
         uint64_t t = get_time();
@@ -2418,7 +2441,7 @@ int video_getframe(vpx_image_t *image)
 
             BitBlt(capturedc, 0, 0, video_width, video_height, desktopdc, video_x, video_y, SRCCOPY | CAPTUREBLT);
             GetDIBits(capturedc, capturebitmap, 0, video_height, dibits, &info, DIB_RGB_COLORS);
-            rgbtoyuv420(image->planes[0], image->planes[1], image->planes[2], dibits, video_width, video_height);
+            bgrtoyuv420(y, u, v, dibits, video_width, video_height);
             lasttime = t;
             return 1;
         }
@@ -2427,7 +2450,7 @@ int video_getframe(vpx_image_t *image)
 
     if(newframe) {
         newframe = 0;
-        rgbtoyuv420(image->planes[0], image->planes[1], image->planes[2], frame_data, video_width, video_height);
+        bgrtoyuv420(y, u, v, frame_data, video_width, video_height);
         return 1;
     }
     return 0;
