@@ -1,3 +1,31 @@
+utox (0.3+git20150530.r1725-1) unstable; urgency=medium
+
+  [ Thomas Ross ]
+  * Add context menu button for changing the topic of group chats (Fixes #850)
+  * Fix line endings
+
+  [ stal ]
+  * fix API change
+
+  [ irungentoo ]
+  * Fixed last pr.
+  * Fixed segfault.
+  * ctrl-c on messages now copies like the default.
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ LittleVulpix ]
+  * Fix minor typo
+
+  [ irungentoo ]
+  * Don't draw offscreen toxt messages.
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 31 May 2015 11:47:09 +0000
+
 utox (0.3-1) unstable; urgency=medium
 
   [ irungentoo ]
