@@ -1,3 +1,59 @@
+utox (0.3+git20150605.r1763-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * add new strings for settings layout changes
+  * added in network settings button
+  * added Other settings, network settings, and UI setting tabs
+  * ui tweaks care of @tsudoko
+
+  [ GrayHatter ]
+  * Makefile patch from stal
+  * added av settings tab
+  * Fix different scroll highights for the settings
+  * make the settings tabs look like tabs
+  * closes #542
+  * revision tick v0.3.0 to v0.3.1
+
+  [ Gregory Mullen (grayhatter) ]
+  * switch to the correct settings page with name/status click
+  * move filer audio in a bit
+  * fix moving lines
+  * fixed button size
+  * fixed line color and positioning
+  * shrink header for just settings page
+  * change color on mouse over
+  * reverte unneeded struct val addition
+  * use main text, not menu text
+  * revert debugging shortcut
+  * rename user settings to profile
+
+  [ ovitei ]
+  * Updated norwegian translation to match the english one
+  * Updated Norwegian translations
+
+  [ GrimKriegor ]
+  * Beginning PT_pt localization.
+  * PT_pt localization complete. Testing.
+  * Added and tested pt_PT locale.
+  * Small fixes in the pt_PT locale.
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ sfan5 ]
+  * Update German translation
+
+  [ flan ]
+  * fix makefile var expansion
+
+  [ What colour is Umi's hair anyway? ]
+  * Fix bug
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 07 Jun 2015 00:38:05 +0000
+
 utox (0.3+git20150530.r1725-1) unstable; urgency=medium
 
   [ Thomas Ross ]
