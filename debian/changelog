@@ -1,3 +1,9 @@
+utox (0.3+git20150605.r1763-1~deb7u+1) oldstable; urgency=medium
+
+  * Backport to Wheezy
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 09 Jun 2015 18:23:36 +0000
+
 utox (0.3+git20150605.r1763-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -81,12 +87,6 @@ utox (0.3+git20150530.r1725-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 31 May 2015 11:47:09 +0000
-
-utox (0.3-1~deb7u+1) oldstable; urgency=medium
-
-  * Backport to Wheezy
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 27 May 2015 13:22:11 +0000
 
 utox (0.3-1) unstable; urgency=medium
 
