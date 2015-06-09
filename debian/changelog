@@ -1,3 +1,9 @@
+utox (0.3+git20150605.r1763-1~trusty+1) trusty; urgency=medium
+
+  * Building for Trusty
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 09 Jun 2015 19:22:09 +0000
+
 utox (0.3+git20150605.r1763-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -81,12 +87,6 @@ utox (0.3+git20150530.r1725-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 31 May 2015 11:47:09 +0000
-
-utox (0.3-1~trusty+1) trusty; urgency=medium
-
-  * Building for Trusty
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Wed, 27 May 2015 00:27:17 +0000
 
 utox (0.3-1) unstable; urgency=medium
 
