@@ -1,3 +1,9 @@
+utox (0.3+git20150605.r1763-1+rpi1) stable; urgency=medium
+
+  * Backport to Jessie/rpi
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 09 Jun 2015 12:32:23 +0000
+
 utox (0.3+git20150605.r1763-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
