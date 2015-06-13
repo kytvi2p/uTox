@@ -1,3 +1,67 @@
+utox (0.3+git20150605.r1763-2) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * Added new slash commands function
+  * added set alias function
+  * added commands.h to main.h
+  * use alias if available
+  * use new commands function in edit_msg_onenter
+
+  [ Gregory Mullen (grayhatter) ]
+  * fixed length issue, and sending erronous commands
+
+  [ GrayHatter ]
+  * added struct to save data to a file
+
+  [ Gregory Mullen (grayhatter) ]
+  * restore alias names
+  * added writing metadata to file
+  * added write_raw funciton
+
+  [ Simon Grim ]
+  * update of ru localization file
+  * localized titles for gtk dialogs
+  * delete Zenburn theme definition from ru localization file since it's a
+    proper noun which shouldn't be translated
+
+  [ v2e ]
+  * Update ua.h
+
+  [ flan ]
+  * reorder items in the context menu
+
+  [ Gregory Mullen (grayhatter) ]
+  * Upgaded some strings, + v tick
+
+  [ stal ]
+  * datapath() should make its dir recursively
+
+  [ Ansa89 ]
+  * Italian translation: update
+
+  [ sfan5 ]
+  * Update German translations
+
+  [ GrayHatter ]
+  * closes #1061
+
+  [ irungentoo ]
+  * printf -> debug
+
+  [ flan ]
+  * fix comment typos
+
+  [ v2e ]
+  * Update ua.h
+
+  [ GrayHatter ]
+  * comment debug for backlog messages
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 13 Jun 2015 15:02:04 +0000
+
 utox (0.3+git20150605.r1763-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
