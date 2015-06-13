@@ -30,7 +30,7 @@ BLENDFUNCTION blend_function = {
 /** Translate a char* from UTF-8 encoding to OS native;
  *
  * Accepts char_t pointer, native array pointer, length of input;
- * Retuns: number of chars writen, or 0 on failure.
+ * Returns: number of chars writen, or 0 on failure.
  *
  */
 static int utf8tonative(char_t *str, wchar_t *out, int length){
@@ -64,7 +64,7 @@ void drawalpha(int bm, int x, int y, int width, int height, uint32_t color)
         }
     };
 
-    // create pointer to begining and end of the alpha-channel-only bitmap
+    // create pointer to beginning and end of the alpha-channel-only bitmap
     uint8_t *alpha_pixel = bitmap[bm], *end = alpha_pixel + width * height;
 
 
@@ -495,9 +495,8 @@ void setselection(char_t *data, STRING_IDX length)
 }
 
 /** Toggles the main window to/from hidden to tray/shown. */
-void togglehide(void)
-{
-    if(hidden) {
+void togglehide(int show){
+    if ( hidden || show ) {
         ShowWindow(hwnd, SW_RESTORE);
         SetForegroundWindow(hwnd);
         redraw();
@@ -898,7 +897,7 @@ int file_unlock(FILE *file, uint64_t start, size_t length){
 
 /** Creates a tray baloon popup with the message, and flashes the main window
  *
- * accepts: char_t *title, title legnth, char_t *msg, msg length;
+ * accepts: char_t *title, title length, char_t *msg, msg length;
  * returns void;
  */
 void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length, FRIEND *f){
@@ -1152,7 +1151,7 @@ void config_osdefaults(UTOX_SAVE *r)
  *
  * Main thread
  * generates settings, loads settings from save file, generates main UI, starts
- * tox, generates tray icon, handels client messages. Cleans up, and exits.
+ * tox, generates tray icon, handles client messages. Cleans up, and exits.
  *
  * also handles call from other apps.
  */
@@ -1167,14 +1166,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     if(GetLastError() == ERROR_ALREADY_EXISTS) {
         HWND window = FindWindow(TITLE, NULL);
         if (window) {
-            SetForegroundWindow(window);
-            if (*cmd) {
-                COPYDATASTRUCT data = {
-                    .cbData = strlen(cmd),
-                    .lpData = cmd
-                };
-                SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
-            }
+            COPYDATASTRUCT data = {
+                .cbData = strlen(cmd),
+                .lpData = cmd
+            };
+            SendMessage(window, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&data);
         }
         return 0;
     }
@@ -1457,9 +1453,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmd, int n
     return 0;
 }
 
-/** Handels all callback requests from winmain();
+/** Handles all callback requests from winmain();
  *
- * handels the window functions internally, and ships off the tox calls to tox
+ * handles the window functions internally, and ships off the tox calls to tox
  */
 LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -1498,7 +1494,7 @@ LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY: {
         if(close_to_tray){
             debug("Closing to tray.\n");
-            togglehide();
+            togglehide(0);
             return 1;
         } else {
             PostQuitMessage(0);
@@ -1745,7 +1741,7 @@ LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
 
         switch(menu) {
         case TRAY_SHOWHIDE: {
-            togglehide();
+            togglehide(0);
             break;
         }
 
@@ -1784,9 +1780,12 @@ LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
             break;
         }
 
-        case WM_LBUTTONDOWN:
+        case WM_LBUTTONDOWN:{
+            togglehide(0);
+            break;
+        }
         case WM_LBUTTONDBLCLK: {
-            togglehide();
+            togglehide(1);
             break;
         }
 
@@ -1810,8 +1809,12 @@ LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
     }
 
     case WM_COPYDATA: {
+        togglehide(1);
+        SetForegroundWindow(hwn);
         COPYDATASTRUCT *data = (void*)lParam;
-        parsecmd(data->lpData, data->cbData);
+        if (data->lpData){
+            parsecmd(data->lpData, data->cbData);
+        }
         return 0;
     }
 

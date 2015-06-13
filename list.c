@@ -57,7 +57,11 @@ static void drawitem(ITEM *i, int UNUSED(x), int y)
             drawalpha(BM_CONTACT, LIST_AVATAR_X, y + LIST_AVATAR_Y, BM_CONTACT_WIDTH, BM_CONTACT_WIDTH, (sitem == i) ? COLOR_MAIN_TEXT : COLOR_LIST_TEXT);
         }
 
-        drawname(i, y, f->name, f->status_message, f->name_length, f->status_length, 0, 0);
+        if(f->alias){
+            drawname(i, y, f->alias, f->status_message, f->alias_length, f->status_length, 0, 0);
+        } else {
+            drawname(i, y, f->name, f->status_message, f->name_length, f->status_length, 0, 0);
+        }
 
         uint8_t status = f->online ? f->status : 3;
         drawalpha(BM_ONLINE + status, LIST_RIGHT - SCALE * 12, y + ITEM_HEIGHT / 2 - BM_STATUS_WIDTH / 2, BM_STATUS_WIDTH, BM_STATUS_WIDTH, status_color[status]);
@@ -590,12 +594,12 @@ static void contextmenu_list_onselect(uint8_t i)
         return;
     }
 
-    if (ritem->item == ITEM_FRIEND && i == 1) {
+    if (ritem->item == ITEM_FRIEND && i == 0) {
         friend_history_clear((FRIEND*)ritem->data);
         return;
     }
 
-    if (ritem->item == ITEM_GROUP && i == 0) {
+    if (ritem->item == ITEM_GROUP && i == 1) {
         GROUPCHAT *g = ritem->data;
         if (g->type == TOX_GROUPCHAT_TYPE_AV) {
             g->muted = !g->muted;
@@ -603,7 +607,7 @@ static void contextmenu_list_onselect(uint8_t i)
         }
     }
 
-    if (ritem->item == ITEM_GROUP && i == 1) {
+    if (ritem->item == ITEM_GROUP && i == 0) {
         GROUPCHAT *g = ritem->data;
         if(ritem != sitem) {
             selectitem(ritem);
@@ -622,10 +626,10 @@ static void contextmenu_list_onselect(uint8_t i)
 
 _Bool list_mright(void *UNUSED(n))
 {
-    static UI_STRING_ID menu_friend[] = {STR_REMOVE_FRIEND, STR_CLEAR_HISTORY};
-    static UI_STRING_ID menu_group_unmuted[] = {STR_MUTE, STR_CHANGE_GROUP_TOPIC, STR_REMOVE_GROUP};
-    static UI_STRING_ID menu_group_muted[] = {STR_UNMUTE, STR_CHANGE_GROUP_TOPIC, STR_REMOVE_GROUP};
-    static UI_STRING_ID menu_group[] = {STR_REMOVE_GROUP, STR_CHANGE_GROUP_TOPIC};
+    static UI_STRING_ID menu_friend[] = {STR_CLEAR_HISTORY, STR_REMOVE_FRIEND};
+    static UI_STRING_ID menu_group_unmuted[] = {STR_CHANGE_GROUP_TOPIC, STR_MUTE, STR_REMOVE_GROUP};
+    static UI_STRING_ID menu_group_muted[] = {STR_CHANGE_GROUP_TOPIC, STR_UNMUTE, STR_REMOVE_GROUP};
+    static UI_STRING_ID menu_group[] = {STR_CHANGE_GROUP_TOPIC, STR_REMOVE_GROUP};
     static UI_STRING_ID menu_request[] = {STR_REQ_ACCEPT, STR_REQ_DECLINE};
 
     if(mitem) {
