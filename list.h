@@ -1,6 +1,8 @@
 /* list: the contact list
  */
 
+
+/* non-exhaustive list of panels we to select from, it's probably better to replace this but I don't know with what. */
 enum
 {
     ITEM_NONE,
@@ -19,7 +21,7 @@ typedef struct
     void *data;
 }ITEM;
 
-extern ITEM *sitem;
+extern ITEM *selected_item;
 ITEM *ritem;
 
 void list_start(void);
@@ -32,6 +34,7 @@ void list_deleteritem(void);
 
 void list_selectchat(int index);
 void list_selectaddfriend(void);
+void list_reselect_current(void);
 void list_selectsettings(void);
 void list_selectswap(void);
 
