@@ -1,3 +1,31 @@
+utox (0.3.2+git20150620.r1811-1) unstable; urgency=medium
+
+  [ flan ]
+  * add ftoutfo description to the man page
+  * fix some consistency issues in the man page
+
+  [ GrayHatter ]
+  * indent for code folding
+  * UI refactor part 1
+  * sidebar now works, just don't click on anything
+  * The tested settings work, on to users and groups
+  * Mass rename from sitem -> selected_item
+  * finished rewrite of selection of pages for ui-refactor
+  * set the default view to be settings
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix some linux errors
+  * HOTFIX accepting friend requests
+  * HOTFIX force clear of friends request page, to avoid a libc free segfault
+
+  [ flan ]
+  * add alias info to the man page
+
+  [ Kill Your TV ]
+  * New usptream git snapshpt
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Mon, 22 Jun 2015 22:50:30 +0000
+
 utox (0.3+git20150605.r1763-2) unstable; urgency=medium
 
   [ GrayHatter ]
