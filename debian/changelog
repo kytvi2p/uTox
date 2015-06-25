@@ -1,3 +1,9 @@
+utox (0.3.2+git20150620.r1811-1~utopic+1) utopic; urgency=medium
+
+  * Building for Utopic
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Thu, 25 Jun 2015 17:57:31 +0000
+
 utox (0.3.2+git20150620.r1811-1) unstable; urgency=medium
 
   [ flan ]
@@ -89,12 +95,6 @@ utox (0.3+git20150605.r1763-2) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 13 Jun 2015 15:02:04 +0000
-
-utox (0.3+git20150605.r1763-1~utopic+1) utopic; urgency=medium
-
-  * Building for Utopic
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 09 Jun 2015 19:21:10 +0000
 
 utox (0.3+git20150605.r1763-1) unstable; urgency=medium
 
