@@ -39,7 +39,7 @@ MSG_FILE* message_add_type_file(FILE_TRANSFER *file){//TODO shove on ui thread
     msg->inline_png = file->in_memory;
     msg->path = NULL;
 
-    FRIEND *f = &friend[file->friend_number];
+    // FRIEND *f = &friend[file->friend_number];
     // *str = file_translate_status(*file->status);
 
     return msg;
@@ -95,7 +95,7 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
         }
 
         // Draw the names for groups or friends
-        if(m->type) {
+        if (m->type) {
             // Group message authors are all the same color
             setcolor(COLOR_MAIN_CHATTEXT);
             setfont(FONT_TEXT);
@@ -104,24 +104,32 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
             FRIEND *f = &friend[m->data->id];
 
             // Always draw name next to action message
-            if(msg->msg_type == MSG_TYPE_ACTION_TEXT)
+            if (msg->msg_type == MSG_TYPE_ACTION_TEXT) {
                 lastauthor = 0xFF;
+            }
 
-            if(msg->author != lastauthor) {
+            if (msg->author != lastauthor) {
                 // Draw author name
                 // If author is current user
                 setfont(FONT_TEXT);
-                if(msg->msg_type == MSG_TYPE_ACTION_TEXT)
+                if (msg->msg_type == MSG_TYPE_ACTION_TEXT) {
                     setcolor(COLOR_MAIN_ACTIONTEXT);
-                else
-                    if(msg->author)
+                } else {
+                    if (msg->author) {
                         setcolor(COLOR_MAIN_SUBTEXT);
-                    else
+                    } else {
                         setcolor(COLOR_MAIN_CHATTEXT);
-                if(msg->author)
+                    }
+                }
+
+                if (msg->author) {
                     drawtextwidth_right(x, MESSAGES_X - NAME_OFFSET, y, self.name, self.name_length);
-                else
+                } else if (f->alias) {
+                    drawtextwidth_right(x, MESSAGES_X - NAME_OFFSET, y, f->alias, f->alias_length);
+                } else {
                     drawtextwidth_right(x, MESSAGES_X - NAME_OFFSET, y, f->name, f->name_length);
+                }
+
                 lastauthor = msg->author;
             }
         }
@@ -237,7 +245,7 @@ void messages_draw(MESSAGES *m, int x, int y, int width, int height)
             uint32_t w = (file->size == 0) ? 0 : (progress * (uint64_t)106 * SCALE) / file->size;
 
             setfont(FONT_MISC);
-            setcolor(COLOR_MAIN_BACKGROUND);
+            setcolor(COLOR_BACKGROUND_MAIN);
 
             switch (file->status){
             case FILE_TRANSFER_STATUS_COMPLETED: {
