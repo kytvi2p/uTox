@@ -1,3 +1,9 @@
+utox (0.3.2+git20150915.r1891-1ubuntu1) wily; urgency=medium
+
+  * Upload to PPA
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 21:18:41 +0000
+
 utox (0.3.2+git20150915.r1891-1) unstable; urgency=medium
 
   [ GrayHatter ]
