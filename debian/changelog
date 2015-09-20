@@ -1,3 +1,72 @@
+utox (0.3.2+git20150712.r1854-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * squash some complier warnings
+  * push to talk works on linux...
+
+  [ GrayHatter ]
+  * ptt now works on windows as well
+  * enable or disable ptt, and save that setting
+
+  [ Gregory Mullen (grayhatter) ]
+  * version tick
+  * error checking for linux
+  * unbreak OSX and android
+  * fallback to querying x for ptt support on linux
+  * rm extra var, rm debugging cobwebs
+  * prep skel functions
+  * added init and exit_ptt() to linux
+  * add ptt init exit to windows and OSX and android
+  * OSX patch from stal @stal888
+  * Send files by name without GTK
+  * fix var to ui refactor
+
+  [ flan ]
+  * add `Set alias` context menu item
+  * use friend's alias in the chat header
+  * make alias change notifications look similar to name change ones
+  * use friend's alias in the chat area
+  * use alias instead of name in the change alias context menu item if it's
+    set
+  * fix style
+  * support unsetting aliases, remove alias change notifications
+  * don't copy the name into the input field if no alias is set
+  * fix style
+  * reordering, minor style fixes
+  * fix some memory issues
+  * add tab completion for aliases
+  * fix style
+  * fix some typos
+
+  [ Gregory Mullen (grayhatter) ]
+  * force alias to be NULL when we don't otherwise set it.
+  * free some memory leaks in metadata functions
+
+  [ Simon Grim ]
+  * better positioning of localized strings in header, sub header and other
+    depending on their width
+  * fix of ru localization
+  * more descriptive name for variable of button right edge horizontal
+    coordinate
+
+  [ Gregory Mullen (grayhatter) ]
+  * added a way to find the graphical length for a localised string
+
+  [ GrayHatter ]
+  * fix git vtag alignment
+
+  [ Simon Grim ]
+  * extract setscale_fonts() from setscale() to avoid double calling of
+    ui_scale(), fix of positioning of localized strings
+
+  [ stal ]
+  * fixed bugs
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 19:15:50 +0000
+
 utox (0.3.2+git20150620.r1811-1) unstable; urgency=medium
 
   [ flan ]
