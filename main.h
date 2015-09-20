@@ -41,7 +41,7 @@
 // Versions
 #define TITLE "uTox"
 #define SUB_TITLE "(Alpha)"
-#define VERSION "0.3.2"
+#define VERSION "0.3.3"
 
 // Limits and sizes
 #define MAX_CALLS 16
@@ -73,7 +73,8 @@ typedef struct
     uint16_t audio_device_in;
     uint16_t audio_device_out;
     uint8_t theme;
-    uint8_t nothing;
+    uint8_t push_to_talk : 1;
+    uint8_t zero : 7;
     uint16_t unused[31];
     uint8_t proxy_ip[0];
 }UTOX_SAVE;
@@ -131,6 +132,7 @@ enum {
     BM_GROUPS,
     BM_TRANSFER,
     BM_SETTINGS,
+    BM_SETTINGS_THREE_BAR,
 
     BM_LBUTTON,
     BM_SBUTTON,
@@ -154,13 +156,16 @@ enum {
 
     BM_SCROLLHALFTOP,
     BM_SCROLLHALFBOT,
+    BM_SCROLLHALFTOP_SMALL,
+    BM_SCROLLHALFBOT_SMALL,
     BM_STATUSAREA,
 
-    BM_CB1,
-    BM_CB2,
+    BM_CHAT_BUTTON_LEFT,
+    BM_CHAT_BUTTON_RIGHT,
+    BM_CHAT_BUTTON_OVERLAY_SCREENSHOT,
     BM_CHAT_SEND,
     BM_CHAT_SEND_OVERLAY,
-    BM_CI1
+    BM_ENDMARKER,
 };
 
 // µTox includes
@@ -210,8 +215,9 @@ enum {
 
 #include "ui_dropdown.h"
 
+/* Super global vars */
 volatile _Bool tox_thread_init, audio_thread_init, video_thread_init, toxav_thread_init;
-volatile _Bool logging_enabled, audible_notifications_enabled, audio_filtering_enabled, close_to_tray, start_in_tray, auto_startup;
+volatile _Bool logging_enabled, audible_notifications_enabled, audio_filtering_enabled, close_to_tray, start_in_tray, auto_startup, push_to_talk;
 volatile uint16_t loaded_audio_in_device, loaded_audio_out_device;
 _Bool tox_connected;
 
@@ -253,6 +259,7 @@ void loadalpha(int bm, void *data, int width, int height);
 void desktopgrab(_Bool video);
 void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length, FRIEND *f);
 void setscale(void);
+void setscale_fonts(void);
 
 enum {
     FILTER_NEAREST, // ugly and quick filtering
@@ -329,6 +336,13 @@ _Bool dont_send_typing_notes; //Stores user's preference about typing notificati
 #define strcpy2(x, y) (memcpy(x, y, sizeof(y) - 1))
 
 void postmessage(uint32_t msg, uint16_t param1, uint16_t param2, void *data);
+
+/** returns 0 if push to talk is enabled, and the button is up, else returns 1. */
+void  init_ptt(void);
+_Bool get_ptt_key(void);
+_Bool set_ptt_key(void);
+_Bool check_ptt_key(void);
+void  exit_ptt(void);
 
 /* draw functions*/
 void drawtext(int x, int y, char_t *str, STRING_IDX length);
