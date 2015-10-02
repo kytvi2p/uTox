@@ -277,11 +277,16 @@ int textfit_near(char_t *str, STRING_IDX len, int width)
     return WideCharToMultiByte(CP_UTF8, 0, out, fit, (char*)str, len, NULL, 0);
 }
 
-void framerect(int x, int y, int right, int bottom, uint32_t color)
-{
-    RECT r = {x, y, right, bottom};
+void draw_rect_frame(int x, int y, int width, int height, uint32_t color) {
+    RECT r = {x, y, x + width, y + height};
     SetDCBrushColor(hdc, color);
     FrameRect(hdc, &r, hdc_brush);
+}
+
+void draw_rect_fill(int x, int y, int width, int height, uint32_t color) {
+    RECT r = {x, y, x + width, y + height};
+    SetDCBrushColor(hdc, color);
+    FillRect(hdc, &r, hdc_brush);
 }
 
 void drawrect(int x, int y, int right, int bottom, uint32_t color)
@@ -291,12 +296,6 @@ void drawrect(int x, int y, int right, int bottom, uint32_t color)
     FillRect(hdc, &r, hdc_brush);
 }
 
-void drawrectw(int x, int y, int width, int height, uint32_t color)
-{
-    RECT r = {x, y, x + width, y + height};
-    SetDCBrushColor(hdc, color);
-    FillRect(hdc, &r, hdc_brush);
-}
 
 void drawhline(int x, int y, int x2, uint32_t color)
 {
@@ -442,7 +441,7 @@ void openfileavatar(void)
                 }
                 // create message containing text that selected avatar is too large and what the max size is
                 int len = sprintf((char *)message, "%.*s", SLEN(AVATAR_TOO_LARGE_MAX_SIZE_IS), S(AVATAR_TOO_LARGE_MAX_SIZE_IS));
-                len += sprint_bytes(message+len, sizeof(message)-len, UTOX_AVATAR_MAX_DATA_LENGTH);
+                len += sprint_humanread_bytes(message+len, sizeof(message)-len, UTOX_AVATAR_MAX_DATA_LENGTH);
                 message[len++] = '\0';
                 MessageBox(NULL, (char *)message, NULL, MB_ICONWARNING);
             } else {
