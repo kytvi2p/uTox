@@ -1,3 +1,17 @@
+utox (0.3.3+git20151013.r1927-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * draw_frame patch from stal (@stal888)
+  * don't delete friends by mistake
+
+  [ Ben ]
+  * Allow adding LDFLAGS from env variable
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 24 Oct 2015 19:16:18 +0000
+
 utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
