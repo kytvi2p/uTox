@@ -1,3 +1,9 @@
+utox (0.3.3+git20151013.r1927-1~deb8u+1) stable; urgency=medium
+
+  * Backport to Jessie
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 25 Oct 2015 00:57:08 +0000
+
 utox (0.3.3+git20151013.r1927-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -39,12 +45,6 @@ utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 02 Oct 2015 21:52:46 +0000
-
-utox (0.3.2+git20150915.r1891-1~deb8u+1) stable; urgency=medium
-
-  * Backport to Jessie
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 20:03:46 +0000
 
 utox (0.3.2+git20150915.r1891-1) unstable; urgency=medium
 
