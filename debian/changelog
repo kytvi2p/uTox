@@ -1,3 +1,179 @@
+utox (0.3.3+git20151013.r1927-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * draw_frame patch from stal (@stal888)
+  * don't delete friends by mistake
+
+  [ Ben ]
+  * Allow adding LDFLAGS from env variable
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 24 Oct 2015 19:16:18 +0000
+
+utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * code beautification
+  * replaced 16 and 24 bit sets to the depth from x11
+  * replaced standard format with custom vis
+  * use the pictformat in event.c too
+  * changed the draw rectange functs
+  * changed human read bytes fxn
+  * ui tweaks to chat box
+  * code cleanups
+  * bitmaps changed for xlib, todo android, win, osx
+  * shrunk file transfer bar at stal's reqest
+  * changed cancel button color for file transfers
+
+  [ aaannndddyyy ]
+  * tweaks to Spanish translation
+  * tweaks to de translation
+
+  [ Ben Iofel ]
+  * plug memory leak
+
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 02 Oct 2015 21:52:46 +0000
+
+utox (0.3.2+git20150915.r1891-1) unstable; urgency=medium
+
+  [ GrayHatter ]
+  * fix slr string PR for windows
+
+  [ Gran PC ]
+  * Rewrote Spanish translations
+  * Just noticed you're not meant to translate Tox ID!
+
+  [ stal ]
+  * added redtext support
+  * optimized redtext scan
+
+  [ Gregory Mullen (grayhatter) ]
+  * uTox ui changeup part 1
+  * UI recreate, part 1
+  * removed unused transfer profile button
+  * replaced filter friends drop with button, moved settings button
+
+  [ GrayHatter ]
+  * change background draw order
+  * add three bar button
+
+  [ Gregory Mullen (grayhatter) ]
+  * renamed add friend buttons, changed look of settings bar
+  * fix roster height
+  * added quick jump buttons
+  * change filter text
+  * renamed some UI defines
+  * added a smaller scroll bar option
+  * fixed hacky commit...
+  * roster repositioning
+  * lower text inside the edit box
+
+  [ GrayHatter ]
+  * rename colors to make themes easier to add and change
+  * moved some vars to make more sense
+  * added lower chat bar frame, resized chat box, buttons next
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix svg error; complete lower chat UI updates
+  * fix screenshot button part 1
+
+  [ flan ]
+  * reduce spacing between bars in the hamburger menu button
+
+  [ Gregory Mullen (grayhatter) ]
+  * complete the redraw of the screenshot icon
+  * moved file transfer button to chat window, and finished screenshot icon
+
+  [ flan ]
+  * get rid of empty space left after the transfer button
+
+  [ Gregory Mullen (grayhatter) ]
+  * closer to the correct width for the name buttons
+  * fix bad atom error when trying to paste data from xsel
+  * UI FIXES added frames and changed dark theme color
+  * fixed utox holding a filepointer in gtk.c
+  * fix gtk dialog not closing when trying to overwrite a file
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 19:23:48 +0000
+
+utox (0.3.2+git20150712.r1854-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * squash some complier warnings
+  * push to talk works on linux...
+
+  [ GrayHatter ]
+  * ptt now works on windows as well
+  * enable or disable ptt, and save that setting
+
+  [ Gregory Mullen (grayhatter) ]
+  * version tick
+  * error checking for linux
+  * unbreak OSX and android
+  * fallback to querying x for ptt support on linux
+  * rm extra var, rm debugging cobwebs
+  * prep skel functions
+  * added init and exit_ptt() to linux
+  * add ptt init exit to windows and OSX and android
+  * OSX patch from stal @stal888
+  * Send files by name without GTK
+  * fix var to ui refactor
+
+  [ flan ]
+  * add `Set alias` context menu item
+  * use friend's alias in the chat header
+  * make alias change notifications look similar to name change ones
+  * use friend's alias in the chat area
+  * use alias instead of name in the change alias context menu item if it's
+    set
+  * fix style
+  * support unsetting aliases, remove alias change notifications
+  * don't copy the name into the input field if no alias is set
+  * fix style
+  * reordering, minor style fixes
+  * fix some memory issues
+  * add tab completion for aliases
+  * fix style
+  * fix some typos
+
+  [ Gregory Mullen (grayhatter) ]
+  * force alias to be NULL when we don't otherwise set it.
+  * free some memory leaks in metadata functions
+
+  [ Simon Grim ]
+  * better positioning of localized strings in header, sub header and other
+    depending on their width
+  * fix of ru localization
+  * more descriptive name for variable of button right edge horizontal
+    coordinate
+
+  [ Gregory Mullen (grayhatter) ]
+  * added a way to find the graphical length for a localised string
+
+  [ GrayHatter ]
+  * fix git vtag alignment
+
+  [ Simon Grim ]
+  * extract setscale_fonts() from setscale() to avoid double calling of
+    ui_scale(), fix of positioning of localized strings
+
+  [ stal ]
+  * fixed bugs
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 19:15:50 +0000
+
 utox (0.3.2+git20150620.r1811-1+rpi1) stable; urgency=medium
 
   * Backport to Jessie/rpi

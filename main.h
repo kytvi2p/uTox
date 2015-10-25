@@ -41,7 +41,7 @@
 // Versions
 #define TITLE "uTox"
 #define SUB_TITLE "(Alpha)"
-#define VERSION "0.3.2"
+#define VERSION "0.3.3"
 
 // Limits and sizes
 #define MAX_CALLS 16
@@ -55,9 +55,9 @@
 
 #define isdesktop(x) ((size_t)(x) == 1)
 
-// Structs
-typedef struct
-{
+/* House keeping for uTox save file. */
+#define SAVE_VERSION 3
+typedef struct {
     uint8_t version, scale, enableipv6, disableudp;
     uint16_t window_x, window_y, window_width, window_height;
     uint16_t proxy_port;
@@ -73,18 +73,18 @@ typedef struct
     uint16_t audio_device_in;
     uint16_t audio_device_out;
     uint8_t theme;
-    uint8_t nothing;
+    uint8_t push_to_talk : 1;
+    uint8_t zero : 7;
     uint16_t unused[31];
     uint8_t proxy_ip[0];
-}UTOX_SAVE;
+} UTOX_SAVE;
 
-#define SAVE_VERSION 3
+// Structs
 
-typedef struct
-{
+typedef struct {
     uint16_t length;
     uint8_t id[TOX_FRIEND_ADDRESS_SIZE], msg[0];
-}FRIENDREQ;
+} FRIENDREQ;
 
 typedef struct {
     // Castless wrapper for lodepng data arguments.
@@ -94,8 +94,7 @@ typedef struct {
 typedef struct edit_change EDIT_CHANGE;
 
 // Enums
-enum
-{
+enum {
     CURSOR_NONE,
     CURSOR_TEXT,
     CURSOR_HAND,
@@ -119,7 +118,7 @@ enum {
     FONT_MISC,
 };
 
-//sysmenu icons
+/* SVG Bitmap names. */
 enum {
     BM_ONLINE = 1,
     BM_AWAY,
@@ -131,6 +130,7 @@ enum {
     BM_GROUPS,
     BM_TRANSFER,
     BM_SETTINGS,
+    BM_SETTINGS_THREE_BAR,
 
     BM_LBUTTON,
     BM_SBUTTON,
@@ -139,6 +139,7 @@ enum {
     BM_GROUP,
 
     BM_FILE,
+    BM_FILE_BIG,
     BM_CALL,
     BM_VIDEO,
 
@@ -154,13 +155,16 @@ enum {
 
     BM_SCROLLHALFTOP,
     BM_SCROLLHALFBOT,
+    BM_SCROLLHALFTOP_SMALL,
+    BM_SCROLLHALFBOT_SMALL,
     BM_STATUSAREA,
 
-    BM_CB1,
-    BM_CB2,
+    BM_CHAT_BUTTON_LEFT,
+    BM_CHAT_BUTTON_RIGHT,
+    BM_CHAT_BUTTON_OVERLAY_SCREENSHOT,
     BM_CHAT_SEND,
     BM_CHAT_SEND_OVERLAY,
-    BM_CI1
+    BM_ENDMARKER,
 };
 
 // µTox includes
@@ -210,8 +214,9 @@ enum {
 
 #include "ui_dropdown.h"
 
+/* Super global vars */
 volatile _Bool tox_thread_init, audio_thread_init, video_thread_init, toxav_thread_init;
-volatile _Bool logging_enabled, audible_notifications_enabled, audio_filtering_enabled, close_to_tray, start_in_tray, auto_startup;
+volatile _Bool logging_enabled, audible_notifications_enabled, audio_filtering_enabled, close_to_tray, start_in_tray, auto_startup, push_to_talk;
 volatile uint16_t loaded_audio_in_device, loaded_audio_out_device;
 _Bool tox_connected;
 
@@ -253,6 +258,7 @@ void loadalpha(int bm, void *data, int width, int height);
 void desktopgrab(_Bool video);
 void notify(char_t *title, STRING_IDX title_length, char_t *msg, STRING_IDX msg_length, FRIEND *f);
 void setscale(void);
+void setscale_fonts(void);
 
 enum {
     FILTER_NEAREST, // ugly and quick filtering
@@ -330,6 +336,13 @@ _Bool dont_send_typing_notes; //Stores user's preference about typing notificati
 
 void postmessage(uint32_t msg, uint16_t param1, uint16_t param2, void *data);
 
+/** returns 0 if push to talk is enabled, and the button is up, else returns 1. */
+void  init_ptt(void);
+_Bool get_ptt_key(void);
+_Bool set_ptt_key(void);
+_Bool check_ptt_key(void);
+void  exit_ptt(void);
+
 /* draw functions*/
 void drawtext(int x, int y, char_t *str, STRING_IDX length);
 int drawtext_getwidth(int x, int y, char_t *str, STRING_IDX length);
@@ -344,9 +357,10 @@ int textfit_near(char_t *str, STRING_IDX length, int width);
 //TODO: Seems to be unused. Remove?
 int text_drawline(int x, int right, int y, uint8_t *str, int i, int length, int highlight, int hlen, uint16_t lineheight);
 
-void framerect(int x, int y, int right, int bottom, uint32_t color);
+
 void drawrect(int x, int y, int right, int bottom, uint32_t color);
-void drawrectw(int x, int y, int width, int height, uint32_t color);
+void draw_rect_frame(int x, int y, int width, int height, uint32_t color);
+void draw_rect_fill(int x, int y, int width, int height, uint32_t color);
 
 void drawhline(int x, int y, int x2, uint32_t color);
 void drawvline(int x, int y, int y2, uint32_t color);

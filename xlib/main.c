@@ -52,13 +52,14 @@
 #endif
 
 Display *display;
+Visual *visual;
+Window root, window;
 int screen;
-Window window;
 GC gc;
 Colormap cmap;
-Visual *visual;
+XRenderPictFormat *pictformat;
 
-Picture bitmap[BM_CI1 + 1];
+Picture bitmap[BM_ENDMARKER];
 
 Cursor cursors[8];
 
@@ -102,20 +103,17 @@ void *libgtk;
 
 _Bool utox_portable;
 
-struct
-{
+struct {
     int len;
     char_t data[65536]; //TODO: De-hardcode this value.
-}clipboard;
+} clipboard;
 
-struct
-{
+struct {
     int len;
     char_t data[65536]; //TODO: De-hardcode this value.
-}primary;
+} primary;
 
-struct
-{
+struct {
     int len, left;
     Atom type;
     void *data;
@@ -182,6 +180,82 @@ void postmessage(uint32_t msg, uint16_t param1, uint16_t param2, void *data)
 
     XSendEvent(display, window, False, 0, &event);
     XFlush(display);
+}
+
+
+#include <linux/input.h>
+FILE *ptt_keyboard_handle;
+Display *ptt_display;
+void init_ptt(void){
+    push_to_talk = 1;
+    uint8_t path[UTOX_FILE_NAME_LENGTH], *p;
+    p = path + datapath(path);
+    strcpy((char*)p, "ptt-kbd");
+
+    ptt_keyboard_handle = fopen((const char*)path, "r");
+    if (!ptt_keyboard_handle){
+        debug("Could not access ptt-kbd in data directory\n");
+        ptt_display = XOpenDisplay(0);
+        XSynchronize(ptt_display, TRUE);
+    }
+
+}
+
+_Bool check_ptt_key(void){
+    if (!push_to_talk) {
+        // debug("PTT is disabled\n");
+        return 1; /* If push to talk is disabled, return true. */
+    }
+    int ptt_key;
+
+    /* First, we try for direct access to the keyboard. */
+    ptt_key = KEY_LEFTCTRL;                                      // TODO allow user to change this...
+    if (ptt_keyboard_handle) {
+        /* Nice! we have direct access to the keyboard! */
+        char key_map[KEY_MAX/8 + 1];                             // Create a byte array the size of the number of keys
+        memset(key_map, 0, sizeof(key_map));
+        ioctl(fileno(ptt_keyboard_handle), EVIOCGKEY(sizeof(key_map)), key_map); // Fill the keymap with the current keyboard state
+        int keyb = key_map[ptt_key/8];                           // The key we want (and the seven others around it)
+        int mask = 1 << (ptt_key % 8);                           // Put 1 in the same column as our key state
+
+        if (keyb & mask){
+            // debug("PTT key is down\n");
+            return 1;
+        } else {
+            // debug("PTT key is up\n");
+            return 0;
+        }
+    }
+    /* Okay nope, lets' fallback to xinput... *pouts*
+     * Fall back to Querying the X for the current keymap. */
+    ptt_key = XKeysymToKeycode(display, XK_Control_L);
+    char keys[32] = {0};
+    /* We need our own connection, so that we don't block the main display... No idea why... */
+    if ( ptt_display ) {
+        XQueryKeymap(ptt_display, keys);
+        if (keys[ptt_key/8] & (0x1 << ( ptt_key % 8 ))) {
+            // debug("PTT key is down (according to XQueryKeymap\n");
+            return 1;
+        } else {
+            // debug("PTT key is up (according to XQueryKeymap\n");
+            return 0;
+        }
+    }
+    /* Couldn't access the keyboard directly, and XQuery failed, this is really bad! */
+    debug("Unable to access keyboard, you need to read the manual on how to enable utox to\nhave access to your key"
+          "board.\nDisable push to talk to suppress this message.\n");
+    return 0;
+
+}
+
+void exit_ptt(void){
+    if (ptt_keyboard_handle){
+        fclose(ptt_keyboard_handle);
+    }
+    if (ptt_display) {
+        XCloseDisplay(ptt_display);
+    }
+    push_to_talk = 0;
 }
 
 void image_set_scale(UTOX_NATIVE_IMAGE *image, double scale)
@@ -269,10 +343,9 @@ static int _drawtext(int x, int xmax, int y, char_t *str, STRING_IDX length)
 
 #include "../shared/freetype-text.c"
 
-void framerect(int x, int y, int right, int bottom, uint32_t color)
-{
+void draw_rect_frame(int x, int y, int width, int height, uint32_t color) {
     XSetForeground(display, gc, color);
-    XDrawRectangle(display, drawbuf, gc, x, y, right - x - 1, bottom - y - 1);
+    XDrawRectangle(display, drawbuf, gc, x, y, width - 1, height - 1);
 }
 
 void drawrect(int x, int y, int right, int bottom, uint32_t color)
@@ -281,8 +354,7 @@ void drawrect(int x, int y, int right, int bottom, uint32_t color)
     XFillRectangle(display, drawbuf, gc, x, y, right - x, bottom - y);
 }
 
-void drawrectw(int x, int y, int width, int height, uint32_t color)
-{
+void draw_rect_fill(int x, int y, int width, int height, uint32_t color) {
     XSetForeground(display, gc, color);
     XFillRectangle(display, drawbuf, gc, x, y, width, height);
 }
@@ -511,13 +583,11 @@ void destroy_tray_icon(void)
 }
 
 /** Toggles the main window to/from hidden to tray/shown. */
-void togglehide(void)
-{
+void togglehide(void) {
     if(hidden) {
-        Window root;
         int x, y;
-        unsigned int w, h, border, depth;
-        XGetGeometry(display, window, &root, &x, &y, &w, &h, &border, &depth);
+        uint32_t w, h, border;
+        XGetGeometry(display, window, &root, &x, &y, &w, &h, &border, (uint*)&depth);
         XMapWindow(display, window);
         XMoveWindow(display, window, x, y);
         redraw();
@@ -564,6 +634,16 @@ void copy(int value)
 
 }
 
+int hold_x11s_hand(Display *d, XErrorEvent *event) {
+    debug("X11 err:\tX11 tried to kill itself, so I hit him with a shovel.\n");
+    debug("    err:\tResource: %lu || Serial %lu\n", event->resourceid, event->serial);
+    debug("    err:\tError code: %u || Request: %u || Minor: %u \n",
+          event->error_code, event->request_code, event->minor_code);
+    debug("uTox:\tThis would be a great time to submit a bug!\n");
+
+    return 0;
+}
+
 void paste(void)
 {
     Window owner = XGetSelectionOwner(display, XA_CLIPBOARD);
@@ -589,12 +669,17 @@ void paste(void)
     }
 }
 
-static void pastebestformat(const Atom atoms[], int len, Atom selection)
-{
+static void pastebestformat(const Atom atoms[], int len, Atom selection) {
+    XSetErrorHandler(hold_x11s_hand);
     const Atom supported[] = {XA_PNG_IMG, XA_URI_LIST, XA_UTF8_STRING};
     int i, j;
     for (i = 0; i < len; i++) {
-        debug("Supported type: %s\n", XGetAtomName(display, atoms[i]));
+        char *name = XGetAtomName(display, atoms[i]);
+        if (name) {
+            debug("Supported type: %s\n", name);
+        } else {
+            debug("Unsupported type!!: Likely a bug, please report!\n");
+        }
     }
 
     for (i = 0; i < len; i++) {
@@ -753,7 +838,7 @@ UTOX_NATIVE_IMAGE *png_to_image(const UTOX_PNG_IMAGE data, size_t size, uint16_t
         *target |= (green | (green << 8) | (green << 16) | (green << 24)) & visual->green_mask;
     }
 
-    XImage *img = XCreateImage(display, visual, 24, ZPixmap, 0, (char*)out, width, height, 32, width * 4);
+    XImage *img = XCreateImage(display, visual, depth, ZPixmap, 0, (char*)out, width, height, 32, width * 4);
 
     Picture rgb = ximage_to_picture(img, NULL);
     Picture alpha = (keep_alpha) ? generate_alpha_bitmask(rgba_data, width, height, rgba_size) : None;
@@ -839,16 +924,11 @@ void setscale(void)
 
     svg_draw(0);
 
-    freefonts();
-    loadfonts();
-
-    font_small_lineheight = (font[FONT_TEXT].info[0].face->size->metrics.height + (1 << 5)) >> 6;
-    //font_msg_lineheight = (font[FONT_MSG].info[0].face->size->metrics.height + (1 << 5)) >> 6;
-
     if(xsh) {
         XFree(xsh);
     }
 
+    // TODO, fork this to a function
     xsh = XAllocSizeHints();
     xsh->flags = PMinSize;
     xsh->min_width = 320 * SCALE;
@@ -861,6 +941,15 @@ void setscale(void)
         /* wont get a resize event, call this manually */
         ui_size(utox_window_width, utox_window_height);
     }
+}
+
+void setscale_fonts(void)
+{
+    freefonts();
+    loadfonts();
+
+    font_small_lineheight = (font[FONT_TEXT].info[0].face->size->metrics.height + (1 << 5)) >> 6;
+    //font_msg_lineheight = (font[FONT_MSG].info[0].face->size->metrics.height + (1 << 5)) >> 6;
 }
 
 int file_lock(FILE *file, uint64_t start, size_t length){
@@ -961,10 +1050,6 @@ void update_tray(void)
 }
 
 #include "event.c"
-
-int depth;
-Screen *scr;
-
 void config_osdefaults(UTOX_SAVE *r)
 {
     r->window_x = 0;
@@ -995,7 +1080,7 @@ int main(int argc, char *argv[])
     /* Variables for --set */
     int32_t set_show_window = 0;
 
-    if (argc > 1)
+    if (argc > 1) {
         for (int i = 1; i < argc; i++) {
             if(parse_args_wait_for_theme) {
                 if(!strcmp(argv[i], "default")) {
@@ -1062,6 +1147,7 @@ int main(int argc, char *argv[])
             }
             printf("arg %d: %s\n", i, argv[i]);
         }
+    }
 
     if (parse_args_wait_for_theme) {
         debug("Expected theme name, but got nothing. -_-\n");
@@ -1072,8 +1158,11 @@ int main(int argc, char *argv[])
 
     if((display = XOpenDisplay(NULL)) == NULL) {
         printf("Cannot open display\n");
+
         return 1;
     }
+
+    XSetErrorHandler(hold_x11s_hand);
 
     XIM xim;
     setlocale(LC_ALL, "");
@@ -1082,12 +1171,16 @@ int main(int argc, char *argv[])
         printf("Cannot open input method\n");
     }
 
-    screen = DefaultScreen(display);
-    cmap = DefaultColormap(display, screen);
-    visual = DefaultVisual(display, screen);
-    gc = DefaultGC(display, screen);
-    depth = DefaultDepth(display, screen);
-    scr = DefaultScreenOfDisplay(display);
+    LANG = systemlang();
+    dropdown_language.selected = dropdown_language.over = LANG;
+
+    screen  = DefaultScreen(display);
+    cmap    = DefaultColormap(display, screen);
+    visual  = DefaultVisual(display, screen);
+    gc      = DefaultGC(display, screen);
+    depth   = DefaultDepth(display, screen);
+    scr     = DefaultScreenOfDisplay(display);
+    root    = RootWindow(display, screen);
 
     XSetWindowAttributes attrib = {
         .background_pixel = WhitePixel(display, screen),
@@ -1100,13 +1193,14 @@ int main(int argc, char *argv[])
     /* load save data */
     UTOX_SAVE *save = config_load();
 
-    if (!theme_was_set_on_argv)
+    if (!theme_was_set_on_argv) {
         theme = save->theme;
+    }
     printf("%d\n", theme);
     theme_load(theme);
 
     /* create window */
-    window = XCreateWindow(display, RootWindow(display, screen), save->window_x, save->window_y, save->window_width, save->window_height, 0, depth, InputOutput, visual, CWBackPixmap | CWBorderPixel | CWEventMask, &attrib);
+    window = XCreateWindow(display, root, save->window_x, save->window_y, save->window_width, save->window_height, 0, depth, InputOutput, visual, CWBackPixmap | CWBorderPixel | CWEventMask, &attrib);
 
     /* choose available libraries for optional UI stuff */
     if(!(libgtk = gtk_load())) {
@@ -1129,20 +1223,20 @@ int main(int argc, char *argv[])
 
     XA_INCR = XInternAtom(display, "INCR", False);
 
-    XdndAware = XInternAtom(display, "XdndAware", False);
-    XdndEnter = XInternAtom(display, "XdndEnter", False);
-    XdndLeave = XInternAtom(display, "XdndLeave", False);
-    XdndPosition = XInternAtom(display, "XdndPosition", False);
-    XdndStatus = XInternAtom(display, "XdndStatus", False);
-    XdndDrop = XInternAtom(display, "XdndDrop", False);
-    XdndSelection = XInternAtom(display, "XdndSelection", False);
-    XdndDATA = XInternAtom(display, "XdndDATA", False);
-    XdndActionCopy = XInternAtom(display, "XdndActionCopy", False);
+    XdndAware       = XInternAtom(display, "XdndAware", False);
+    XdndEnter       = XInternAtom(display, "XdndEnter", False);
+    XdndLeave       = XInternAtom(display, "XdndLeave", False);
+    XdndPosition    = XInternAtom(display, "XdndPosition", False);
+    XdndStatus      = XInternAtom(display, "XdndStatus", False);
+    XdndDrop        = XInternAtom(display, "XdndDrop", False);
+    XdndSelection   = XInternAtom(display, "XdndSelection", False);
+    XdndDATA        = XInternAtom(display, "XdndDATA", False);
+    XdndActionCopy  = XInternAtom(display, "XdndActionCopy", False);
 
-    XA_URI_LIST = XInternAtom(display, "text/uri-list", False);
-    XA_PNG_IMG = XInternAtom(display, "image/png", False);
+    XA_URI_LIST     = XInternAtom(display, "text/uri-list", False);
+    XA_PNG_IMG      = XInternAtom(display, "image/png", False);
 
-    XRedraw = XInternAtom(display, "XRedraw", False);
+    XRedraw         = XInternAtom(display, "XRedraw", False);
 
     /* create the draw buffer */
     drawbuf = XCreatePixmap(display, window, DEFAULT_WIDTH, DEFAULT_HEIGHT, depth);
@@ -1173,6 +1267,10 @@ int main(int argc, char *argv[])
     /* initialize fontconfig */
     initfonts();
 
+    /* Set the default font so we don't segfault on ui_scale() when it goes looking for fonts. */
+    loadfonts();
+    setfont(FONT_TEXT);
+
     /* load fonts and scalable bitmaps */
     ui_scale(save->scale + 1);
 
@@ -1197,8 +1295,14 @@ int main(int argc, char *argv[])
 
     grabgc = XCreateGC(display, RootWindow(display, screen), GCFunction | GCForeground | GCBackground | GCSubwindowMode, &gcval);
 
+    XWindowAttributes attr;
+    XGetWindowAttributes(display, root, &attr);
+
+    pictformat = XRenderFindVisualFormat(display, attr.visual);
+    // XRenderPictFormat *pictformat = XRenderFindStandardFormat(display, PictStandardA8);
+
     /* Xft draw context/color */
-    renderpic = XRenderCreatePicture (display, drawbuf, XRenderFindStandardFormat(display, PictStandardRGB24), 0, NULL);
+    renderpic = XRenderCreatePicture (display, drawbuf, pictformat, 0, NULL);
 
     XRenderColor xrcolor = {0};
     colorpic = XRenderCreateSolidFill(display, &xrcolor);
@@ -1210,9 +1314,6 @@ int main(int argc, char *argv[])
     xrcolor.blue = 0x0;
     xrcolor.alpha = 0xffff;
     XftColorAllocValue(display, visual, cmap, &xrcolor, &xftcolor);*/
-
-    LANG = systemlang();
-    dropdown_language.selected = dropdown_language.over = LANG;
 
     if(set_show_window){
         if(set_show_window == 1){
@@ -1393,7 +1494,7 @@ void video_frame(uint32_t id, uint8_t *img_data, uint16_t width, uint16_t height
 
 
     GC default_gc = DefaultGC(display, screen);
-    Pixmap pixmap = XCreatePixmap(display, window, attrs.width, attrs.height, 24);
+    Pixmap pixmap = XCreatePixmap(display, window, attrs.width, attrs.height, depth);
     XPutImage(display, pixmap, default_gc, &image, 0, 0, 0, 0, attrs.width, attrs.height);
     XCopyArea(display, pixmap, video_win[id], default_gc, 0, 0, attrs.width, attrs.height, 0, 0);
     XFreePixmap(display, pixmap);
