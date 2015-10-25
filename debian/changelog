@@ -1,3 +1,45 @@
+utox (0.3.3+git20151013.r1927-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * draw_frame patch from stal (@stal888)
+  * don't delete friends by mistake
+
+  [ Ben ]
+  * Allow adding LDFLAGS from env variable
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 24 Oct 2015 19:16:18 +0000
+
+utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * code beautification
+  * replaced 16 and 24 bit sets to the depth from x11
+  * replaced standard format with custom vis
+  * use the pictformat in event.c too
+  * changed the draw rectange functs
+  * changed human read bytes fxn
+  * ui tweaks to chat box
+  * code cleanups
+  * bitmaps changed for xlib, todo android, win, osx
+  * shrunk file transfer bar at stal's reqest
+  * changed cancel button color for file transfers
+
+  [ aaannndddyyy ]
+  * tweaks to Spanish translation
+  * tweaks to de translation
+
+  [ Ben Iofel ]
+  * plug memory leak
+
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 02 Oct 2015 21:52:46 +0000
+
 utox (0.3.2+git20150915.r1891-1~deb8u+1) stable; urgency=medium
 
   * Backport to Jessie

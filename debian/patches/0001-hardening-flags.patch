@@ -9,7 +9,7 @@ Subject: hardening-flags
 --- a/Makefile
 +++ b/Makefile
 @@ -31,6 +31,9 @@
- LDFLAGS = -pthread -lm
+ LDFLAGS += -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))
  
 +CFLAGS += $(shell dpkg-buildflags --get CFLAGS)
