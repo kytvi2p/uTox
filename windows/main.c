@@ -47,6 +47,25 @@ void postmessage(uint32_t msg, uint16_t param1, uint16_t param2, void *data)
     PostMessage(hwnd, WM_TOX + (msg), ((param1) << 16) | (param2), (LPARAM)data);
 }
 
+void init_ptt(void){ push_to_talk = 1; }
+
+_Bool check_ptt_key(void){
+    if (!push_to_talk) {
+        // debug("PTT is disabled\n");
+        return 1; /* If push to talk is disabled, return true. */
+    }
+
+    if ( GetAsyncKeyState(VK_LCONTROL) ) {
+        // debug("PTT key is down\n");
+        return 1;
+    } else {
+        // debug("PTT key is up\n");
+        return 0;
+    }
+}
+
+void exit_ptt(void){ push_to_talk = 0; }
+
 void drawalpha(int bm, int x, int y, int width, int height, uint32_t color)
 {
     if(!bitmap[bm]) {
@@ -258,11 +277,16 @@ int textfit_near(char_t *str, STRING_IDX len, int width)
     return WideCharToMultiByte(CP_UTF8, 0, out, fit, (char*)str, len, NULL, 0);
 }
 
-void framerect(int x, int y, int right, int bottom, uint32_t color)
-{
-    RECT r = {x, y, right, bottom};
+void draw_rect_frame(int x, int y, int width, int height, uint32_t color) {
+    RECT r = {x, y, x + width, y + height};
     SetDCBrushColor(hdc, color);
     FrameRect(hdc, &r, hdc_brush);
+}
+
+void draw_rect_fill(int x, int y, int width, int height, uint32_t color) {
+    RECT r = {x, y, x + width, y + height};
+    SetDCBrushColor(hdc, color);
+    FillRect(hdc, &r, hdc_brush);
 }
 
 void drawrect(int x, int y, int right, int bottom, uint32_t color)
@@ -272,12 +296,6 @@ void drawrect(int x, int y, int right, int bottom, uint32_t color)
     FillRect(hdc, &r, hdc_brush);
 }
 
-void drawrectw(int x, int y, int width, int height, uint32_t color)
-{
-    RECT r = {x, y, x + width, y + height};
-    SetDCBrushColor(hdc, color);
-    FillRect(hdc, &r, hdc_brush);
-}
 
 void drawhline(int x, int y, int x2, uint32_t color)
 {
@@ -423,7 +441,7 @@ void openfileavatar(void)
                 }
                 // create message containing text that selected avatar is too large and what the max size is
                 int len = sprintf((char *)message, "%.*s", SLEN(AVATAR_TOO_LARGE_MAX_SIZE_IS), S(AVATAR_TOO_LARGE_MAX_SIZE_IS));
-                len += sprint_bytes(message+len, sizeof(message)-len, UTOX_AVATAR_MAX_DATA_LENGTH);
+                len += sprint_humanread_bytes(message+len, sizeof(message)-len, UTOX_AVATAR_MAX_DATA_LENGTH);
                 message[len++] = '\0';
                 MessageBox(NULL, (char *)message, NULL, MB_ICONWARNING);
             } else {
@@ -1086,15 +1104,15 @@ LRESULT CALLBACK GrabProc(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProcW(window, msg, wParam, lParam);
 }
 
-void setscale(void)
-{
-    int i;
-    for(i = 0; i != countof(font); i++) {
+void freefonts(){
+    for(int i = 0; i != countof(font); i++) {
         if(font[i]) {
             DeleteObject(font[i]);
         }
     }
+}
 
+void loadfonts(){
     LOGFONT lf = {
         .lfWeight = FW_NORMAL,
         //.lfCharSet = ANSI_CHARSET,
@@ -1123,7 +1141,6 @@ void setscale(void)
     font[FONT_MSG] = CreateFontIndirect(&lf);
     lf.lfUnderline = 1;
     font[FONT_MSG_LINK] = CreateFontIndirect(&lf);*/
-
     #undef F
 
     TEXTMETRIC tm;
@@ -1134,6 +1151,14 @@ void setscale(void)
     //GetTextMetrics(hdc, &tm);
     //font_msg_lineheight = tm.tmHeight + tm.tmExternalLeading;
 
+}
+
+void setscale_fonts(void){
+    freefonts();
+    loadfonts();
+}
+
+void setscale(void){
     svg_draw(1);
 }
 
@@ -1627,13 +1652,7 @@ LRESULT CALLBACK WindowProc(HWND hwn, UINT msg, WPARAM wParam, LPARAM lParam)
             }
         } else {
             messages_char(wParam);
-
-            switch(wParam) {
-            case VK_DELETE: {
-                list_deletesitem();
-                return 0;
-            }
-            }
+            return 0;
         }
 
         return 0;

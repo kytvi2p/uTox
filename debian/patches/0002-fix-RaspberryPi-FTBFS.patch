@@ -6,13 +6,11 @@ Subject: fix RaspberryPi FTBFS
  Makefile | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Makefile b/Makefile
-index da6d711..854ecb1 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -30,6 +30,7 @@ CFLAGS += -g -Wall -Wshadow -pthread -std=gnu99
+@@ -30,6 +30,7 @@
  CFLAGS += $(shell pkg-config --cflags $(DEPS))
- LDFLAGS = -pthread -lm
+ LDFLAGS += -pthread -lm
  LDFLAGS += $(shell pkg-config --libs $(DEPS))
 +LDFLAGS += -lrt
  
