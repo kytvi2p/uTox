@@ -1,3 +1,9 @@
+utox (0.4.2-1ubuntu1) wily; urgency=medium
+
+  * Building for Wily
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 07 Nov 2015 19:04:38 +0000
+
 utox (0.4.2-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
