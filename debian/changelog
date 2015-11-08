@@ -1,3 +1,9 @@
+utox (0.4.2-1~vivid+1) vivid; urgency=medium
+
+  * Building for Vivid
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 08 Nov 2015 00:24:56 +0000
+
 utox (0.4.2-1) unstable; urgency=medium
 
   [ Gregory Mullen (grayhatter) ]
@@ -215,12 +221,6 @@ utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
   * New upstream git snapshot
 
  -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 02 Oct 2015 21:52:46 +0000
-
-utox (0.3.2+git20150915.r1891-1~vivid+1) vivid; urgency=medium
-
-  * Building for Vivid
-
- -- Kill Your TV <killyourtv@i2pmail.org>  Sun, 20 Sep 2015 21:20:39 +0000
 
 utox (0.3.2+git20150915.r1891-1) unstable; urgency=medium
 
