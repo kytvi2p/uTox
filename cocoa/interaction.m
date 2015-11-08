@@ -525,7 +525,7 @@ static inline void select_right_to_char(char_t c) {
 }
 
 - (void)createGroupchat:(id)sender {
-    tox_postmessage(TOX_NEWGROUP, 1, 0, NULL);
+    tox_postmessage(TOX_GROUP_CREATE, 1, 0, NULL);
 }
 
 - (void)startSpeaking:(id)sender {
@@ -843,7 +843,7 @@ void savefilerecv(uint32_t fid, MSG_FILE *file) {
     if (ret == NSFileHandlingPanelOKButton) {
         NSURL *destination = picker.URL;
         // FIXME: might be leaking
-        tox_postmessage(TOX_ACCEPTFILE, fid, file->filenumber, strdup(destination.path.UTF8String));
+        tox_postmessage(TOX_FILE_ACCEPT, fid, file->filenumber, strdup(destination.path.UTF8String));
     }
 }
 //@"Where do you want to save \"%.*s\"?"
@@ -879,7 +879,7 @@ void openfilesend(void) {
         for (NSURL *url in urls) {
             [s appendFormat:@"%@\n", url.path];
         }
-        tox_postmessage(TOX_SEND_NEW_FILE, (FRIEND*)selected_item->data - friend, 0xFFFF, strdup(s.UTF8String));
+        tox_postmessage(TOX_FILE_SEND_NEW, (FRIEND*)selected_item->data - friend, 0xFFFF, strdup(s.UTF8String));
     }
 }
 
@@ -898,7 +898,7 @@ void openfileavatar(void) {
             free(file_data);
 
             char_t size_str[16];
-            int len = sprint_bytes(size_str, sizeof(size_str), UTOX_AVATAR_MAX_DATA_LENGTH);
+            int len = sprint_humanread_bytes(size_str, sizeof(size_str), UTOX_AVATAR_MAX_DATA_LENGTH);
 
             NSString *bytess = [[NSString alloc] initWithBytes:size_str length:len encoding:NSUTF8StringEncoding];
             NSString *title = [[NSString alloc] initWithBytes:S(AVATAR_TOO_LARGE_MAX_SIZE_IS) length:SLEN(AVATAR_TOO_LARGE_MAX_SIZE_IS) encoding:NSUTF8StringEncoding];
@@ -914,7 +914,7 @@ void openfileavatar(void) {
             [alert runModal];
             [alert release];
         } else {
-            postmessage(SET_AVATAR, fsize, 0, file_data);
+            postmessage(TOX_AVATAR_SET, fsize, 0, file_data);
         }
     }
 }

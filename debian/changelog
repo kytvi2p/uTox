@@ -1,3 +1,221 @@
+utox (0.4.2-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * skel for new av API
+
+  [ GrayHatter ]
+  * cleared most of the callback issues...
+
+  [ Gregory Mullen (grayhatter) ]
+  * video callback
+  * added filter_audio.c
+  * update send audio frame, send video frame in progress
+  * fix file type warnings for S() macro
+  * utox compiles to toxav_new_api
+  * utox builds, nothing works
+
+  [ GrayHatter ]
+  * reverted and renamed windows compile scripts
+  * mv'd filter_audio -> filter_audio_wrappers
+
+  [ Gregory Mullen (grayhatter) ]
+  * API UPDATE
+  * moved filter_audio_wrappers.* to audio.*
+  * added empty video.c/h
+  * out going calls now ring
+  * replaced stuct with defines, and renamed some vars to a smarter name
+  * fixed loop for users with >16 contacts, deprecated some defines
+
+  [ GrayHatter ]
+  * fix non linux OSes
+
+  [ Gregory Mullen (grayhatter) ]
+  * fix button colors for audio, and notifications
+  * answer and end an incoming call
+  * fixed some compiler warns
+  * fix audio sample size/rate
+
+  [ GrayHatter ]
+  * fixed infinite loop audio works again!
+
+  [ Gregory Mullen (grayhatter) ]
+  * incoming audio works
+  * renamed call_state to more accurte call_state_self
+  * implement rate change debug functions
+  * removed old functions, broke group chats for now GC api
+  * audio works in both directions
+  * save incoming call status
+  * added debugging behind comments
+  * added some end of call handeling
+  * start incoming video support
+  * Video calls now work
+  * added call state functions
+  * use new macro on button press checks
+
+  [ GrayHatter ]
+  * send video with video answer
+
+  [ Gregory Mullen (grayhatter) ]
+  * we do want to send video here too...
+  * REFACTOR the tox messages
+  * Refactor utox for new tox order patern
+  * use the macro more
+  * change to accepting
+
+  [ GrayHatter ]
+  * fix windows for refactor
+
+  [ Gregory Mullen (grayhatter) ]
+  * fork out video functions to video.[ch]
+
+  [ stal ]
+  * un-meme code
+
+  [ Gregory Mullen (grayhatter) ]
+  * pointless pagination
+  * answer instead of error
+  * check the correct vars for incoming audio vs video
+  * moved frame calls into the single callback function
+  * fix callbacks
+  * Refactored utox default post message thread...
+  * call must handle video and audio with one call
+  * set state for video as well
+
+  [ GrayHatter ]
+  * fix the refactor in windows
+
+  [ Gregory Mullen (grayhatter) ]
+  * added send/accept macro, cleaned file orgs
+
+  [ GrayHatter ]
+  * focus change
+  * fork displaying the frame to utox's thread
+
+  [ Gregory Mullen (grayhatter) ]
+  * push off preview frames as well, and free the structs
+  * correct the video handle
+  * fix broken file transfers
+  * split remote and local disconnect
+  * move call kill lines into av file
+  * moved the video thread to video.c
+  * rm unused val
+  * moved audio thread and functions to audio.c
+  * moved out audio and video thread and calls
+  * pagination
+  * moved function, re-enabled call notify
+  * push call notifications to the UI
+  * added for outgoing too
+  * don't double return a call exit
+  * fixed friend on-offline debugs, and message threading
+  * rewrite flow for starting and ending calls
+  * moved around some thread calls for utoxav
+  * clean up some verbose debug lines
+  * correct some colors
+  * comment out some un-needed debugs
+  * fixing debugs
+  * stop utox from writing when there's no need
+
+  [ GrayHatter ]
+  * pagination for windows
+
+  [ Gregory Mullen (grayhatter) ]
+  * remove a dup from the last merge
+  * API change bitrate for A&V -> AV
+  * ToxAV error debugging
+  * Incoming video call's send video now too
+  * move xlib/main.c video fxn to xlib/video.c
+  * wrap tox.c at 120
+  * don't delete friends by mistake
+  * fixed up incoming and outgoing av buttons
+  * warnings cleanup, removed unused fxn, added prototype
+  * fix wrong comparisons
+  * renamed a/v defines, fixed button color, added video sending
+  * don't try to send a frame we don't want to accept
+  * fix button color for audio
+  * add self preview for pending calls
+  * re enable audio groups
+  * version tick for ToxAV
+  * disable DNS resolution when using a proxy for security reasons
+  * comments + fix alignment
+  * patch from @jarmani adds ablity to cancel screen grab
+  * enforce min screen shot size
+  * added notification icon to groupchats
+  * disable tray notify when set to busy fixes notsecure/utox#343
+  * fix preview button
+  * don't tox_postmessage from tox_postmessage
+  * don't recurse the disconnect
+  * don't forget to inc&dec
+  * protect from 0x0 windows
+  * reorg the connect/disconnect calls for ToxAV
+  * don't let X crash because we expect both
+  * We don't need to post this msg twice
+  * AV refactor to clear toxav deadlock issues
+  * uTox AV patch from @irungentoo
+  * Video fixes, audio next
+  * fixes found with send video issues
+  * Partial fix for the FT buttons
+  * hot fix comment for missing function
+  * fix new friend display issue
+
+  [ GrayHatter ]
+  * fix var name
+
+  [ Gregory Mullen (grayhatter) ]
+  * removed unneeded doubling
+
+  [ stal ]
+  * fix osx bugs
+
+  [ GrayHatter ]
+  * version tick
+
+  [ Kill Your TV ]
+  * New upstream release
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Tue, 03 Nov 2015 23:44:32 +0000
+
+utox (0.3.3+git20151013.r1927-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * draw_frame patch from stal (@stal888)
+  * don't delete friends by mistake
+
+  [ Ben ]
+  * Allow adding LDFLAGS from env variable
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Sat, 24 Oct 2015 19:16:18 +0000
+
+utox (0.3.3+git20151001.r1919-1) unstable; urgency=medium
+
+  [ Gregory Mullen (grayhatter) ]
+  * code beautification
+  * replaced 16 and 24 bit sets to the depth from x11
+  * replaced standard format with custom vis
+  * use the pictformat in event.c too
+  * changed the draw rectange functs
+  * changed human read bytes fxn
+  * ui tweaks to chat box
+  * code cleanups
+  * bitmaps changed for xlib, todo android, win, osx
+  * shrunk file transfer bar at stal's reqest
+  * changed cancel button color for file transfers
+
+  [ aaannndddyyy ]
+  * tweaks to Spanish translation
+  * tweaks to de translation
+
+  [ Ben Iofel ]
+  * plug memory leak
+
+
+  [ Kill Your TV ]
+  * New upstream git snapshot
+
+ -- Kill Your TV <killyourtv@i2pmail.org>  Fri, 02 Oct 2015 21:52:46 +0000
+
 utox (0.3.2+git20150915.r1891-1~vivid+1) vivid; urgency=medium
 
   * Building for Vivid
